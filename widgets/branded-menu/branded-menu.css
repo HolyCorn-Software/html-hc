@@ -1,0 +1,70 @@
+/*
+Copyright 2021 HolyCorn Software
+The HCTS Project
+This widget offers consistency of how certain key messages will be passed
+to the user.
+The consistency is the branding. That's why its called a branded menu
+*/
+
+
+
+
+.hc-hcts-branded-menu >.container{
+
+    display:flex;
+    flex-direction:column;
+    padding:clamp(0.5em, 2em, 3vw);
+    border-radius:10px;
+    box-shadow:0px 0px 4px grey;
+    font-family:k2dThin;
+    max-height:calc(var(--max-height, 100%) - 3em);
+    padding-bottom:0px;
+    
+}
+
+
+.hc-hcts-branded-menu >.container >.main-row{
+    display:flex;
+    justify-content:center;
+    --spacing:clamp(1em, 6em, 5vw);
+    padding-left:var(--spacing);
+    padding-right:calc(var(--spacing) * 0.6);
+    padding-bottom:1em;
+    transform:translateY(-2em);
+
+}
+
+.hc-hcts-branded-menu >.container .hold-logo{
+    pointer-events:none;
+}
+
+
+.hc-hcts-branded-menu >.container >.main-row >.content{
+    display:flex;
+    flex-direction:column;
+    gap:3em;
+    min-width:clamp(150px, 20em, 100vw - 4em);
+}
+
+
+.hc-hcts-branded-menu >.container >.hold-logo img{
+    position:relative;
+    z-index:1;
+}
+
+
+.hc-hcts-branded-menu .hc-dual-switch >.container >.label{
+    font-size:1.25em;
+}
+
+
+@media screen and (max-width:646px) {
+    .hc-hcts-branded-menu >.container >.main-row{
+        transform:translateY(0em);
+        transition:0.25s;
+    }
+    .hc-hcts-branded-menu >.container >.main-row >.content{
+        gap:1.75em;
+
+    }
+}

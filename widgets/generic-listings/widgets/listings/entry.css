@@ -1,0 +1,41 @@
+/* 
+    Copyright 2022 HolyCorn Software
+    The Donor Forms Project
+    This widget represents a single entry within the payment listings widget
+*/
+
+.hc-generic-listings-item {
+    padding-top: 2em;
+    padding-bottom: 3em;
+}
+
+.hc-generic-listings-item>*:not(.checkbox) {
+    cursor: default;
+    transition: 0.125s;
+    min-height: 3.75em;
+}
+
+.hc-generic-listings-item>*:not(.checkbox):not(:last-child) {
+    padding-right: 2em;
+}
+
+.hc-generic-listings-item>.highlightable:not(.checkbox):hover {
+    background-color: rgba(105, 216, 201, 0.368);
+    border-radius: 1em;
+    transition: 0.15s 0.37s;
+}
+.hc-generic-listings-item>.highlightable:not(.checkbox)>* {
+    transition: 0.15s 0.05s;
+}
+
+.hc-generic-listings-item>.highlightable:not(.checkbox):hover>* {
+    padding-left: 0.25em;
+}
+
+
+
+.hc-generic-listings-item>* {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

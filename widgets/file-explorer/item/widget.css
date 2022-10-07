@@ -1,0 +1,82 @@
+/*  
+    Copyright 2022 HolyCorn Software
+    The CAYOFED People System
+    The Modern Faculty of Users
+
+    This stylesheet is focused on styling the widget that represents a zone
+*/
+
+
+.hc-simple-file-explorer-item>.container>.main {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 1.35em;
+    padding: 0.5em;
+    align-items: center;
+
+    box-shadow: 0px 0px 8px lightgrey;
+    border-radius: 8px;
+
+    min-width: 180px;
+    max-width: 200px;
+    cursor: default;
+
+    transition: 0.35s 0.125s;
+}
+
+.hc-simple-file-explorer-item>.container>.main>.label {
+    display: inline;
+    text-align: center;
+}
+
+.hc-simple-file-explorer-item *::selection {
+    background-color: transparent;
+}
+
+.hc-simple-file-explorer-item>.container>.main>img {
+    height: 4em;
+}
+
+.hc-simple-file-explorer-item>.container>.main:hover {
+
+    box-shadow: 0px 0px 12px rgb(204, 162, 162);
+}
+
+.hc-simple-file-explorer-item>.container>.actions {
+    display: flex;
+    gap: 1em;
+    background-color: white;
+    padding: 0.5em;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px lightgrey;
+    margin-top: 0.75em;
+}
+
+.hc-simple-file-explorer-item>.container>.actions:empty {
+    display: none;
+}
+
+.hc-simple-file-explorer-item>.container>.actions {
+    opacity: 0;
+    transition: 0.5s 0.125s;
+    pointer-events: none;
+}
+
+
+.hc-simple-file-explorer-item:hover>.container>.actions {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.hc-simple-file-explorer-item>.container>.actions>.action {
+    cursor: default;
+    color: rgb(45, 75, 149);
+}
+
+.hc-simple-file-explorer-item>.container>.actions>.action:hover {
+    color: rgb(191, 29, 113);
+}
+
+.hc-simple-file-explorer-item.no-transitions>.container>:is(.actions, .main) {
+    transition: 0s;
+}

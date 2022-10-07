@@ -1,0 +1,144 @@
+/*
+Copyright 2021 HolyCorn Software
+The InlineSelect widget
+This stylesheet controls the main widget
+*/
+
+
+.hc-v2-inline-select>.container {
+    display: flex;
+    transition: 0.25s 0.125s;
+    flex-direction: column;
+    gap: 0.75em;
+    transition: 0.5s gap;
+}
+
+.hc-v2-inline-select>.container>.label:empty {
+    display: none;
+}
+
+.hc-v2-inline-select>.container>.top {
+    cursor: pointer;
+}
+
+.hc-v2-inline-select>.container>.detail {
+    display: none;
+    font-size: 0.85em;
+}
+
+.hc-v2-inline-select.frozen>.container>.detail {
+    position: fixed;
+    display: inline;
+    opacity: 0;
+}
+
+
+/** The animations for hiding and showing */
+
+.hc-v2-inline-select.showing>.container>.detail {
+    display: inline;
+    max-width: 0px;
+    max-height: 0px;
+    opacity: 0;
+    animation: 0.5s hc-v2-inline-select-show forwards;
+    white-space: nowrap;
+}
+
+.hc-v2-inline-select.hiding>.container>.detail {
+    height: var(--inline-select-final-height);
+    width: 100%;
+    opacity: 1;
+    animation: 0.5s hc-v2-inline-select-hide forwards;
+}
+
+
+
+@keyframes hc-v2-inline-select-show {
+
+    0% {
+        max-width: 0px;
+        max-height: 0px;
+    }
+
+    70% {
+        opacity: 0.5;
+        max-height: var(--inline-select-final-height);
+    }
+
+    100% {
+        max-width: var(--inline-select-final-width);
+        max-height: var(--inline-select-final-height);
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes hc-v2-inline-select-hide {
+
+    0% {
+        max-width: var(--inline-select-final-width);
+        max-height: var(--inline-select-final-height);
+        opacity: 1;
+    }
+
+    70% {
+        opacity: 0;
+    }
+
+
+    100% {
+        max-width: 0px;
+        max-height: 0px;
+        opacity: 0;
+    }
+}
+
+
+/** Now for the options */
+
+.hc-v2-inline-select>.container>.detail>.options {
+    display: flex;
+    flex-direction: column;
+    gap: 0em;
+    background-color: rgb(241, 242, 245);
+    border-radius: 8px;
+    padding: 0.5em;
+
+    font-family: helvetica;
+    color: black;
+}
+
+.hc-v2-inline-select>.container>.detail>.options .hc-v2-inline-select-option:nth-child(even) {
+
+    padding-top: 0.45em;
+}
+
+
+
+/** The logic of making the width of the title section change smoothly */
+.hc-v2-inline-select.title-changed>.container>.top>.title {
+    animation: 0.5s hc-v2-inline-select-title-changed forwards;
+}
+
+@keyframes hc-v2-inline-select-title-changed {
+    0% {
+        width: var(--old-title-width);
+        height: var(--old-title-height);
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+    90%{
+        opacity:0;
+        width: var(--new-title-width);
+        height: var(--new-title-height);
+    }
+
+
+    100% {
+        opacity: 1;
+    }
+}

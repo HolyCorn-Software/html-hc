@@ -1,0 +1,39 @@
+/*  
+    Copyright 2022 HolyCorn Software
+    The CAYOFED People System
+    The Modern Faculty of Users
+
+    This stylesheet targets the zonation-manager widget
+*/
+
+.hc-simple-file-explorer >.container >.main{
+    display:flex;
+    flex-direction:column;
+    gap:2em;
+
+    padding-top:3em;
+}
+
+.hc-simple-file-explorer >.container >.main >.stage{
+    display:flex;
+    gap:2em;
+    flex-wrap:wrap;
+}
+
+.hc-cayofedpeople-zonation-manager-popup .hc-hcts-branded-menu >.container >.main-row >.content{
+    max-width:300px;
+
+}
+
+.hc-simple-file-explorer >.container >.main >.stage-actions{
+    transition:0.5s 0.125s;
+    display:flex;
+    gap: 2em;
+}
+
+.hc-simple-file-explorer >.container >.main >.stage-actions .hc-action-button >.container{
+    border-radius:12px;
+    color:#1a1a1b;
+    font-family: k2d;
+    background-color:rgb(228, 232, 237);
+}

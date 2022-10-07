@@ -1,0 +1,24 @@
+/* 
+    Copyright 2022 HolyCorn Software
+    Check the description of this widget at ./item.mjs
+*/
+
+.hc-search-input-item>.container {
+    display: inline-flex;
+    padding: 0.35em;
+    padding-left: 0.25em;
+    gap:0.5em;
+    cursor:default;
+}
+
+.hc-search-input-item>.container>.content {
+    flex-grow: 1;
+}
+
+.hc-search-input-item >.container >.checkbox{
+    display: none;
+}
+
+.hc-search-input-item.multi_select >.container >.checkbox{
+    display:block;
+}

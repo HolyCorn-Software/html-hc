@@ -1,0 +1,40 @@
+/*  
+    Copyright 2022 HolyCorn Software
+    This stylesheet decorates the label-list widget
+*/
+
+.hc-label-list >.container {
+    display:inline-flex;
+    flex-direction:column;
+}
+
+.hc-label-list >.container >.main{
+    display:inline-flex;
+    gap:1em;
+    flex-wrap:wrap;
+}
+
+.hc-label-list >.container >.main >.items {
+    display:inline-flex;
+    flex-wrap:wrap;
+    gap:1em;
+}
+
+.hc-label-list >.container >.main >.actions {
+    display:inline-flex;
+    flex-wrap:wrap;
+    gap:0.75em;
+}
+
+.hc-label-list >.container >.main >.actions >.action{
+    background-color:rgba(105, 216, 201, 0.368);
+    color:rgb(11, 62, 2);
+    border-radius:1em;
+    display:inline-grid;
+    place-items:center;
+    min-width:2.5em;
+    min-height:1.5em;
+    font-family: k2dLight;
+    font-size:1.5em;
+    cursor:pointer;
+}

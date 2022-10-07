@@ -1,0 +1,15 @@
+
+
+/*
+Copyright 2021 HolyCorn Software
+The HCTS Project
+This stylesheet gives style to the HCTSLogo widget
+*/
+
+.hc-hcts-logo >.container {
+    font-family:aaargh;
+}
+
+.hc-hcts-logo >.container img{
+    max-width:4em;
+}

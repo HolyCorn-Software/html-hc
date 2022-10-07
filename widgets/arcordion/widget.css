@@ -1,0 +1,18 @@
+/*  
+    Copyright 2022 HolyCorn Software
+    The Donor Forms Project
+    Check the description of this widget at ./main.mjs
+
+*/
+
+.hc-cayofedpeople-accordion {
+    display: flex;
+    justify-content: center;
+}
+
+.hc-cayofedpeople-accordion >.container{
+    display:inline-flex;
+    flex-direction:column;
+    width:clamp(150px, 100% - 2em, 900px);
+    gap:0.95em;
+}

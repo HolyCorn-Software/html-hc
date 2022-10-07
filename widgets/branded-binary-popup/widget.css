@@ -1,0 +1,44 @@
+/*
+Copyright 2021 HolyCorn Software
+The HCTS Project
+This gives other modules the possibility of creating a yes no delete dialog box for the moderator. If yes, deleting will take place.
+*/
+
+.hc-branded-binary-popup-content >.container{
+    display:flex;
+    flex-direction:column;
+    gap:1.5em;
+    text-align:left;
+    max-width:300px;
+    overflow: hidden;
+}
+
+.hc-branded-binary-popup-content >.container >.question{
+    text-align: center;
+}
+
+.hc-branded-binary-popup-content >.container >.actions{
+    display:flex;
+    justify-content:space-between;
+}
+
+.hc-branded-binary-popup-content >.container .hc-action-button:nth-child(even) >.container{
+    background-color:rgb(211, 53, 151);
+
+}
+
+.hc-branded-binary-popup-content >.container .hc-action-button>.container{
+    min-width:7.5em;
+}
+
+.hc-branded-binary-popup-content >.container >.title{
+    font-size:1.5em;
+    font-family:bariolBold;
+    text-align: left;
+}
+
+.hc-branded-binary-popup-content >.container >.question{
+    font-family:k2dThin;
+    font-size:1.35em;
+    text-align:justify;
+}

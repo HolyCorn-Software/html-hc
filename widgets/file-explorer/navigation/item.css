@@ -1,0 +1,23 @@
+/*  
+    Copyright 2022 HolyCorn Software
+    The CAYOFED People System
+    The Modern Faculty of Users
+
+    This stylesheet defines the looks of a single item on the navigation widget of the zonation-manager widget
+*/
+
+.hc-simple-file-explorer-navigation-item {
+    padding-right: 1em;
+    cursor: pointer;
+}
+
+.hc-simple-file-explorer-navigation-item >.container::after{
+    content:'>';
+    font-size:1.25em;
+    transform:translate(0.5em, -0.125em);
+    position:absolute;
+}
+
+.hc-simple-file-explorer-navigation-item:last-child >.container::after{
+    display:none;
+}

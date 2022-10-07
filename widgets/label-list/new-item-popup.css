@@ -1,0 +1,30 @@
+/*  
+    Copyright 2022 HolyCorn Software
+    The CAYOFED People System
+    This stylesheet determines to some extent, the looks of the popup where the user can add a new label item
+
+*/
+
+.hc-label-list-new-item-popup-content {
+    font-size: 1.35em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 10em;
+    position: relative;
+    font-family: k2dThin;
+    align-items: center;
+}
+
+.hc-label-list-new-item-popup-content>.actions {
+    width: 100%;
+}
+
+.hc-label-list-new-item-popup-content .hc-action-button {
+    font-size: 0.65em;
+    width: 100%;
+}
+
+.hc-label-list-new-item-popup .container >.main-row >.content{
+    align-items: center;
+}

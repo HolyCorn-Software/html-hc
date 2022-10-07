@@ -1,0 +1,93 @@
+/*  
+    Copyright 2022 HolyCorn Software
+    The CAYOFED People System
+    This represents a single item in the Accordion Widget
+
+*/
+
+.hc-cayofedpeople-accordion-item >.container{
+    display: flex;
+    flex-direction:column;
+    gap:1.25em;
+}
+
+.hc-cayofedpeople-accordion-item >.container >.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap:0.75em;
+    cursor:default;
+    padding:0.5em;
+    box-shadow:0px 0px 3px #8c8fa6d3;
+    border-radius:0.25em;
+}
+
+.hc-cayofedpeople-accordion-item >.container >.header >.fold-icon{
+    width:1.75em;
+    height:1.5em;
+    background:url('./res/dropdown-black.png');
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-position: center;
+    transform: rotate(-90deg);
+}
+
+.hc-cayofedpeople-accordion-item >.container >.content-section{
+    border:1px solid #8C8FA6;
+    border:1px solid #8c8fa673;
+    border-radius:0.45em;
+    background-color: #dce3f52c;
+    background-color: #ffffff4f;
+    max-height:var(--current-accordion-height);
+}
+
+
+.hc-cayofedpeople-accordion-item >.container >.header >.label{
+    
+    font-size:1.25em;
+}
+
+
+
+
+
+
+/** The Logic of Expanding and collapsing starts here */
+
+.hc-cayofedpeople-accordion-item >.container >.content-section{
+    transition:0.35s;
+    transition: 0.5s 0.25s, 0.5s 0.25s padding, 0.55s opacity;
+    pointer-events: none;
+}
+
+.hc-cayofedpeople-accordion-item.expanded >.container >.content-section{
+    --current-accordion-height:var(--full-height);
+    opacity:1;
+    padding:0.5em;
+    transition: 0.5s, 0.5s 0.25s opacity;
+    pointer-events: all;
+}
+
+.hc-cayofedpeople-accordion-item >.container >.content-section{
+    --current-accordion-height:0px;
+    opacity:0;
+    position: relative;
+}
+
+
+.hc-cayofedpeople-accordion-item-ghost{
+    opacity:0;
+    position:absolute;
+    max-height:unset;
+    border:1px solid #8C8FA6;
+    border-radius:0.25em;
+
+}
+.hc-cayofedpeople-accordion-item >.container >.header >.fold-icon{
+    transition:0.28s;
+}
+
+.hc-cayofedpeople-accordion-item.expanded >.container >.header >.fold-icon{
+    transform: rotate(0deg);
+}

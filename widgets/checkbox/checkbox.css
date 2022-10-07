@@ -1,0 +1,99 @@
+/*
+Copyright 2021 HolyCorn Software LLC
+uCheckbox module
+for animated checkboxes
+*/
+
+.hc-uCheckbox{
+	display:flex;
+	column-gap:0.25em;
+	flex-direction:row;
+	position:relative;
+	padding-bottom:0.25em;
+	cursor:default;
+	color:blue;
+
+}
+
+.hc-uCheckbox:before{
+	content:' ';
+	border:1px solid currentColor;
+	border-radius:2px;
+	width:1em;
+	height:1em;
+	position:relative;
+	margin-left:0px;
+	top:2px;
+	left:-2px;
+	animation:0s hc-uCheckbox-unchecked forwards;
+
+}
+
+.hc-uCheckbox.checked:before{
+
+	animation:0.5s hc-uCheckbox-checked forwards;
+}
+
+.hc-uCheckbox.unchecked:before{
+	animation:0.25s hc-uCheckbox-unchecked forwards;
+}
+
+
+@keyframes hc-uCheckbox-checked{
+
+	0%{
+		content:' ';
+	}
+
+	60%{
+		transform:rotate(-45deg);
+	}
+	65%{
+
+		border:1px solid currentColor;
+	}
+
+	90%{
+		transform:rotate(15deg);
+	}
+
+
+	99%{
+		content:' ';
+
+	}
+	100%{
+		border:1px solid transparent;
+		content:'\2713';
+
+	}
+}
+
+
+@keyframes hc-uCheckbox-unchecked{
+	0%{
+		border:1px solid transparent;
+		content:'\2713';
+	}
+
+	50%{
+		opacity:0;
+		content:'\2713';
+
+	}
+
+	75%{
+		content:' ';
+		border:1px solid transparent;
+		transform:rotate(90deg);
+	}
+	85%{
+		opacity:1;
+		transform:rotate(145deg);
+	}
+	100%{
+		content:' ';
+		border:1px solid currentColor;
+		transform:rotate(90deg);
+	}
+}

@@ -1,0 +1,14 @@
+/* 
+    Copyright 2022 HolyCorn Software
+    The Donor Forms Project
+    This module allows the action button to be in a waiting state, characterized by a spinner
+*/
+
+.hc-action-button[state='waiting']{
+    pointer-events:none;
+    
+}
+
+.hc-action-button[state='waiting'] >.container >.content{
+    color:transparent;
+}

@@ -1,0 +1,44 @@
+/*  
+    Copyright 2022 HolyCorn Software
+    The CAYOFED People System
+    This determines the looks of a single item on the label-list widget
+*/
+
+
+.hc-label-list-item >.container {
+    display:flex;
+    flex-direction:column;
+    border-radius:0.75em;
+    background-color:rgba(105, 216, 201, 0.368);
+    color: rgb(8, 53, 84);
+    padding:0.45em;
+    padding-right:0.75em;
+    font-family:k2d;
+    cursor:default;
+}
+
+.hc-label-list-item >.container >.label{
+    max-width:7em;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.hc-label-list-item >.container >.actions{
+    display: flex;
+    justify-content:flex-end;
+    height: 0.25em;
+    transform: translate(1em, -1em);
+    font-family: k2d;
+    font-size: 0.85em;
+}
+
+.hc-label-list-item >.container >.actions >*{
+    cursor:pointer;
+    transition:0.25s 0.125s;
+    padding: 0.5em;
+}
+
+.hc-label-list-item >.container >.actions >*:hover{
+    color:rgb(194, 30, 101);
+}
