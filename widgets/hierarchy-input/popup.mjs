@@ -1,8 +1,7 @@
 /**
  * Copyright 2022 HolyCorn Software
- * The CAYOFED People System
- * This widget is part of the zone-input widget.
- * It is the popup where a user actually gets to select the zone
+ * This widget is part of the hierarychy-input widget.
+ * It is the popup where a user actually gets to make his choice
  */
 
 import { hc } from "../../lib/widget/index.mjs";
@@ -22,7 +21,7 @@ export default class HierarchyInputPopup extends HCTSBrandedPopup {
      * @param {string} param0.max_top_path
      * @param {boolean} param0.modal
      */
-    constructor({ max_top_path = "", modal } = {}) {
+    constructor({ max_top_path, modal } = {}) {
         super();
 
         /** @type {ActionButton} */
@@ -54,10 +53,8 @@ export default class HierarchyInputPopup extends HCTSBrandedPopup {
 
         /** @type {function(('complete'), function(CustomEvent), AddEventListenerOptions)} */ this.addEventListener
 
-        this.waitTillDOMAttached().then(() => {
-            this.explorer.statedata.$0.addEventListener('current_path-change', () => {
-                action_button.state = this.path_is_valid(this.explorer.statedata.current_path) ? 'initial' : 'disabled'
-            })
+        this.explorer.statedata.$0.addEventListener('current_path-change', () => {
+            action_button.state = this.path_is_valid(this.explorer.statedata.current_path) ? 'initial' : 'disabled'
         })
 
         /** @type {string} */
@@ -67,6 +64,9 @@ export default class HierarchyInputPopup extends HCTSBrandedPopup {
     }
     get value() {
         let path = this.explorer.statedata.current_path
+        if (!this.path_is_valid(path)) {
+            return
+        }
         return {
             id: path,
             label: this.explorer.statedata.items.filter(x => x.id === path)[0].label
@@ -93,14 +93,10 @@ export default class HierarchyInputPopup extends HCTSBrandedPopup {
     path_is_valid(path) {
         //For a path to be valid, it must be a child of the max_top_path or be the max_top_path
 
-        if (path === this.max_top_path || this.max_top_path == '') {
+        if (this.max_top_path == undefined) {
             return true;
         }
 
-        //However, for that to happen, the max_top_path must exist
-        if (this.explorer.statedata.items.findIndex(x => x.id === this.max_top_path) == -1) {
-            return false;
-        }
 
         //To determine if the path is a child of the max_top_path, we trace the parent of the parent of the parent... and if we don't see the max_top_path in it, we let it go
         const get_item = (id) => this.explorer.statedata.items.find(x => x.id == id)

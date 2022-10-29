@@ -5,15 +5,16 @@
  */
 
 
-export type InputTypes = ('text' | 'number' | 'date' | 'password' | 'textarea' | 'choose' | 'customWidget' | 'uniqueFileUpload' | 'boolean')
+export type InputTypes = ('text' | 'number' | 'date' | 'password' | 'textarea' | 'choose' | 'customWidget' | 'uniqueFileUpload' | 'boolean' | 'time')
 
 export declare interface MultiFlexFormFieldData {
-    label: string,
-    value: string | number | boolean,
-    values: { [key: string]: string },
-    type: InputTypes,
-    customWidgetUrl: string,
-    regexp: string,
+    label: string
+    value: string | number | boolean
+    values: { [key: string]: string }
+    type: InputTypes
+    customWidgetUrl: string
+    regexp: string
+    valueProperty: string
     htmlDirect: object
 }
 

@@ -16,7 +16,7 @@
     font-size: 1.25em;
     background-color: rgba(255, 255, 255, 0.932);
     position: sticky;
-    top: 3.58em;
+    top: var(--dynamic-headers-sticky-top, 3.58em); /** TODO: Base the calculations of the top on the height of the top actions, using JavaScript*/
     z-index: 1;
 }
 

@@ -67,6 +67,8 @@ Spinner Widget
 
     z-index:2;
 
+    font-size:0.85em;
+
 }
 
 
@@ -79,4 +81,5 @@ Spinner Widget
 /* For any element that has been blocked by the infinite spinner */
 *.hc-infinite-spinner-blocker-attached{
     pointer-events:none;
+    position: relative;
 }

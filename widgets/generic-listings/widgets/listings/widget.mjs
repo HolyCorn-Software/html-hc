@@ -209,42 +209,6 @@ export default class ListingsMainWidget extends Widget {
         })
 
 
-
-
-        true && this.statedata.contentMiddleware.push(
-            {
-                set: (data) => {
-
-                    const fields = ['id', 'label', 'inherited', 'supervised', 'description']
-
-                    const returns = []
-
-                    for (let field of fields) {
-                        returns.push(
-                            {
-                                content: data[field],
-                                style: {
-                                    highlightable: true
-                                }
-                            }
-                        )
-                    }
-
-                    return returns
-                },
-                get: (data) => {
-                    return {
-                        id: data[0]?.content,
-                        label: data[1]?.content,
-                        inherited: data[2]?.content,
-                        supervised: data[3]?.content,
-                        description: data[4]?.content
-                    }
-                },
-                name: 'test'
-            }
-        );
-
     }
 
 
@@ -305,6 +269,7 @@ export default class ListingsMainWidget extends Widget {
         } else {
 
             if (!data_okay) {
+                console.log(input, `not okay`)
                 throw new Error(`Data supplied to the listings widget was incorrect. Either you specify a middleware that will accept that data and return something proper
                 or, pass in something proper. Check the definition of ContentMiddleWareReturn in ./types.d.ts to understand what something proper is.
             `)

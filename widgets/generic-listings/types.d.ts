@@ -5,7 +5,7 @@
  * 
  */
 
-import AlarmObject from "../../lib/alarm/alarm.mjs"
+import { AlarmObject } from "../../lib/alarm/alarm-types"
 
 
 
@@ -49,9 +49,8 @@ interface ListingsFieldData {
 }
 
 export interface ContentMiddleWareReturn {
-    columns: [
-        ListingsFieldData
-    ]
+    columns: ListingsFieldData[]
+
 }
 
 

@@ -54,7 +54,7 @@ export class Checkbox extends Widget {
             innerHTML: content
         });
         this.html.$(".content").children[0]?.remove()
-        this.html.appendChild(content)
+        this.html.$('.content').appendChild(content)
     }
     get content() {
         try {

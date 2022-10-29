@@ -1,13 +1,13 @@
 /*  
     Copyright 2022 HolyCorn Software
-    This stylesheet is meant for the hierarchy-input, which allows input widgets to be constructed. Input widgets that deal with navigation, and trees
+    This widget allows for input widgets to be constructed, such that the user taps a button to open a popup, where he completes the action
 */
 
-.hc-hierarchy-input {
+.hc-prompt-input {
     transition: 0.25s 0.125s;
 }
 
-.hc-hierarchy-input>.container {
+.hc-prompt-input>.container {
     display: inline-flex;
     flex-direction: column;
     justify-content: center;
@@ -15,15 +15,15 @@
     cursor: default;
 }
 
-.hc-multi-flex-form .hc-hierarchy-input>.container {
+.hc-multi-flex-form .hc-prompt-input>.container {
     width:100%;
 }
 
-.hc-hierarchy-input >.container >.label:empty{
+.hc-prompt-input >.container >.label:empty{
     display:none;
 }
 
-.hc-hierarchy-input>.container>.main {
+.hc-prompt-input>.container>.main {
     padding: 0.75em;
     border-radius: 0.35em;
     box-shadow: 0px 0px 12px rgb(192, 202, 206);
@@ -33,11 +33,11 @@
     cursor: pointer;
 }
 
-.hc-hierarchy-input>.container>.main>img {
+.hc-prompt-input>.container>.main>img {
     height: 1.75em;
 }
 
-.hc-hierarchy-input.hidden-disabled {
+.hc-prompt-input.hidden-disabled {
     opacity: 0;
     font-size:0px;
     pointer-events: none;

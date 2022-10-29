@@ -1,10 +1,7 @@
 /**
  * Copyright 2022 HolyCorn Software
- * The CAYOFED People System
  * 
- * The Modern Faculty of Users
- * 
- * This module contains useful functions used by the zonation-explorer widget
+ * This module contains useful functions used by the file-explorer widget
  */
 
 /**
@@ -19,7 +16,8 @@ export function getImmediateChildren(directory_id, directory_data) {
 
     if (children.length === 0) {
         if (!directory_data.filter(dir => dir.id === directory_id)[0]) {
-            throw new Error(`Technical Error\ndirectory "${directory_id}" not found`)
+            // throw new Error(`Technical Error\ndirectory "${directory_id}" not found`)
+            return []
 
         }
     }
@@ -32,9 +30,9 @@ export function getImmediateChildren(directory_id, directory_data) {
  * @param {string} directory_id 
  * @param {[import("./types.js").DirectoryData]} directories_data 
  */
-export function deleteItem(directory_id, directories_data){
-    return directories_data.filter(item=>{
-        if(item.parent === directory_id || item.id === directory_id){
+export function deleteItem(directory_id, directories_data) {
+    return directories_data.filter(item => {
+        if (item.parent === directory_id || item.id === directory_id) {
             return false;
         }
         return true;
@@ -60,7 +58,6 @@ export function getRootPath(directory_id, directory_data) {
     while (current_directory_id !== '') {
         let the_path = directory_data.filter(dir => dir.id === current_directory_id)[0]
         if (!the_path) {
-            console.warn(`Broke the loop at id ${current_directory_id}, because no directory was found`)
             break;
         }
 

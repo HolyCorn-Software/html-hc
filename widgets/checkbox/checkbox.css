@@ -38,6 +38,10 @@ for animated checkboxes
 	animation:0.25s hc-uCheckbox-unchecked forwards;
 }
 
+.hc-uCheckbox >.content{
+	color:black;
+}
+
 
 @keyframes hc-uCheckbox-checked{
 

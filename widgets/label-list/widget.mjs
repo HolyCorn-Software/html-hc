@@ -19,8 +19,9 @@ export default class LabelList extends Widget {
      * @param {object} param0 
      * @param {[import("./types.js").LabelListItemData]} param0.value
      * @param {[import("./types.js").LabelListItemData]} param0.items_store
+     * @param {boolean} param0.readonly
      */
-    constructor({ value, items_store } = {}) {
+    constructor({ value, items_store, readonly } = {}) {
         super();
 
         this.html = hc.spawn({
@@ -130,6 +131,10 @@ export default class LabelList extends Widget {
                 }
             }
         ];
+
+
+        /** @type {boolean} */ this.readonly //This one property determines a lot. It could hide X, and + buttons
+        this.htmlProperty(undefined, 'readonly', 'class', undefined, 'readonly')
 
         Object.assign(this, arguments[0]);
     }

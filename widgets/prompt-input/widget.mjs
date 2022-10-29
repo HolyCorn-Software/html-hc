@@ -5,8 +5,6 @@
  */
 
 
-
-import HierarchyInputPopup from './popup.mjs'
 import { hc, Widget } from '../../lib/widget/index.mjs';
 import AlarmObject from '../../lib/alarm/alarm.mjs';
 
@@ -15,7 +13,7 @@ import AlarmObject from '../../lib/alarm/alarm.mjs';
 const fetchFxn_symbol = Symbol()
 
 
-export default class HierarchyInput extends Widget {
+export default class PromptInput extends Widget {
 
     /**
      * 
@@ -23,27 +21,24 @@ export default class HierarchyInput extends Widget {
      * @param {string} param0.name This is optional
      * @param {string} param0.label This is optional
      * @param {{id:string, label:string}} param0.value This is optional. If set the widget will take this value
-     * @param {boolean} param0.modal If set to true, the popup will not close untill the user has selected something
-     * @param {string} param0.max_top_path The id of the maximum item that can be selected up the chain.
      * @param {object} param0.prompt
      * @param {string} param0.prompt.image The url of the icon to be shown on the widget
      * @param {string} param0.prompt.text A text that will be displayed on the widget, before the user clicks it
-     * @param {()=>Promise<[import("../file-explorer/types.js").DirectoryData]>} param0.fetchData This method should return an array of inputs 
      */
-    constructor({ name, label, value, modal, max_top_path, prompt, fetchData } = {}) {
+    constructor({ name, label, value, prompt } = {}) {
 
         super();
 
         this.html = hc.spawn(
             {
-                classes: HierarchyInput.classList,
+                classes: PromptInput.classList,
                 innerHTML: `
                     <div class='container'>
                         <div class='label'></div>
 
                         <div class='main'>
                             <img src="${new URL('./res/zone.png', import.meta.url).href}">
-                            <div class='prompt'>Select Zone</div>
+                            <div class='prompt'>Tap to Select</div>
                         </div>
                     </div>
                 `
@@ -51,7 +46,6 @@ export default class HierarchyInput extends Widget {
         );
 
         /** @type {string} */ this.name
-        /** @type {boolean}  */ this.modal
         /** @type {string} */ this.max_top_path
 
 
@@ -84,75 +78,24 @@ export default class HierarchyInput extends Widget {
         /** @type {boolean} */ this.hidden_n_disabled
         this.htmlProperty(undefined, 'hidden_n_disabled', 'class', undefined, 'hidden-disabled')
 
-        this[fetchFxn_symbol] = async () => {
-            const results = await fetchData()
-            for (let item of results) {
-                item.icon ||= this.prompt.image
-            }
 
-            if (this.value?.id) { //Setting the UI, if there was already an existing value before the widget could load
-                const existingItem = results.find(x => x.id === this.value.id)
-                this[value_symbol] = { id: existingItem.id, label: existingItem.label }
-                this.prompt.text = existingItem.label
-                this.prompt.image = existingItem.icon
-            }
-
-            return results
-        }
-
-        const { value: val, fetchData: ftch, ...args } = arguments[0]
+        const { value: val, ...args } = arguments[0]
 
         Object.assign(this, args)
 
-        if (val?.id) {
-            this[value_symbol] = val
-            this[fetchFxn_symbol]()
-        }
 
     }
 
+    /**
+     * The inheriting widget should override this method to show a popup when clicked
+     */
     show() {
-        let popup = new HierarchyInputPopup({ max_top_path: this.max_top_path, modal: this.modal })
-        popup.show()
-
-        let completed = false;
-
-        popup.addEventListener('complete', () => {
-            this.value = popup.value
-            if (popup.value) {
-                this.prompt.image = popup.explorer.statedata.items.find(x => x.id == popup.value.id)?.icon || this.prompt.image
-            }
-            popup.hide()
-            completed = true;
-        })
-
-        popup.addEventListener('hide', () => {
-            if (!completed) {
-                this.dispatchEvent(new CustomEvent('dismiss-popup'))
-            }
-        })
-
-        popup.waitTillDOMAttached().then(async () => {
-            popup.loadBlock()
-
-            try {
-
-                const data = await this[fetchFxn_symbol]()
-                popup.explorer.statedata.items = data
-                setTimeout(() => popup.explorer.statedata.current_path = this.value?.id || '', 100)
-
-            } catch (e) {
-                this.dispatchEvent(new CustomEvent('error', { detail: e }))
-
-            }
-
-            popup.loadUnblock()
-        })
+        
 
     }
 
     static get classList() {
-        return ['hc-hierarchy-input']
+        return ['hc-prompt-input']
     }
 
     /**
@@ -163,17 +106,11 @@ export default class HierarchyInput extends Widget {
         return this[value_symbol]
     }
     set value(value) {
-        if (this.value !== value) {
-            this[fetchFxn_symbol]()
-        }
         this[value_symbol] = value
         this.dispatchEvent(new CustomEvent('change'))
-        if (value?.label) {
-            this.prompt.text = value.label
-        }
     }
 
 }
 
 
-const value_symbol = Symbol(`ZoneInputPopup.prototype.value`)
+const value_symbol = Symbol()

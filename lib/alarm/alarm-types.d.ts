@@ -4,6 +4,8 @@
  * 
  */
 
+import { Collection, MatchKeysAndValues } from "mongodb"
+
 
 export interface AlarmArray<Type> extends Array<Type> {
     $0: AlarmMainInterface,
@@ -11,17 +13,17 @@ export interface AlarmArray<Type> extends Array<Type> {
 }
 
 export type AlarmObject<Type> = Type & {
-    $0: AlarmMainInterface,
+    $0: AlarmMainInterface<Type>,
     $0data: Type
 }
 
-export interface AlarmMainInterface {
-    addEventListener: AlarmsEventFunction,
+
+export interface AlarmMainInterface<Type> {
+    addEventListener: AlarmsEventFunction<Type>,
     removeEventListener: (event: ('change'), callback: function) => void
     waitTillAvailable: (field) => Promise<void>
+    
+
 }
 
-export type AlarmsEventFunction = (event: ('change'), callback: (event: CustomEvent<{ field: string, value: string }>) => void, options: AddEventListenerOptions) => void
-
-
-// export class Alar
+export type AlarmsEventFunction<Type> = (event: ('change' | (`${keyof Type}-change`)), callback: (event: CustomEvent<{ field: string, value: string }>) => void, options: AddEventListenerOptions) => void

@@ -113,10 +113,8 @@ export default class FileExplorerItem extends Widget {
             if (!(data.custom_html instanceof HTMLElement)) {
                 throw new Error(`custom_html should be an HTMLElement`)
             }
-            this.html = hc.spawn({
-                children: [data.custom_html],
-                classes: ['hc-simple-file-explorer-custom-html']
-            })
+            data.custom_html.classList.add('hc-simple-file-explorer-custom-html')
+            this.html = data.custom_html
         }
 
 

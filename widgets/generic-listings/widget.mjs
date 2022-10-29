@@ -9,14 +9,14 @@
 
 
 import { hc, Widget } from "../../lib/widget/index.mjs";
-import ActionButton  from "../action-button/button.mjs";
+import ActionButton from "../action-button/button.mjs";
 import ListingsMainWidget from "./widgets/listings/widget.mjs";
 
 
 
 export default class GenericListings extends Widget {
 
-    constructor() {
+    constructor({ title } = {}) {
         super();
 
         this.html = hc.spawn({
@@ -42,7 +42,7 @@ export default class GenericListings extends Widget {
                 selector: '*',
                 parentSelector: '.container >.top-section >.custom',
                 property: 'headerCustom',
-                childType:'html',
+                childType: 'html',
             }
         )
 
@@ -125,6 +125,8 @@ export default class GenericListings extends Widget {
             parentSelector: '.top-section >.actions',
             childType: 'widget',
         });
+
+        Object.assign(this, arguments[0])
     }
 
 

@@ -81,7 +81,7 @@ export default class Navigation extends Widget {
     async draw() {
         let path = ze_utils.getRootPath(this.statedata.current_path, this.statedata.items)
         this.items = [
-            { //Add a default option to return to the root view
+            this.statedata.items.find(x => x.id == '') || { //Add a default option to return to the root view
                 id: '',
                 label: 'root'
             },

@@ -6,52 +6,58 @@ This widget is called by other widgets to show a create new dialog
 
 
 .hc-hcts-moderation-popupForm {
-    max-width:500px;
+    max-width: 500px;
 }
 
-.hc-hcts-moderation-popupForm{
-    gap: 1.25em !important;;
+.hc-hcts-moderation-popupForm {
+    gap: 1.25em !important;
+    ;
 }
 
-.hc-hcts-moderation-popupForm >.top{
-    padding-bottom:1em!important;
-    position:sticky;
-    top:-0.25em;
-    z-index:2;
-    background-color:rgb(245, 245, 245);
+.hc-hcts-moderation-popupForm>.top {
+    padding-bottom: 1em !important;
+    position: sticky;
+    top: -0.25em;
+    z-index: 2;
+    background-color: rgb(245, 245, 245);
 
 }
 
-.hc-hcts-moderation-popupForm >.top .title{
+.hc-hcts-moderation-popupForm>.top .title {
     font-family: bariolBold;
-    font-size:1.5em;
+    font-size: 1.5em;
 }
 
-.hc-hcts-moderation-popupForm >.top .caption{
-    color:#2e3570;
-    font-family:k2d;
+.hc-hcts-moderation-popupForm>.top .caption {
+    color: #2e3570;
+    font-family: k2d;
 }
 
-.hc-hcts-moderation-popupForm >.actions{
-    display:flex;
-    flex-direction:column;
-    text-align:center;
-    gap:0.75em;
+.hc-hcts-moderation-popupForm>.actions {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75em;
 }
 
-.hc-hcts-moderation-popupForm >.actions .cancel{
-    cursor:default;
-    transition:0.25s 0.125s;
+.hc-hcts-moderation-popupForm>.actions .cancel {
+    cursor: default;
+    transition: 0.25s 0.125s;
 }
 
-.hc-hcts-moderation-popupForm >.actions .cancel:hover{
-    color:purple;
+.hc-hcts-moderation-popupForm>.actions .cancel:hover {
+    color: purple;
 }
 
-.hc-hcts-moderation-popupForm >.actions .hc-hcts-action-button >.container{
-    width:calc(100% - 0.9em);
+.hc-hcts-moderation-popupForm>.actions .hc-hcts-action-button>.container {
+    width: calc(100% - 0.9em);
 }
 
-.hc-hcts-moderation-popupForm textarea{
-    min-height:6em;
+.hc-hcts-moderation-popupForm textarea {
+    min-height: 6em;
+}
+
+.hc-hcts-moderation-popupForm .hc-multi-flex-form>.container {
+    width: calc(100% + 1px);
+    max-width:unset;
 }

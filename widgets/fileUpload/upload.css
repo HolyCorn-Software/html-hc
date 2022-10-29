@@ -15,20 +15,21 @@ This widget allows users to upload files, especially images to the unique file u
 
 /** The section where we have the label and the tiny image **/
 .hc-uniqueFileUpload >.container >.main{
-    display:grid;
-    grid-auto-flow:column;
-    grid-column-gap:0.5em;
-    box-shadow:0px 0px 3px rgb(68, 68, 79);
-    border-radius:3px;
+    display:flex;
+    gap:0.5em;
+    box-shadow:0px 0px 12px rgb(214, 214, 217);
+    border-radius:6px;
     padding:0.25em;
-    place-items:center;
+    padding-top:0.35em;
+    align-items:center;
     cursor:pointer;
     padding-left:0.5em;
     padding-right:0.5em;
     word-wrap:break-word;
     position:relative;
-
+    flex-grow:1;
     max-width:100%;
+    z-index:1;
 }
 
 .hc-uniqueFileUpload >.container >.main >.label{

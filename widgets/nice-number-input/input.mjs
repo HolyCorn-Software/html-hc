@@ -13,7 +13,7 @@ export class NiceNumberInput extends Widget {
     constructor() {
         super();
         super.html = hc.spawn({
-            classes: ['hc-nice-number-input'],
+            classes: NiceNumberInput.classList,
             innerHTML: `
                 <div class='container'>
                     <div class='control negative'>-</div>
@@ -40,12 +40,15 @@ export class NiceNumberInput extends Widget {
             let index = i;
             this.controls[index].addEventListener('click', () => {
                 this.value += deltas[index]
-                this.html.$('.container >input').dispatchEvent(new CustomEvent('change'))
+                this.dispatchEvent(new CustomEvent('change'))
             })
         }
 
-        for (let _event of ['change', 'keydown']) {
-            this.html.$('.container >input').addEventListener(_event, () => {
+        for (let eventName of ['change', 'keydown']) {
+            this.html.$('.container >input').addEventListener(eventName, (event) => {
+                if (event instanceof CustomEvent) {
+                    return //We cannot be triggered by ourselves. Recursion is not good!
+                }
                 this.dispatchEvent(new CustomEvent('change'))
             })
         }
@@ -53,6 +56,10 @@ export class NiceNumberInput extends Widget {
         /** @type {function(('change'), function(CustomEvent), AddEventListenerOptions)} */ this.addEventListener
 
 
+    }
+
+    static get classList() {
+        return ['hc-nice-number-input']
     }
 
 }

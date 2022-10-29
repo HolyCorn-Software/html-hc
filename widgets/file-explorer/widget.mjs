@@ -1,10 +1,6 @@
 /**
  * Copyright 2022 HolyCorn Software
- * The CAYOFED People System 
- * 
- * Adapted from the Modern Faculty of Users
- * 
- * This widget allows a qualified user to navigate directories
+ * This widget allows for creating interfaces that have to do with navigating directories
  */
 
 import FileExplorerItem from "./item/widget.mjs";
@@ -245,6 +241,10 @@ export default class FileExplorer extends Widget {
         }
 
         this.statedata.items = this.statedata.items.filter(item => suspects.every(sus => (sus != item.id) && (sus != item.parent)))
+
+        for (let suspect of suspects.slice(1)) {
+            this.deleteItem(suspect)
+        }
 
     }
 

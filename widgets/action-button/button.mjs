@@ -26,6 +26,13 @@ const state_load_promise = new Promise((resolve, reject) => {
 
 export default class ActionButton extends Widget {
 
+    /**
+     * 
+     * @param {object} param0 
+     * @param {typeof this.content} param0.content
+     * @param {typeof this.onclick} param0.onclick
+     * @param {typeof this.state} param0.state
+     */
     constructor({ content, onclick } = {}) {
 
         super({ css: import.meta.url })

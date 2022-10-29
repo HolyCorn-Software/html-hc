@@ -1,0 +1,49 @@
+/*  
+    Copyright 2022 HolyCorn Software
+    This stylesheet acts on the picker-popup widget. 
+    This picker-popup is the main component of the google-location-input widget. It allows for a map region to be selected
+*/
+
+
+.hc-google-location-input-picker-popup-content>.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em;
+}
+
+.hc-google-location-input-picker-popup-content>.container>.caption {
+    font-family: k2dThin;
+    font-size: 1.5em;
+}
+
+.hc-google-location-input-picker-popup-content>.container>.frame {
+    min-width: clamp(250px, 45vw, 750px);
+    min-height: clamp(300px, 60vw, 500px);
+    border-radius: 12px;
+}
+
+.hc-google-location-input-picker-popup-content>.container>.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+    align-items: center;
+}
+
+.hc-google-location-input-picker-popup-content>.container>.actions>.positive {
+    width: 100%;
+}
+
+.hc-google-location-input-picker-popup-content>.container>.actions>.positive>.hc-action-button {
+    flex-grow: 1;
+    width: 100%;
+}
+
+.hc-google-location-input-picker-popup-content>.container>.actions>.negative {
+    cursor: pointer;
+    transition: 0.25s 0.125s;
+}
+
+.hc-google-location-input-picker-popup-content>.container>.actions>.negative:hover {
+    color: rgb(166, 99, 16);
+    transform: scale(1.1);
+}

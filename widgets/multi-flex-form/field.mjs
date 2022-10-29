@@ -83,7 +83,7 @@ export class MultiFlexFormField extends MultiFlexFormItem {
                 //Now that the type of input we want to instantiate needs a custom widget.
                 //The widget_types object is a map of which type belongs to which widget.
                 let WIDGET_CLASS = Widget
-                let widget = new WIDGET_CLASS({...(type=='boolean' ? {positive: 'Yes', negative: 'No'}: {}), ...params, type })
+                let widget = new WIDGET_CLASS({ ...(type == 'boolean' ? { positive: 'Yes', negative: 'No' } : {}), ...params, type })
                 if (type == 'choose') {
                     if (!params.values) {
                         throw new Error(`Since input type is '${type}', please pass a 'values' parameter in the second function argument`)
@@ -118,14 +118,15 @@ export class MultiFlexFormField extends MultiFlexFormItem {
                 //Instantiate the widget
                 let widget = new WidgetClass(params)
 
-                
+
 
                 //Final checks
                 if (!widget.html) {
                     throw new Error(`Custom widget ${params.customWidgetUrl} is invalid because it doesn't have an html property`)
                 }
-                if (!('value' in widget)) {
-                    throw new Error(`Custom widget ${params.customWidgetUrl} is invalid because it doesn't have a property called 'value'`)
+                const valueProperty = params.valueProperty || 'value'
+                if (!(valueProperty in widget)) {
+                    throw new Error(`Custom widget ${params.customWidgetUrl} is invalid because it doesn't have a property called '${valueProperty}'`)
                 }
 
                 if (!(widget instanceof EventTarget)) {
@@ -214,6 +215,8 @@ export class MultiFlexFormTextbox extends MultiFlexFormItem {
      * @param {string} params.label The label for the text box
      * @param {string} params.name Optional (but very recommended) name of field
      * @param {any} params.value
+     * @param {string} params.valueProperty Optional. If set, instead of the 'value' property being manipulated on the textbox, this one will. For example,
+     * you can set this to 'valueAsDate'
      * @param {object} params.htmlDirect
      */
     constructor(type, params) {
@@ -259,25 +262,27 @@ export class MultiFlexFormTextbox extends MultiFlexFormItem {
 
         Object.assign(this, params);
 
+        /** @type {string} */ this.valueProperty
+
     }
 
     get value() {
-        return this.html.$('input,textarea')?.value
+        return this.html.$('input,textarea')?.[this.valueProperty || 'value']
     }
     set value(value) {
         const input = this.html.$('input,textarea');
-        if (input.type === 'date') {
+        if (input.type === 'date' || input.type == 'time') {
             if (typeof value === 'number') {
                 input.valueAsNumber = value
             }
             if (Date.prototype.isPrototypeOf(value)) {
                 input.valueAsDate = value
             }
-            if(typeof value === 'string'){
+            if (typeof value === 'string') {
                 input.value = value
             }
-        }else{
-            input.value = value
+        } else {
+            input[this.valueProperty || 'value'] = value
         }
         this.html.$('.container >*').dispatchEvent(new CustomEvent('change'))
     }
