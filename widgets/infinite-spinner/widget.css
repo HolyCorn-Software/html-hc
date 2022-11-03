@@ -16,7 +16,7 @@ Spinner Widget
 
 
 .hc-infinite-spinner .container .unit{
-    border: 0.5em solid transparent;
+    border: 0.25em solid transparent;
     border-radius:50%;
     border-top-color:var(--hc-spinner-color);
     content:'';
