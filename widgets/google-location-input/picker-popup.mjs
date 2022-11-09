@@ -56,7 +56,7 @@ export default class GoogleLocationPickerPopup extends HCTSBrandedPopup {
             lat: 5.9631,
             lng: 10.1591
         }
-        const mapCenter = value ? { lat: value.lattitude, lng: value.longitude } : defaultCoords
+        const mapCenter = value ? { lat: value.latitude, lng: value.longitude } : defaultCoords
         
         this.map = new google.maps.Map(this.html.$('.container >.frame'),
             {
@@ -103,7 +103,7 @@ export default class GoogleLocationPickerPopup extends HCTSBrandedPopup {
         }
 
         return {
-            lattitude: pos?.lat(),
+            latitude: pos?.lat(),
             longitude: pos?.lng()
         }
     }
@@ -113,7 +113,7 @@ export default class GoogleLocationPickerPopup extends HCTSBrandedPopup {
      */
     set value(value) {
         this.marker.setPosition({
-            lat: value.lattitude,
+            lat: value.latitude,
             lng: value.longitude
         })
     }

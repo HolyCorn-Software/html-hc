@@ -4,6 +4,6 @@
  */
 
 export interface Geolocation{
-    lattitude: number
+    latitude: number
     longitude: number
 }

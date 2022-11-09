@@ -111,7 +111,7 @@ export default class GoogleLocationInput extends Widget {
     }
     updateLabel() {
         if (this.value) {
-            this.caption = `${this.value.lattitude}, ${this.value.longitude}`
+            this.caption = `${this.value.latitude}, ${this.value.longitude}`
         }
     }
 
