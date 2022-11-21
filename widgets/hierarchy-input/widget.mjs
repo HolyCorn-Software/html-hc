@@ -85,19 +85,31 @@ export default class HierarchyInput extends Widget {
         this.htmlProperty(undefined, 'hidden_n_disabled', 'class', undefined, 'hidden-disabled')
 
         this[fetchFxn_symbol] = async () => {
-            const results = await fetchData()
-            for (let item of results) {
-                item.icon ||= this.prompt.image
-            }
 
-            if (this.value?.id) { //Setting the UI, if there was already an existing value before the widget could load
-                const existingItem = results.find(x => x.id === this.value.id)
-                this[value_symbol] = { id: existingItem.id, label: existingItem.label }
-                this.prompt.text = existingItem.label
-                this.prompt.image = existingItem.icon
-            }
+            this.loadBlock()
 
-            return results
+            try {
+
+                const results = await fetchData()
+                for (let item of results) {
+                    item.icon ||= this.prompt.image
+                }
+
+                if (this.value?.id) { //Setting the UI, if there was already an existing value before the widget could load
+                    const existingItem = results.find(x => x.id === this.value.id)
+                    if (existingItem) {
+                        this[value_symbol] = { id: existingItem.id, label: existingItem.label }
+                        this.prompt.text = existingItem.label
+                        this.prompt.image = existingItem.icon
+                    }
+                }
+
+                this.loadUnblock()
+                return results
+            } catch (e) {
+                this.loadUnblock()
+                throw e
+            }
         }
 
         const { value: val, fetchData: ftch, ...args } = arguments[0]

@@ -1,3 +1,6 @@
 
 
-Renamed the fields lattitude to latitude, for easier coding
+
+Improved the hierarchy-input UX by:
+    1) improving the way invalid values are handled
+    2) adding a loader during initialization
