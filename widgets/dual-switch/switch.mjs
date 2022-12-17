@@ -54,7 +54,7 @@ export class DualSwitch extends Widget {
         //Getting 'value' of this will return true if the positive class is set, and false otherwise.
         Widget.__htmlProperty(this, this.html, 'value', 'class', (v) => {
             if (v == this.value) return; //Then there was no change
-            this.fire('change')
+            this.dispatchEvent(new CustomEvent('change'))
         }, 'positive')
 
         this.htmlProperty('.label', 'label', 'innerHTML')
@@ -95,7 +95,7 @@ export class DualSwitch extends Widget {
      * @param {boolean} value
      */
     set silent_value(value) {
-        this.html.classList.toggle('positive', value)
+        this.html.classList.toggle('positive', value ?? false)
     }
 
 

@@ -108,7 +108,7 @@ export class QuickInput extends Widget {
 
     set value(value) {
         this.html.$('input').value = value;
-        this.fire('change');
+        this.dispatchEvent(new CustomEvent( 'change'));
     }
     get value() {
         return this.html.$('input').value;

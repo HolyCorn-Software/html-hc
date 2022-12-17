@@ -14,14 +14,6 @@ import DualSwitch from "../dual-switch/switch.mjs";
 
 hc.importModuleCSS(import.meta.url)
 
-/**
- * @typedef {import('./types.js').InputTypes} InputTypes //Dont use this. Use the definition in types.d.ts instead
- * @typedef {{[x: string]: Field}} MultiFlexFormInputData
- * @typedef {import('./types.js').MultiFlexFormFieldData} MultiFlexFormFieldData //Dont use this. Use the definition in types.d.ts instead
- * @typedef {import('./types.js').MultiFlexFormDefinitionData} MultiFlexFormDefinitionData //Dont use this. Use the definition in types.d.ts instead
- */
-
-
 export class MultiFlexFormField extends MultiFlexFormItem {
 
     constructor({ label, values, name, css } = {}) {

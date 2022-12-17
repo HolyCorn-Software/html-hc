@@ -45,7 +45,7 @@ export class HCTSBrandedMenu extends Widget {
 
 
 
-        Object.assign(this.apply_attributes, arguments[0])
+        Object.assign(this, arguments[0])
 
     }
 

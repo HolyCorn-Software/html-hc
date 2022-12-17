@@ -17,7 +17,7 @@ The consistency is the branding. That's why its called a branded menu
     border-radius:10px;
     box-shadow:0px 0px 4px grey;
     font-family:k2dThin;
-    max-height:calc(var(--max-height, 100%) - 3em);
+    max-height:calc(var(--max-height, 100%) - 1em);
     padding-bottom:0px;
     
 }

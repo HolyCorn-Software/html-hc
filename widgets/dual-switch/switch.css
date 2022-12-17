@@ -30,6 +30,10 @@ This widget creates a switch with two states
     margin-left: 0.25em;
 }
 
+.hc-dual-switch >.container >.label:empty{
+    display:none;
+}
+
 .hc-dual-switch>.container>.track {
     display: flex;
     box-shadow: 0px 0px 2px #A3ABEF;

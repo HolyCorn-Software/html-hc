@@ -5,7 +5,7 @@ This module represents a beautiful button that shows a forward arrow upon hover
 
 import { Widget,hc } from "../../lib/widget/index.mjs";
 
-export class Button extends Widget{
+export default class ContinueButton extends Widget{
 
     constructor({text}={}){
 
@@ -21,7 +21,7 @@ export class Button extends Widget{
             `
         })
 
-        this.html.$('.content').on('click', ()=>this.fire('click'))
+        this.html.$('.content').on('click', ()=>this.dispatchEvent(new CustomEvent( 'click')))
 
         Object.assign(this, arguments[0]);
         

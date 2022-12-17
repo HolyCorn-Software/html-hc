@@ -115,7 +115,7 @@ export class PopupMenu extends Widget {
                 this.html.remove();
                 this.html.classList.add('hidden');
                 this.html.classList.remove('closing')
-                this.fire('hide')
+                this.dispatchEvent(new CustomEvent( 'hide'))
                 done();
 
             }, { once: true });

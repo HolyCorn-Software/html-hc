@@ -65,7 +65,7 @@ export class SearchableMenu extends Widget {
      * @returns {Boolean}
      * **/
     qualify_item_in_search(text, item) {
-        
+
         let { value, label } = item;
         if (!text || text == '' || text.length == 0) {
             return true;
@@ -73,7 +73,7 @@ export class SearchableMenu extends Widget {
         text = text.toLowerCase()
         value = value ? value.toLowerCase() : value;
         label = label ? label.toLowerCase() : label;
-        
+
         return value.indexOf(text) != -1 || label.indexOf(text) != -1;
     }
 
@@ -87,8 +87,8 @@ export class SearchableMenu extends Widget {
     get items() {
         return [...this.html.$$('.data .hc-v2-choose-searchmenu-item')].map(x => x.object)
     }
-    get selectedItem(){
-        return this.items.filter(x=>x.value==this.value)[0]
+    get selectedItem() {
+        return this.items.filter(x => x.value == this.value)[0]
     }
 
 
@@ -105,7 +105,7 @@ export class SearchableMenu extends Widget {
      * value - Which unique value it holds. For example 'en'
      */
     add(item) {
-        if(!item.label || !item.value){
+        if (!item.label || !item.value) {
             throw new Error(`The object must have the 'label' and 'value' parameters set`)
         }
         item = item instanceof MenuItem ? item : new MenuItem(item);
@@ -118,7 +118,7 @@ export class SearchableMenu extends Widget {
 
     set value(v) {
         this.__value__ = v;
-        this.fire('change')
+        this.dispatchEvent(new CustomEvent('change'))
     }
 
     get value() {
@@ -184,7 +184,7 @@ export class SearchablePopupMenu {
 
         this.menu.on('change', () => {
             this.popup.hide();
-            this.popup.fire('change')
+            this.popup.dispatchEvent(new CustomEvent('change'))
         })
 
         this.popup.content = this.menu.html;
@@ -209,10 +209,10 @@ export class SearchablePopupMenu {
         })
 
     }
-    get value(){
+    get value() {
         return this.menu.value;
     }
-    get html(){
+    get html() {
         return this.popup.html;
     }
 
