@@ -1,5 +1,6 @@
 .
 
+<<<<<<< HEAD
 
 Removed unnecessary code from multi-flex-form module
 Made it easier to use AlarmObject, by:
@@ -12,3 +13,6 @@ Removed use of deprecated method 'fire'
 Fixed naming issue with the continue-button widget
 Improved error-report UI
 Added styling for branded-popup scrollbar, which other components can take advantage of, to improve their UX, by giving a consistent scrollbar
+=======
+Added support for symbols for the pluralWidgetProperty(), and widgetProperty() methods.
+>>>>>>> 04cde4b
