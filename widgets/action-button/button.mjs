@@ -3,7 +3,7 @@ Copyright 2021 HolyCorn Software
 Standard button that can be in a beautiful loading state
 */
 
-import  Spinner  from "../infinite-spinner/widget.mjs";
+import Spinner from "../infinite-spinner/widget.mjs";
 import { hc } from "../../lib/widget/index.mjs";
 import { Widget } from "../../lib/widget/index.mjs";
 import { ActionButtonMessageAPI } from "./message.mjs";
@@ -61,10 +61,12 @@ export default class ActionButton extends Widget {
         Reflect.defineProperty(this, 'state', {
             set: async (state) => {
 
-                if(state === this.state){
+                await new Promise(x => setTimeout(x, 10))
+
+                if (state === this.state) {
                     return;
                 }
-                
+
                 await state_load_promise;
                 await state_change_promise
 

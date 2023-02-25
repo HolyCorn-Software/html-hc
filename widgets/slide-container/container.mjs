@@ -30,7 +30,7 @@ export class SlideContainer extends Widget {
             `
         });
 
-        /** @type {import("../../lib/alarm/alarm-types.js").AlarmArray<import("../lib/widget.js").ExtendedHTML>} This property controls the items that are on the slider.*/ this.screens
+        /** @type {import("../../lib/alarm/alarm-types.js").AlarmArray<HTMLElement>} This property controls the items that are on the slider.*/ this.screens
 
         /** @type {typeof this.screens} */
         let screens_array = new AlarmObject({ is_array: true })
