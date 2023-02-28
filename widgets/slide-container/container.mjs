@@ -113,6 +113,10 @@ export class SlideContainer extends Widget {
                 const oldScreen = primaryContent.children[0]
                 const nwScreen = this.screens[index]
 
+
+                // Dispatch an event to let a screen know that is about to be shown
+                nwScreen.dispatchEvent(new CustomEvent('ready'));
+
                 let animationDoneFunction;
 
                 /**
@@ -248,6 +252,7 @@ export class SlideContainer extends Widget {
                     nwScreen.dispatchEvent(new CustomEvent('begin'));
                     oldScreen?.dispatchEvent(new CustomEvent('end'));
                 })
+
 
 
                 this[indexSymbol] = index;

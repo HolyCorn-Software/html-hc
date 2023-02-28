@@ -1,3 +1,3 @@
 .
 
-Corrected minor bug with the slide-container widget, related to informing the system when the user navigates
+Added feature to slide-container widget, that informs screens prior to when they are to be shown
