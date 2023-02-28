@@ -248,11 +248,13 @@ export class SlideContainer extends Widget {
                     nwScreen.dispatchEvent(new CustomEvent('begin'));
                     oldScreen?.dispatchEvent(new CustomEvent('end'));
                 })
-                this.dispatchEvent(new CustomEvent('indexChange'))
 
-                /** @type {function (('indexChange'), function(CustomEvent) AddEventListenerOptions)} */ this.addEventListener
 
                 this[indexSymbol] = index;
+
+                this.dispatchEvent(new CustomEvent('indexChange'))
+                /** @type {function (('indexChange'), function(CustomEvent) AddEventListenerOptions)} */ this.addEventListener
+
 
             })()
 
