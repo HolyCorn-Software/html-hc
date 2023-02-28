@@ -15,8 +15,9 @@ export class PopupMenu extends Widget {
      * All parameters are optional
      * @param {object} param0 
      * @param {HTMLElement} param0.content
+     * @param {boolean} param0.hideOnOutsideClick
      */
-    constructor({ content } = {}) {
+    constructor({ content, hideOnOutsideClick } = {}) {
 
         super({ css: import.meta.url });
 

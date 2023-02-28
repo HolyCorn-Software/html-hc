@@ -1,0 +1,50 @@
+/* 
+    Copyright 2023 HolyCorn Software
+    The list-popup widget
+    This widget creates a popup to allow the user to select from a list of choices
+ */
+
+.hc-v2-choose-popup.hc-list-popup >.container >.wrapper >.data {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius:2em;
+    max-width:clamp(250px, 80vw, 450px);
+}
+.hc-v2-choose-popup.hc-list-popup {
+    display:flex;
+}
+
+
+
+
+.hc-list-popup-content>.container {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    padding: 1.5em;
+    font-family:k2d;
+}
+
+.hc-list-popup-content >.container >.top{
+    display:flex;
+    flex-direction:column;
+    gap:0.5em;
+}
+
+.hc-list-popup-content >.container >.top >.title{
+    font-size:1.75em;
+    font-family:vanilla_caramel;
+}
+
+.hc-list-popup-content >.container >.options{
+    display:flex;
+    flex-direction:column;
+    gap:1em;
+}
+
+.hc-list-popup-content >.container >.options .hc-uCheckbox{
+    color:rgb(14, 60, 209);
+}
+
+.hc-list-popup-content >.container >.action >.hc-action-button{
+    width:100%;
+}
