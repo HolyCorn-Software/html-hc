@@ -5,6 +5,7 @@
  */
 
 import { hc } from "../../lib/widget/index.mjs";
+import { PluralWidgetArray } from "../../lib/widget/pluralWidgetProperty.mjs";
 import ActionButton from "../action-button/button.mjs";
 import { PopupMenu } from "../popup-menu/popup.mjs";
 import ListPopupItem from "./item.mjs";
@@ -33,7 +34,7 @@ export default class ListPopup extends PopupMenu {
         super(
 
             {
-                hideOnOutsideClick:params.hideOnOutsideClick,
+                hideOnOutsideClick: params.hideOnOutsideClick,
 
                 content: hc.spawn(
                     {
@@ -61,6 +62,12 @@ export default class ListPopup extends PopupMenu {
             }
         );
 
+        /** @type {string} */ this.title
+        /** @type {string} */ this.caption
+        for (const option of ['title', 'caption']) {
+            this.htmlProperty(`.container >.top >.${option}`, option, 'innerHTML')
+        }
+
         /** @type {ListPopupItem[]} */this[selectedWidgets] = []
 
         // So that we can style the overriden popup, more easily
@@ -81,6 +88,9 @@ export default class ListPopup extends PopupMenu {
                      * @returns {HTMLElement}
                      */
                     set: (option) => {
+                        if (!option) {
+                            return PluralWidgetArray.ignore_element;
+                        }
                         const widget = new ListPopupItem(option);
                         widget.checkbox.addEventListener('change', () => {
                             if (!widget.checkbox.value) {
@@ -89,7 +99,7 @@ export default class ListPopup extends PopupMenu {
                                 // Check the minimum size
                                 for (let i = 0; i < this[selectedWidgets].length - (this.selectionSize.max - 1); i++) {
                                     const one = this[selectedWidgets].shift();
-                                    one.checkbox.value = false;
+                                    one.checkbox.silent_value = false;
                                 }
                                 this[selectedWidgets].push(widget)
                             }
@@ -180,14 +190,16 @@ export default class ListPopup extends PopupMenu {
 
     /**
      * 
-     * @returns {Promise<OptionValueType>}
+     * @returns {Promise<OptionValueType[]>}
      */
-    waitTillSelect() {
+    async waitTillSelect() {
         this.show()
-        return new Promise((resolve, reject) => {
-            this.addEventListener('change', resolve(this.value))
+        const selection = await new Promise((resolve, reject) => {
+            this.addEventListener('change', () => resolve(this.value))
             this.addEventListener('hide', () => reject(new Error(`No option was selected`)))
-        })
+        });
+        setTimeout(() => this.hide(), 750)
+        return selection
     }
 
     static get classList() {
