@@ -1,7 +1,3 @@
 .
 
-Added Vanilla Caramel font
-
-Created new widget list-popup, to allow the user select one or more options from a list
-
-Improved code-completion for popup-menu widget
+Improved user experience of the list-popup widget, by making it possible to directly click the checkboxes on items on the list

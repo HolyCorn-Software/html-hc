@@ -60,7 +60,9 @@ export default class ListPopupItem extends Widget {
         this.checkbox = new Checkbox()
 
         this.html.addEventListener('click', (ev) => {
-            console.log(ev);
+            if (this.checkbox.html === ev.target || this.checkbox.html.contains(ev.target)) {
+                return; //The checkbox would have handled this on it's own
+            }
             this.checkbox.value = !this.checkbox.value
         })
 
