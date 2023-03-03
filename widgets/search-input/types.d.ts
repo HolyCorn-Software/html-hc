@@ -8,9 +8,9 @@
 /**
  * This defines methods that must be provided when initializing the SearchInput widget
  */
-export declare interface SearchInputHooks {
-    fetchItems: (filter: string) => Promise<[object]>,
-    getView: (item: object) => Promise<[HTMLElement]>,
-    getLabel: (item) => string,
-    getValue: (item) => string|number|boolean
+export declare interface SearchInputHooks<T = any> {
+    fetchItems: (filter: string) => Promise<T[]>,
+    getView: (item: T) => Promise<HTMLElement[]>,
+    getLabel: (item: T) => string,
+    getValue: (item: T) => string | number | boolean
 }

@@ -14,20 +14,23 @@ import { Widget } from "../../lib/widget/index.mjs";
 import { SearchInputItem } from "./item.mjs";
 
 
+/**
+ * @template T
+ */
 export class SearchInput extends Widget {
 
     /**
      * 
      * @param {object} param0 
      * @param {boolean} param0.is_multi_select
-     * @param {import("./types.js").SearchInputHooks} param0.hooks This interface contains the implementation of basic features such as find 
+     * @param {import("./types.js").SearchInputHooks<T>} param0.hooks This interface contains the implementation of basic features such as find 
      * @param {string} param0.label
      */
     constructor({ is_multi_select, hooks, label } = {}) {
         super();
 
         this.html = hc.spawn({
-            classes: ['hc-search-input'],
+            classes: SearchInput.classList,
             innerHTML: `
                 <div class='container'>
                     <div class='input-section'>
@@ -117,8 +120,12 @@ export class SearchInput extends Widget {
 
     }
 
+    static get classList() {
+        return ['hc-search-input']
+    }
+
     /**
-     * @param {import("./types.js").SearchInputHooks} hooks
+     * @param {import("./types.js").SearchInputHooks<T>} hooks
      */
     set hooks(hooks) {
         if (hooks === undefined) {
@@ -136,7 +143,7 @@ export class SearchInput extends Widget {
     }
 
     /**
-     * @returns {import("./types.js").SearchInputHooks}
+     * @returns {import("./types.js").SearchInputHooks<T>}
      */
     get hooks() {
         return this[hooks_symbol]

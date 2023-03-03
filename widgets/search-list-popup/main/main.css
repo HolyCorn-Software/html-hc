@@ -1,0 +1,84 @@
+/* 
+    Copyright 2023 HolyCorn Software
+    The list-popup widget
+    This widget creates a popup to allow the user to select from a list of choices
+ */
+
+.hc-v2-choose-popup.hc-search-list-popup-main-frame>.container>.wrapper>.data {
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 2em;
+    max-width: clamp(250px, 80vw, 450px);
+    min-width: 250px;
+}
+
+.hc-v2-choose-popup.hc-search-list-popup-main-frame {
+    display: flex;
+}
+
+
+
+
+.hc-search-list-popup-main>.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 1.5em;
+    font-family: k2d;
+    cursor: default;
+    --hc-search-list-popup-main-max-height: clamp(300px, 70vh, 70vh);
+    max-height: var(--hc-search-list-popup-main-max-height);
+}
+
+.hc-search-list-popup-main>.container>.top {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    padding-bottom: 1em;
+}
+
+.hc-search-list-popup-main>.container>.top>.title {
+    font-size: 1.75em;
+    font-family: k2dExtraBold;
+}
+
+.hc-search-list-popup-main>.container>.search .hc-search-input>.container>.input-section>input {
+    border: 2px solid rgb(1, 1, 63);
+    border-radius: 0.89em;
+    background-color: rgba(0, 0, 0, 0.0);
+    text-align: center;
+    font-size: 1.25em;
+    min-width:19em;
+}
+
+.hc-search-list-popup-main>.container>.options {
+    display: flex;
+    gap: 0.5em;
+    flex-wrap: wrap;
+    max-height: calc(var(--hc-search-list-popup-main-max-height) - 10em);
+    overflow: hidden;
+    overflow-y: auto;
+    width: calc(100% + 1em);
+
+}
+
+
+.hc-search-list-popup-main>.container>.options::-webkit-scrollbar {
+    background: transparent;
+
+}
+
+.hc-search-list-popup-main>.container>.options::-webkit-scrollbar-button {
+    background: transparent;
+}
+
+.hc-search-list-popup-main>.container>.options::-webkit-scrollbar-thumb {
+    /* border-right:8px solid rgb(17, 98, 211); */
+    background: rgba(0, 0, 255, 0.363);
+    border-radius: 10px;
+    border: 4px solid rgba(255, 255, 255, 0.9);
+
+}
+
+.hc-search-list-popup-main>.container>.action>.hc-action-button {
+    width: 100%;
+}
