@@ -1,0 +1,69 @@
+/* 
+    Copyright 2023 HolyCorn Software
+    This stylesheet beautifies the copy-button widget
+    For more information on what the copy-button does, check the widget.mjs file in this same folder
+ */
+
+.hc-copy-button>.container {
+    display: flex;
+    flex-direction: column;
+    display: inline-flex;
+}
+
+.hc-copy-button>.container>.main {
+    display: flex;
+    gap: 0.5em;
+    border: 1px solid #0836ccab;
+    border-radius: 0.25em;
+    max-width: 7em;
+    justify-content: center;
+    align-items: center;
+    padding: 0.35em;
+    align-self: flex-end;
+    cursor: pointer;
+    position: relative;
+    transition: 0.25s 0.25s;
+}
+
+.hc-copy-button>.container>.main>.img {
+    z-index: 1;
+    position: relative;
+    display: flex;
+}
+
+.hc-copy-button>.container>.main>.img svg {
+    fill: currentColor;
+}
+
+.hc-copy-button>.container>.main>.prompt {
+    /* font-size: 0.em; */
+    z-index: 1;
+    position: relative;
+}
+
+
+.hc-copy-button>.container>.main:before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    background-color: #1844d4ab;
+    width: 0px;
+    left: 0px;
+    top: 0px;
+
+    transition: 0.35s 0.125s;
+}
+
+.hc-copy-button>.container>.main:hover:before {
+    width: 100%;
+    border-radius: 0.25em;
+}
+
+.hc-copy-button>.container>.main:hover {
+    color: white;
+    border-color:transparent;
+}
+
+.hc-copy-button >.container >.main >.success-tick{
+    font-size:1em;
+}

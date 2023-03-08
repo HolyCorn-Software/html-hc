@@ -16,6 +16,7 @@ export type AlarmObject<Type> = Type & {
     $0: AlarmMainInterface<Type>,
     $0data: Type
 }
+type AlarmObjectType<T> = AlarmObject<T>
 
 
 export interface AlarmMainInterface<Type> {
@@ -26,10 +27,20 @@ export interface AlarmMainInterface<Type> {
      * If ``` immediate ``` is true, the callback will be called immediately, before starting to listen for new events
      */
     addEventListener: AlarmsEventFunction<Type>,
-    removeEventListener: (event: ('change'), callback: function) => void
+    removeEventListener: (event: EventNames<Type>, callback: function) => void
     waitTillAvailable: (field) => Promise<void>
 
 
 }
 
-export type AlarmsEventFunction<Type> = (event: ('change' | (`${keyof Type}-change`)), callback: (event: CustomEvent<{ field: string, value: string }>) => void, options: AddEventListenerOptions, immediate) => void
+type Values<T> = T[keyof T]
+type Primitives = string | number | symbol | boolean | undefined
+
+type RecurEventNames<T, Prefix = false> = {
+    [K in keyof T]: `${K}-change` | T[K] extends Primitives ? `${K}-change` : T[K] extends Array<Primitives> ? never : `${K}.${Values<RecurEventNames<T[K], K>>}` | `${K}-change`
+}
+
+type EventNames<T> = `change` | `${keyof T}-change` | Values<RecurEventNames<T>>
+
+
+export type AlarmsEventFunction<Type> = (event: (EventNames<Type>), callback: (event: CustomEvent<{ field: string, value: string }>) => void, options: AddEventListenerOptions, immediate) => void

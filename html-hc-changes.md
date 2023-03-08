@@ -1,5 +1,11 @@
 .
 
-Improved pluralWidgetProperty, so that now, items from the DOM may be removed directly, and the array would update
+Added new widget binance-currencies-input widget, to allow for components that require the user to select several currencies, and binance-currency-input widget, to allow the user to input a single currency
 
-Created new search-list-popup widget, which allows the user to select items from an "infinite" list of items which can be searched
+Added copy-button widget, which allows a piece of text to be copied, when the user clicks it
+
+Improved UX for search-list-popup widget
+
+Greatly improved typing for the AlarmObject type
+
+Improved UX of AnimatedTick widget

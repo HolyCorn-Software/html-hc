@@ -9,16 +9,27 @@ import { Widget } from "../../lib/widget/index.mjs";
 
 export class AnimatedTick extends Widget {
 
-    constructor() {
+    /**
+     * 
+     * @param {object} param0 
+     * @param {AnimatedTick['activated']} param0.activated
+     */
+    constructor({activated}={}) {
         super();
         super.html = document.spawn({
-            class: 'hc-animated-tick',
+            class: AnimatedTick.classList,
             innerHTML: `
                 <div class='container'>
-                    <svg xmlns="http://www.w3.org/2000/svg" height="25px" width="25px"><g class='stroke' stroke="currentColor" stroke-width="3" fill="transparent"><path d="M2.5,12.5 L12.5,22.5 L25,5"/></g></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="0.9em" width="0.9em" viewBox="0 0 25 25"><g class='stroke' stroke="currentColor" stroke-width="3" fill="transparent"><path d="M2.5,12.5 L12.5,22.5 L25,5"/></g></svg>
                 </div>
             `
-        })
+        });
+
+        
+        Object.assign(this, arguments[0])
+    }
+    static get classList() {
+        return ['hc-animated-tick']
     }
 
     /**
@@ -40,11 +51,11 @@ export class AnimatedTick extends Widget {
      */
     set activated(state) {
         this.html.classList[state ? 'add' : 'remove']('activated')
-        if(!state){
+        if (!state) {
             this.html.classList.remove('animated');
         }
     }
-    get activated(){
+    get activated() {
         return this.html.classList.contains('activated')
     }
 

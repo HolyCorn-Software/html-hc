@@ -27,6 +27,7 @@
     flex-direction:column;
     gap:0.125em;
     align-items: center;
+    align-self: center;
 }
 
 .hc-sarch-list-popup-search-item >.container >.main >.data  >.label{

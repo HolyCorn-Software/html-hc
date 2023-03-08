@@ -26,8 +26,10 @@ export default class SearchListPopup extends Widget {
      * @param {SearchListPopupTypes.ListSizeLimits} param0.listSize
      * @param {boolean} param0.hideOnOutsideClick
      */
-    constructor({ doSearch, transformValue, hideOnOutsideClick } = {}) {
+    constructor({ doSearch, transformValue, listSize, hideOnOutsideClick } = {}) {
         super();
+
+        console.log(`The list size is `, listSize)
 
         this.html = hc.spawn(
             {
