@@ -244,7 +244,7 @@ export class MultiFlexFormTextbox extends MultiFlexFormItem {
 
 
         // We don't want to wait till the user exits the textbox before a change event is fired. We want it on the fly
-        for (let event of ['keydown', 'keypress', 'change']) {
+        for (let event of ['keydown', 'keypress', 'change', 'blur', 'focus', 'keyup']) {
 
             this.html.$('.container >*').addEventListener(event, () => {
                 this.dispatchEvent(new CustomEvent('change'));

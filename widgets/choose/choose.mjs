@@ -37,7 +37,7 @@ export class Choose extends Widget{
 
 
         //Make sure that when an item is selected, we update the UI to reflect the selection
-        this.searchPopupMenu.menu.on('change', ()=>{
+        this.searchPopupMenu.menu.addEventListener('change', ()=>{
             this.dispatchEvent(new CustomEvent( 'change'))
             this.label = this.searchPopupMenu.menu.selectedItem.label
         })

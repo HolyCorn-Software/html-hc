@@ -135,12 +135,12 @@ export default class ActionButton extends Widget {
         }
     }
 
-    /** @param {function} functIon */
+    /** @param {function(this:ActionButton): void} functIon */
     set onclick(functIon) {
         this.html.onclick = () => functIon?.call(this)
     }
 
-    /** @returns {function} */
+    /** @returns {function(this:ActionButton): void} */
     get onclick() {
         return this.html.onclick;
     }

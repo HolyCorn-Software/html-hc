@@ -11,6 +11,7 @@ import AccordionItem from "./item.mjs";
 
 /**
  * @template DataType
+ * @template ContentWidget
  */
 export default class Accordion extends Widget {
 
@@ -26,7 +27,7 @@ export default class Accordion extends Widget {
             `
         });
 
-        /** @type {[DataType]} */ this.items
+        /** @type {DataType[]} */ this.items
         this.pluralWidgetProperty({
             selector: '.hc-cayofedpeople-accordion-item',
             parentSelector: '.container',
@@ -53,7 +54,7 @@ export default class Accordion extends Widget {
             }
         });
 
-        /** @type {[AccordionItem]} */ this.itemWidgets
+        /** @type {AccordionItem<ContentWidget>[]} */ this.itemWidgets
         this.pluralWidgetProperty({
             selector: '.hc-cayofedpeople-accordion-item',
             parentSelector: '.container',
@@ -72,18 +73,18 @@ export default class Accordion extends Widget {
     /**
      * This method should be overridden so that the system can pass in data about an item, and receive a widget of type AccordionItem
      * @param {DataType} input
-     * @returns {AccordionItem}
+     * @returns {AccordionItem<ContentWidget>}
      */
-    dataToWidget() {
+    dataToWidget(input) {
         throw new Error(`This method should be overridden so as to accept data and produce a widget that extends AccordionItem`)
     }
 
     /**
      * This method should be overridden so that the system can pass in a widget of type AccordionItem, and receive data about the widget. The data should be sufficient to re-construct a similar widget using the dataToWidget() method.
-     * @param {AccordionItem} input
+     * @param {AccordionItem<ContentWidget>} input
      * @returns {DataType}
      */
-    widgetToData() {
+    widgetToData(input) {
         throw new Error(`This method should be overridden so as to accept data and produce a widget that extends AccordionItem`)
     }
 

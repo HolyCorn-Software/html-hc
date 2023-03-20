@@ -8,13 +8,16 @@ import { hc, Widget } from "../../lib/widget/index.mjs";
 
 
 
+/**
+ * @template ContentWidget
+ */
 export default class AccordionItem extends Widget {
 
     /**
      * 
      * @param {object} param0 
      * @param {string} param0.label
-     * @param {HTMLElement} param0.content
+     * @param {import("../../lib/widget/types.js").ExtendedHTML<ContentWidget>} param0.content
      */
     constructor({ label, content } = {}) {
         super();
@@ -41,12 +44,12 @@ export default class AccordionItem extends Widget {
         /** @type {string} */ this.label
         this.htmlProperty(".container .header >.label", "label", "innerHTML");
 
-        /** @type {[HTMLElement]} */ this.content
+        /** @type {import("../../lib/widget/types.js").ExtendedHTML<ContentWidget>} */ this.content
         this.widgetProperty({
             selector: '*',
             parentSelector: '.container >.content-section',
-            property:'content',
-            childType:'html'
+            property: 'content',
+            childType: 'html'
         })
 
         this.html.$('.header').addEventListener('click', () => {
@@ -116,7 +119,7 @@ export default class AccordionItem extends Widget {
 
                 let rect = content_section.getBoundingClientRect();
 
-                this.html.style.setProperty('--full-height', `${rect.height + em(1)}px`)
+                this.html.style.setProperty('--full-height', `${rect.height + em(5)}px`)
 
                 content_section.remove()
                 replacement.replaceWith(content_section)

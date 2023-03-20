@@ -34,13 +34,17 @@ export interface AlarmMainInterface<Type> {
 }
 
 type Values<T> = T[keyof T]
-type Primitives = string | number | symbol | boolean | undefined
+type UnusableTypes = any[] | number | boolean | undefined | symbol
 
-type RecurEventNames<T, Prefix = false> = {
-    [K in keyof T]: `${K}-change` | T[K] extends Primitives ? `${K}-change` : T[K] extends Array<Primitives> ? never : `${K}.${Values<RecurEventNames<T[K], K>>}` | `${K}-change`
-}
+type DoPrefix<T, Prefix = false> = T extends string ? (Prefix extends string ? `${Prefix}.${T}` : T) : never
 
-type EventNames<T> = `change` | `${keyof T}-change` | Values<RecurEventNames<T>>
+type RecurEventNames<T, Prefix = false> = T extends UnusableTypes ? never : T extends string ? `${DoPrefix<T, Prefix>}-change` : keyof
+    {
+        [K in keyof T as DoPrefix<RecurEventNames<K> | (T[K] extends object ? `${RecurEventNames<T[K], K>}` : never), Prefix>]: true
+    }
+
+
+type EventNames<T> = `change` | RecurEventNames<T>
 
 
 export type AlarmsEventFunction<Type> = (event: (EventNames<Type>), callback: (event: CustomEvent<{ field: string, value: string }>) => void, options: AddEventListenerOptions, immediate) => void

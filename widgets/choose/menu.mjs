@@ -182,7 +182,7 @@ export class SearchablePopupMenu {
 
         this.menu = new SearchableMenu();
 
-        this.menu.on('change', () => {
+        this.menu.addEventListener('change', () => {
             this.popup.hide();
             this.popup.dispatchEvent(new CustomEvent('change'))
         })

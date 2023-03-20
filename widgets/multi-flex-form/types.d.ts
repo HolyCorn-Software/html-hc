@@ -13,12 +13,10 @@ export declare interface MultiFlexFormFieldData {
     values: { [key: string]: string }
     type: InputTypes
     customWidgetUrl: string
-    regexp: string
     valueProperty: string
-    htmlDirect: object
 }
 
 export declare type MultiFlexFormFieldFullData = MultiFlexFormFieldData & {
     name: string
 }
-export type MultiFlexFormDefinitionData = [[MultiFlexFormFieldFullData]]
+export type MultiFlexFormDefinitionData = MultiFlexFormFieldFullData[][]

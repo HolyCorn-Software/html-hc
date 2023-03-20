@@ -75,8 +75,8 @@ export default class PopupForm extends HCTSBrandedPopup {
 
         });
 
-        /** @type {PopupFormEventHandler} */ this.on
-        /** @type {typeof this.on} */ this.addEventListener
+        /** @type {PopupFormEventHandler} */ this.addEventListener
+        /** @type {typeof this.addEventListener} */ this.addEventListener
 
         this.positiveButton.html.on('click', async () => {
             this.dispatchEvent(new CustomEvent('complete'))

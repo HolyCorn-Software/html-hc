@@ -100,7 +100,7 @@ export class UniqueFileUpload extends Widget {
         }
 
         /** @type {EventCallback} */ this.addEventListener
-        /** @type {EventCallback} */ this.on
+        /** @type {EventCallback} */ this.addEventListener
         /** @type {string} */ this.mimeType
         /** @type {string} */ this.url
 
@@ -142,7 +142,7 @@ export class UniqueFileUpload extends Widget {
 
         // When the value of the widget changes, decide whether or not the input value is empty, and so allow or disallow uploads
         //As well as place the tiny image preview
-        this.on('fileselected', () => {
+        this.addEventListener('fileselected', () => {
 
             //Enable or disable the options (upload and cancel)
             this.empty = this.fileInput.value === ''
