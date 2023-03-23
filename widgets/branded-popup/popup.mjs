@@ -16,6 +16,12 @@ const menu_widget_symbol = Symbol(`HCTSBrandedPopup.prototype.menu`)
 export default class HCTSBrandedPopup extends PopupMenu {
 
 
+    /**
+     * 
+     * @param {object} param0 
+     * @param {typeof this['content']} param0.content
+     * @param {typeof this['hideOnOutsideClick']} param0.hideOnOutsideClick
+     */
     constructor({ content } = {}) {
 
         super()

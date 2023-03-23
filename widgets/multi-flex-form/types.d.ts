@@ -14,6 +14,8 @@ export declare interface MultiFlexFormFieldData {
     type: InputTypes
     customWidgetUrl: string
     valueProperty: string
+    /** The url that the file will be uploaded to, if type is 'uniqueFileUpload' */
+    url: string
 }
 
 export declare type MultiFlexFormFieldFullData = MultiFlexFormFieldData & {

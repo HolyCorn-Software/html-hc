@@ -48,7 +48,7 @@ export class SearchInput extends Widget {
 
         this.html.$('input').addEventListener('click', () => this.details_showing = true)
 
-        /** @type {[SearchInputItem]} */ this.items
+        /** @type {SearchInputItem[]} */ this.items
         this.pluralWidgetProperty({
             selector: '.hc-search-input-item',
             parentSelector: '.container >.details-section >.content',
@@ -72,7 +72,7 @@ export class SearchInput extends Widget {
 
         /** @type {boolean} */ this.is_multi_select
 
-        /** @type {[{label:string, onclick:()=>void}]} */ this.actions
+        /** @type {{label:string, onclick:()=>void}[]} */ this.actions
         this.pluralWidgetProperty(
             {
                 selector: '.action',
@@ -108,7 +108,7 @@ export class SearchInput extends Widget {
         ]
 
         /**
-         * @type {[{value:any, label:string}]}
+         * @type {{value:any, label:string}[]}
          */
         this[values_symbol] = []
 

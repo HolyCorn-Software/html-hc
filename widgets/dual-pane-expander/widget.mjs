@@ -110,7 +110,7 @@ export default class DualPaneExpander extends Widget {
 
 
 
-        /** @type {[Option]} */ this.itemWidgets
+        /** @type {Option[]} */ this.itemWidgets
         this.pluralWidgetProperty({
             parentSelector: '.container >.main >.left >.options',
             selector: '.hc-dual-pane-expander-option',
@@ -119,7 +119,7 @@ export default class DualPaneExpander extends Widget {
             childType: 'widget'
         });
 
-        /** @type {[{label: string, onclick: (data:{widget:Option})=>void}]} */ this.actions
+        /** @type {{label: string, onclick: (data:{widget:Option})=>void}[]} */ this.actions
         Reflect.defineProperty(this, 'actions', {
             get: () => this.screen.actions,
             set: (v) => this.screen.actions = v,

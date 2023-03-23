@@ -7,16 +7,16 @@ A highly modular animated flexible form
 .hc-multi-flex-form>.container {
     display: flex;
     flex-direction: column;
-    padding-top: 1.25em;
+    padding-top: 0.75em;
     max-width: calc(100% - 9.9px);
-    padding-bottom: 2em;
+    padding-bottom: 0.75em;
 }
 
 
 .hc-multi-flex-form>.container>.hc-multi-flex-form-item {
     transition: 0.5s 0.125s;
-    padding-bottom: 0.75em;
-    padding-top:0.75em;
+    padding-bottom: 0.5em;
+    padding-top:0.5em;
 }
 
 .hc-multi-flex-form>.container>.hc-multi-flex-form-item.multi-flex-form-hidden {

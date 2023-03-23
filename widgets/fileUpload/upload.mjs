@@ -113,7 +113,13 @@ export class UniqueFileUpload extends Widget {
                 this.dispatchEvent(new CustomEvent('change'));
                 this.refresh_image();
                 clearTimeout(file_remove_timeout)
-                file_remove_timeout = setTimeout(() => this.html.classList.remove('hasFile'), 2000)
+                file_remove_timeout = setTimeout(() => {
+                    this.html.classList.remove('hasFile')
+
+                    /** @type {ActionButton} */
+                    let button = this.html.$('.confirm').children[0].object
+                    button.state = 'initial'
+                }, 2000)
             },
             get: () => thisDotValue,
             configurable: true,

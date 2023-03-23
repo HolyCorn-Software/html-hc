@@ -53,7 +53,7 @@ export default class Screen extends Widget {
             }
         )
 
-        /** @type {[HTMLElement]} */ this.actions
+        /** @type {HTMLElement[]} */ this.actions
         this.pluralWidgetProperty({
             selector: '*',
             property: 'actions',

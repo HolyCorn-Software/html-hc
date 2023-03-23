@@ -26,11 +26,11 @@ The consistency is the branding. That's why its called a branded menu
 .hc-hcts-branded-menu >.container >.main-row{
     display:flex;
     justify-content:center;
-    --spacing:clamp(1em, 6em, 5vw);
+    --spacing:clamp(1em, 6em, 8vw);
     padding-left:var(--spacing);
     padding-right:calc(var(--spacing) * 0.6);
     padding-bottom:1em;
-    transform:translateY(-2em);
+    transform:translateY(-2.5em);
 
 }
 

@@ -95,7 +95,7 @@ export class MultiFlexFormConfiguration {
         /** @param {MultiFlexFormItem} level*/
         let applyLevel = async (level) => {
 
-            /** @param {MultiFlexFormItem} parent @returns {[MultiFlexFormItem]} */
+            /** @param {MultiFlexFormItem} parent @returns {MultiFlexFormItem[]} */
             let legalChildrenOf = (parent) => {
                 //This method gives us the sub-elements that belong to a parent.
                 //That is the sub-elements that have been declared in the configuration.

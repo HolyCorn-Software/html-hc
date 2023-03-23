@@ -130,7 +130,7 @@ export default class FileExplorer extends Widget {
         });
 
 
-        /** @type {[FileExplorerItem]} **/ this.stageItemWidgets
+        /** @type {FileExplorerItem[]} **/ this.stageItemWidgets
         this.pluralWidgetProperty({
             selector: '.hc-simple-file-explorer-item',
             property: 'stageItemWidgets',

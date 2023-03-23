@@ -29,7 +29,7 @@ type OtherProps<T> = {
 }
 
 
-type WidgetPropertyArgs<WidgetType extends Widget, InputType, ThisArg> = {
+type WidgetPropertyArgs<WidgetType extends Widget, InputType, ThisArg = {}> = {
     /** The selector pointing to the parent element that will house this widget **/
     parentSelector: string
     /**  The selector of the widget relative to parent **/

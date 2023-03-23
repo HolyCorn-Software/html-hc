@@ -101,7 +101,7 @@ export class Abyydr01 extends Widget {
         })
         /** @type {function(('change'), CustomEvent, AddEventListenerOptions)} */ this.addEventListener
 
-        /** @type {[{name:string, content:string}]} */ this.options
+        /** @type {{name:string, content:string}[]} */ this.options
         this.pluralWidgetProperty({
             selector: `.hc-v2-inline-select-option`,
             parentSelector: `.detail .options`,
@@ -125,7 +125,7 @@ export class Abyydr01 extends Widget {
             }
         });
 
-        // /** @type {[Erhi1d]} */ this.optionWidgets
+        // /** @type {Erhi1d[]} */ this.optionWidgets
         // this.pluralWidgetProperty(
         //     {
         //         selector: `.hc-v2-inline-select-option`,

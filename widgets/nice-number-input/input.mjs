@@ -23,7 +23,7 @@ export class NiceNumberInput extends Widget {
             `
         });
 
-        /** @type {[HTMLElement]} */ this.controls
+        /** @type {HTMLElement[]} */ this.controls
         this.pluralWidgetProperty({
             selector: '.control',
             parentSelector: '.container',

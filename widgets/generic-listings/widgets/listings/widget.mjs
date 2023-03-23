@@ -104,7 +104,7 @@ export default class ListingsMainWidget extends Widget {
         })
 
 
-        /** @type {[ListingsEntry]} */ this.itemWidgets
+        /** @type {ListingsEntry[]} */ this.itemWidgets
         this.pluralWidgetProperty({
             selector: '.hc-generic-listings-item',
             parentSelector: '.container >tbody',
@@ -113,10 +113,10 @@ export default class ListingsMainWidget extends Widget {
             immediate: true,
         });
 
-        /** @type {[ListingsEntry]} */ this.checked_items
+        /** @type {ListingsEntry[]} */ this.checked_items
         Reflect.defineProperty(this, 'checked_items', {
             get: () => this.itemWidgets.filter(x => x.checkbox.checked),
-            /** @param {[string]} array */
+            /** @param {string[]} array */
             set: (array) => {
                 const widgets = this.itemWidgets;
 
@@ -131,7 +131,7 @@ export default class ListingsMainWidget extends Widget {
             configurable: true
         });
 
-        /** @type {[Checkbox]} */ this.checkboxes
+        /** @type {Checkbox[]} */ this.checkboxes
         Reflect.defineProperty(this, 'checkboxes',
             {
                 get: () => this.itemWidgets.map(x => x.checkbox),
