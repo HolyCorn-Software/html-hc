@@ -184,7 +184,7 @@ export default class MultiFlexForm extends Widget {
     get quickStructure() {
 
         /**
-         * @typedef {[import("./types.js").MultiFlexFormFieldData|Items]} Items
+         * @typedef {import("./types.js").MultiFlexFormFieldData|Items[]} Items
          */
 
 

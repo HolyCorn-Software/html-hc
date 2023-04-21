@@ -17,7 +17,7 @@ export default class FileExplorer extends Widget {
 
     /**
      * 
-     * @param {[import("./types.js").DirectoryData]} directories 
+     * @param {import("./types.js").DirectoryData[]} directories 
      * @param {import("./types.js").FileExplorerParams} options
      */
     constructor(directories, options) {
@@ -57,7 +57,7 @@ export default class FileExplorer extends Widget {
 
         this.navigation = new Navigation(this.statedata);
 
-        /** @type {[import("./types.js").DirectoryData]} **/ this.stageItems
+        /** @type {import("./types.js").DirectoryData[]} **/ this.stageItems
         this.pluralWidgetProperty({
             selector: '.hc-simple-file-explorer-item',
             property: 'stageItems',
@@ -142,7 +142,7 @@ export default class FileExplorer extends Widget {
 
         this.stageItems = []
 
-        /** @type {[import("./types.js").FileExplorerAction]} This is an internal variable used to directly display actions on the widget. Don't write to this, you will be overriden **/ this.stageActions
+        /** @type {import("./types.js").FileExplorerAction[]} This is an internal variable used to directly display actions on the widget. Don't write to this, you will be overriden **/ this.stageActions
         this.pluralWidgetProperty({
             selector: '.hc-action-button',
             property: 'stageActions',

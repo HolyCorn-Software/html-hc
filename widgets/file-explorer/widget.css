@@ -29,6 +29,7 @@
     transition:0.5s 0.125s;
     display:flex;
     gap: 2em;
+    padding-bottom:2em;
 }
 
 .hc-simple-file-explorer >.container >.main >.stage-actions .hc-action-button >.container{

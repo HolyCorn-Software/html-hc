@@ -5,7 +5,6 @@
  * This module (types), contains type definitions for the slide-container widget
  */
 
-import { AlarmObject } from "../../lib/alarm/alarm-types"
 
 
 export interface SettingsStructure {
@@ -14,4 +13,4 @@ export interface SettingsStructure {
 }
 
 
-export type Settings = AlarmObject<SettingsStructure>
+export type Settings = htmlhc.lib.alarm.AlarmObject<SettingsStructure>

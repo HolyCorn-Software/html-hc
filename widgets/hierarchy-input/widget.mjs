@@ -28,7 +28,7 @@ export default class HierarchyInput extends Widget {
      * @param {object} param0.prompt
      * @param {string} param0.prompt.image The url of the icon to be shown on the widget
      * @param {string} param0.prompt.text A text that will be displayed on the widget, before the user clicks it
-     * @param {()=>Promise<[import("../file-explorer/types.js").DirectoryData]>} param0.fetchData This method should return an array of inputs 
+     * @param {()=>Promise<import("../file-explorer/types.js").DirectoryData[]>} param0.fetchData This method should return an array of inputs 
      */
     constructor({ name, label, value, modal, max_top_path, prompt, fetchData } = {}) {
 

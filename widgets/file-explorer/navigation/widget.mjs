@@ -29,7 +29,7 @@ export default class Navigation extends Widget {
 
         /** @type {import("../types.js").FileExplorerStateData} */ this.statedata = statedata
 
-        /** @type {[import("../types.js").DirectoryData]} **/ this.items
+        /** @type {import("../types.js").DirectoryData[]} **/ this.items
         this.pluralWidgetProperty({
             selector: '.hc-simple-file-explorer-navigation-item',
             property: 'items',

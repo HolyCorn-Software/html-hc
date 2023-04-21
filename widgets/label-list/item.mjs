@@ -36,7 +36,7 @@ export class LabelListItem extends Widget {
 
         this.htmlProperty('.container >.label', 'label', 'innerHTML')
 
-        /** @type {[import("./types.js").LabelListActionData]} */ this.actions
+        /** @type {import("./types.js").LabelListActionData[]} */ this.actions
 
         this.pluralWidgetProperty({
             selector: '*',

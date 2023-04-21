@@ -5,8 +5,7 @@
  * This module contains type definitions used by the item widget situated under the file-explorer widget
  */
 
-import { AlarmObject } from "../../../../hc/lib/util/alarm-types";
 import { DirectoryData } from "../types.js";
 
 
-export type DirectoryStateData = AlarmObject<DirectoryData>
+export type DirectoryStateData = htmlhc.lib.alarm.AlarmObject<DirectoryData>

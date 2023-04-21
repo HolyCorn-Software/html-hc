@@ -9,7 +9,7 @@
 
 .hc-slide-container>.container {
     display: inline-flex;
-    overflow:hidden;
+    overflow: hidden;
     height: 100%;
     flex-grow: 1;
 }
@@ -24,6 +24,11 @@
     margin-left: 100%;
     position: absolute;
 
+}
+
+.hc-slide-container>.container .secondary-content:empty {
+    border: 5px solid lightgreen;
+    background-color: green;
 }
 
 .hc-slide-container>.container>.pre-content {
@@ -45,8 +50,8 @@
     animation-duration: 0.75s;
     animation-delay: 0.135s;
     animation-fill-mode: forwards;
-    padding-left:4px;
-    width:calc(100% - 16px);
+    padding-left: 4px;
+    width: calc(100% - 8px);
 }
 
 .hc-slide-container.is-sliding-to-secondary>.container>.primary-content {
@@ -57,12 +62,12 @@
     animation-name: hc-slide-container-primary-content-height-2;
 }
 
-.hc-slide-container.is-sliding-to-secondary.animation-parity>.container>.secondary-content, .hc-slide-container.is-sliding-to-secondary>.container>.secondary-content {
+.hc-slide-container.is-sliding-to-secondary>.container>.secondary-content {
     transition-delay: 0.35s;
     transition-duration: 0.75s;
 }
 
-.hc-slide-container.is-sliding-to-pre.animation-parity>.container>.primary-content, .hc-slide-container.is-sliding-to-pre>.container>.primary-content {
+.hc-slide-container.is-sliding-to-pre>.container>.primary-content {
     transition-delay: 0.125s;
     transition-duration: 0.75s;
 }
@@ -88,7 +93,8 @@
 
 
 /** During animations, there should be no visible scrollbars */
-.hc-slide-container.is-sliding-to-pre>.container>.primary-content>*, .hc-slide-container.is-sliding-to-secondary>.container>.primary-content>* {
+.hc-slide-container.is-sliding-to-pre>.container>.primary-content>*,
+.hc-slide-container.is-sliding-to-secondary>.container>.primary-content>* {
     overflow: hidden !important;
 }
 

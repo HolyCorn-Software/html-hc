@@ -7,7 +7,7 @@
 /**
  * Returns all the directories directly existing within the named directory
  * @param {string} directory_id 
- * @param {[import("./types.js").DirectoryData]} directory_data
+ * @param {import("./types.js").DirectoryData[]} directory_data
  * @returns {[import("./types.js").DirectoryData]}
  */
 export function getImmediateChildren(directory_id, directory_data) {
@@ -28,7 +28,7 @@ export function getImmediateChildren(directory_id, directory_data) {
 /**
  * Deletes an item as well as everything below it
  * @param {string} directory_id 
- * @param {[import("./types.js").DirectoryData]} directories_data 
+ * @param {import("./types.js").DirectoryData[]} directories_data 
  */
 export function deleteItem(directory_id, directories_data) {
     return directories_data.filter(item => {
@@ -47,7 +47,7 @@ export function deleteItem(directory_id, directories_data) {
  * 
  * That is, from the root directory, what directory are the direct descendants that eventually contain the specified directory
  * @param {string} directory_id 
- * @param {[import("./types.js").DirectoryData]} directory_data
+ * @param {import("./types.js").DirectoryData[]} directory_data
  * @returns {[import("./types.js").DirectoryData]}
  */
 export function getRootPath(directory_id, directory_data) {

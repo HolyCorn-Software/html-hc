@@ -1,0 +1,48 @@
+/* 
+    Copyright 2023 HolyCorn Software
+    The back-forth widget
+    This stylesheet is for giving the general view of the widget
+
+ */
+
+.hc-back-forth>.container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.hc-back-forth>.container>.nav {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    padding-bottom: 2em;
+
+    transform: scale(0);
+    font-size: 0em;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.hc-back-forth>.container>.nav>.title {
+    font-size: 1.75em;
+}
+
+.hc-back-forth:not(.animations-frozen)>.container>.nav {
+    transition: 0.75s 0.25s;
+}
+
+
+
+.hc-back-forth.can-go-back>.container>.nav {
+    transform: scale(1);
+    opacity: 1;
+    pointer-events: all;
+    font-size: 1em;
+}
+
+.hc-back-forth>.container>.nav>.nav-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1em;
+    flex-grow: 1;
+}

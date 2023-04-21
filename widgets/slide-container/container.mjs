@@ -5,7 +5,7 @@
  */
 
 import AlarmObject from "../../lib/alarm/alarm.mjs";
-import { Widget } from "../../lib/widget/index.mjs";
+import { Widget, hc } from "../../lib/widget/index.mjs";
 
 
 
@@ -19,7 +19,7 @@ export class SlideContainer extends Widget {
 
         super();
 
-        super.html = document.spawn({
+        super.html = hc.spawn({
             classes: ['hc-slide-container'],
             innerHTML: `
                 <div class='container'>
@@ -30,7 +30,7 @@ export class SlideContainer extends Widget {
             `
         });
 
-        /** @type {import("../../lib/alarm/alarm-types.js").AlarmArray<HTMLElement>} This property controls the items that are on the slider.*/ this.screens
+        /** @type {htmlhc.lib.alarm.AlarmArray<HTMLElement>} This property controls the items that are on the slider.*/ this.screens
 
         /** @type {typeof this.screens} */
         let screens_array = new AlarmObject({ is_array: true })
@@ -61,36 +61,43 @@ export class SlideContainer extends Widget {
 
 
         this[indexSymbol] = 0;
-        this.index = 0;
+        if (this.screens.length > 0) {
+            this.index = 0;
+        }
 
         this.settings.movement.canGoBack = this.settings.movement.canGoForward = true;
 
         screens_array.$0.addEventListener('change', () => {
+
             //Here, we check if the currently visible screen has been removed from the array.
             //If so, we too remove it from our DOM
             let current_screen = this.html.$('.container >.primary-content').children[0]
-            if (current_screen) {
-                let relevant = false;
-                for (let screen of this.screens) {
-                    if (screen === current_screen) {
-                        relevant = true;
-                    }
-                }
-                if (!relevant) {
-                    current_screen.remove();
-                    this.index = 0;
-                }
+
+            if (!current_screen && this.screens.length > 0) {
+                this.index = 0;
+            } else {
+                this[indexSymbol] = this.screens.findIndex(x => x === current_screen);
             }
+
         })
 
 
 
+    }
+    async waitForTransition() {
+        try {
+            await this[pending_transition_symbol]
+        } catch { }
     }
 
     /**
      * @param {number} index
      */
     set index(index) {
+
+        if ((index >= this.screens.length) || index < 0) {
+            return console.warn(`Not possible to set index ${index} on a screen with ${this.screens.length} elements`)
+        }
         (async () => {
 
 
@@ -107,8 +114,8 @@ export class SlideContainer extends Widget {
 
 
                 //Do something to change the currently viewed html to the screen pointed by the index
-                const secondaryContent = this.html.$('.container >.secondary-content')
-                const primaryContent = this.html.$('.container >.primary-content');
+                const secondaryContent = this.html.$(':scope >.container >.secondary-content')
+                const primaryContent = this.html.$(':scope >.container >.primary-content');
 
                 const oldScreen = primaryContent.children[0]
                 const nwScreen = this.screens[index]
@@ -125,7 +132,7 @@ export class SlideContainer extends Widget {
                  */
                 const animationEndPromise = new Promise((resolve) => {
                     animationDoneFunction = () => {
-                        setTimeout(resolve, 300); //We're leaving this time allowance becase manipulating the DOM is slow
+                        setTimeout(resolve, 150); //We're leaving this time allowance becase manipulating the DOM is slow
                     }
                 });
 
@@ -135,9 +142,106 @@ export class SlideContainer extends Widget {
                  * @returns {Promise<void>}
                  */
                 const wait_animation_end = (target) => {
-                    return new Promise((resolve, reject) => {
-                        target.addEventListener('animationend', () => resolve(), { once: true })
-                        setTimeout(() => reject('Timeout waiting for animationend'), 5000)
+                    return new Promise((resolve) => {
+                        /**
+                         * 
+                         * @param {CustomEvent} event 
+                         */
+                        const onAnimationEnd = (event) => {
+                            if (undefined !== event && event.target !== target) {
+                                return;
+                            }
+                            cleanup();
+                        }
+
+                        // Plan A, the animation ends
+                        target.addEventListener('animationend', onAnimationEnd)
+
+
+                        //This is plan B, in case the animation is canceled halfway
+                        const props = [`animation-duration`, 'animation-delay']
+                        let totalAnimationTime = 0;
+                        for (const prop of props) {
+                            const value = window.getComputedStyle(target).getPropertyValue(prop);
+                            totalAnimationTime += new Number(value.split('s')[0]).valueOf() * 1000
+                        }
+                        const onAnimationCancel = (event) => {
+                            if (event?.target !== target) {
+                                return;
+                            }
+                            cleanup();
+                        };
+
+                        target.addEventListener('animationcancel', onAnimationCancel)
+
+                        //Plan C, if the animation doesn't even happen
+                        setTimeout(cleanup, totalAnimationTime)
+
+
+                        //In whichever case, there should be appropriate cleanup
+                        function cleanup() {
+                            resolve();
+                            target.removeEventListener('animationend', onAnimationEnd);
+                            target.removeEventListener('animationcancel', onAnimationCancel);
+                        }
+
+                    })
+                }
+
+
+                const nwScreenConnectedPromise = new Promise(x => {
+                    const interval = setInterval(() => {
+                        if (nwScreen.isConnected) {
+                            setTimeout(x, 5);
+                            clearInterval(interval);
+                        }
+                    }, 5);
+                });
+
+                /**
+                 * This internal method reads the width, and height from the src element,
+                 * and applies them as style rules to the target element 
+                 * @param {HTMLElement} src 
+                 * @param {HTMLElement} target 
+                 */
+                const applyDimensions = (src, target) => {
+
+                    target.style.setProperty('--initial-width', `${target.getBoundingClientRect().width}px`)
+                    target.style.setProperty('--final-width', `${src.getBoundingClientRect().width}px`)
+
+                    target.style.setProperty('--initial-height', `${target.getBoundingClientRect().height}px`)
+                    target.style.setProperty('--final-height', `${src.getBoundingClientRect().height}px`)
+
+                }
+
+                /**
+                 * This function does certain repeated actions, which are needed
+                 * both when sliding forward, or sliding backward
+                 * @param {string} className The name of the class to append to the html, for
+                 * triggering the animation
+                 * @returns {Promise<void>}
+                 */
+                let slideCommon = (className) => {
+
+                    // Creates smoothness by switching between two animations that do the exact same thing. This is because CSS cannot restart animations
+                    this.html.classList.toggle('animation-parity');
+
+                    // Set the class that triggers the animation
+                    this.html.classList.add(className)
+
+                    return wait_animation_end(primaryContent).finally(() => {
+
+                        //Stop the conditions that show that the animation is sliding
+                        this.html.classList.remove(className)
+
+                        // Every type of slide needs that UI be updated at least, like this
+                        primaryContent.children[0]?.remove();
+                        nwScreen.remove();
+                        primaryContent.appendChild(nwScreen);
+
+
+                        // And let the world know
+                        animationDoneFunction();
                     })
                 }
 
@@ -147,74 +251,25 @@ export class SlideContainer extends Widget {
                     secondaryContent.children[0]?.remove();
                     secondaryContent.appendChild(nwScreen);
 
-                    await new Promise(x => {
-                        const interval = setInterval(() => {
-                            if (nwScreen.isConnected) {
-                                setTimeout(x, 50)
-                                clearInterval(interval)
-                            }
-                        })
-                    });
+                    await nwScreenConnectedPromise;
 
-                    primaryContent.style.setProperty('--initial-width', `${primaryContent.getBoundingClientRect().width}px`)
-                    primaryContent.style.setProperty('--final-width', `${secondaryContent.children[0].getBoundingClientRect().width}px`)
+                    applyDimensions(secondaryContent.children[0], primaryContent)
 
-                    primaryContent.style.setProperty('--initial-height', `${primaryContent.getBoundingClientRect().height}px`)
-                    primaryContent.style.setProperty('--final-height', `${secondaryContent.children[0].getBoundingClientRect().height}px`)
-
-                    // await new Promise(x=>setTimeout(x, 300_000));
-                    this.html.classList.toggle('animation-parity');
-                    this.html.classList.add('is-sliding-to-secondary')
-
-                    wait_animation_end(this.html.$('.container >.primary-content')).then(() => {
-                        setTimeout(() => {
-
-                            oldScreen?.remove()
-                            nwScreen.remove();
-                            primaryContent.appendChild(nwScreen);
-                            this.html.classList.remove('is-sliding-to-secondary')
-                            animationDoneFunction();
-                        }, 200)
-                    }, { once: true })
+                    await slideCommon('is-sliding-to-secondary').then(() => {
+                        oldScreen?.remove()
+                    }).catch(e => console.error(e))
                 }
 
                 let slideBackwards = async () => {
                     let preContent = this.html.$('.pre-content')
                     preContent.appendChild(nwScreen);
 
+                    await nwScreenConnectedPromise
 
-                    await new Promise(x => {
-                        const interval = setInterval(() => {
-                            if (nwScreen.isConnected) {
-                                setTimeout(x, 50)
-                                clearInterval(interval)
-                            }
-                        })
-                    });
+                    applyDimensions(nwScreen, primaryContent)
 
-                    primaryContent.style.setProperty('--initial-width', `${primaryContent.getBoundingClientRect().width}px`)
-                    primaryContent.style.setProperty('--final-width', `${nwScreen.getBoundingClientRect().width}px`)
-
-                    primaryContent.style.setProperty('--initial-height', `${primaryContent.getBoundingClientRect().height}px`)
-                    primaryContent.style.setProperty('--final-height', `${nwScreen.getBoundingClientRect().height}px`)
-
-                    // Creates smoothness by switching between two animations that do the exact same thing. This is because CSS cannot restart animations
-                    this.html.classList.toggle('animation-parity')
                     //Simply tells CSS we'll be using the backwards sliding animation
-                    this.html.classList.add('is-sliding-to-pre')
-
-                    //And when we are done...
-                    wait_animation_end(this.html.$('.container >.primary-content')).then(() => {
-                        setTimeout(() => {
-                            //Stop the conditions that show that the animation is sliding
-                            this.html.classList.remove('is-sliding-to-pre')
-                            //And then update the view
-                            primaryContent.children[0].remove();
-                            nwScreen.remove();
-                            primaryContent.appendChild(nwScreen);
-                            animationDoneFunction();
-                        }, 200)
-                    }, { once: true })
+                    await slideCommon('is-sliding-to-pre')
 
                 }
 
@@ -222,10 +277,16 @@ export class SlideContainer extends Widget {
                     return console.log(`The number is out of range. Wanting to navigate to ${index} when we have ${this.screens.length} items`)
                 }
 
-                if (index > oldIndex) {
+
+
+                const ahead = (index > oldIndex) || ((index == oldIndex) && (typeof primaryContent.children[0] !== 'undefined') && (primaryContent.children[0] != this.screens[index]));
+
+                if (ahead) {
                     if (!this.settings.movement.canGoForward) {
                         return console.log(`Can't go forward!`);
                     }
+
+                    this[indexSymbol] = index;
                     await slideForward()
                     await animationEndPromise;
                 }
@@ -234,11 +295,12 @@ export class SlideContainer extends Widget {
                     if (!this.settings.movement.canGoBack) {
                         return;
                     }
+                    this[indexSymbol] = index;
                     await slideBackwards()
                     await animationEndPromise;
                 }
 
-                if (index === oldIndex) {
+                if (!ahead && (index === oldIndex)) {
                     primaryContent.children[0]?.remove()
                     if (this.screens[index]) {
                         if (this.screens[index] instanceof HTMLElement) {
@@ -258,7 +320,7 @@ export class SlideContainer extends Widget {
                 this[indexSymbol] = index;
 
                 this.dispatchEvent(new CustomEvent('indexChange'))
-                /** @type {function (('indexChange'), function(CustomEvent) AddEventListenerOptions)} */ this.addEventListener
+                /** @type {function (('indexChange'), function(CustomEvent), AddEventListenerOptions)} */ this.addEventListener
 
 
             })()

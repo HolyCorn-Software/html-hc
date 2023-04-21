@@ -15,6 +15,7 @@
     max-height: var(--search-input-max-height);
     gap: 0.5em;
     transition:0.25s 0.125s;
+    padding-top:0.75em;
 }
 
 .hc-search-input:not(.details-showing) >.container >.details-section{

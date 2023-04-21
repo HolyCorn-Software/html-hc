@@ -61,7 +61,7 @@ export class MultiFlexFormField extends MultiFlexFormItem {
      * Now if the user selects Bitcoin, the value you'll get is the value as 'btc'
      * 
      * @param {string} params.label
-     * @param {[{string:string}]} params.values
+     * @param {{string:string}[]} params.values
      * 
      */
     setType(type, params) {

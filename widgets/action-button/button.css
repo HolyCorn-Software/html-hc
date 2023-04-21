@@ -5,54 +5,61 @@ This button is a standard button with responsive features such as loaders and an
 The hover animation of the button can be set or removed when the 'hoverAnimate' class is set
 */
 
-.hc-action-button{
-    position:relative;
-    display:inline-flex;
+.hc-action-button {
+    position: relative;
+    display: inline-flex;
 }
 
-.hc-action-button >.container {
-    border-radius:5px;
-    display:inline-grid;
-    place-items:center;
-    padding:0.5em;
-    padding-right:0.6em;
-    min-width:6.5em;
-    cursor:pointer;
-    font-family:roboto;
-    background-color:#2965DA;
-    transition:0.125s 0.125s;
-    flex-grow:1;
-    color:white;
-    position:relative;
-}
-
-.hc-action-button >.container >.overlay{
-    left:0px;
-    margin-top:0px;
-    width:100%;
-    position:absolute;
-}
-
-.hc-action-button .hc-infinite-spinner{
-    --hc-spinner-color:orange;
-    font-size:0.35em;
-}
-
-.hc-action-button.hoverAnimate >.container >.content{
+.hc-action-button>.container {
+    border-radius: 5px;
+    display: inline-grid;
+    place-items: center;
+    padding: 0.5em;
+    padding-right: 0.6em;
+    min-width: 6.5em;
+    cursor: pointer;
+    font-family: roboto;
+    background-color: #2965DA;
+    transition: 0.125s 0.125s;
+    flex-grow: 1;
+    color: white;
     position: relative;
 }
 
-.hc-action-button.hoverAnimate >.container >.content::after{
-    content:'';
-    top:100%;
-    left:0px;
-    position:absolute;
-    height:0.0625em;
-    width:0%;
-    border-radius:0.5em;
-    background-color:orange;
-    transition:0.25s 0.125s;
+.hc-action-button>.container>.overlay {
+    left: 0px;
+    margin-top: 0px;
+    width: 100%;
+    position: absolute;
 }
-.hc-action-button.hoverAnimate:hover >.container >.content:after{
-    width:100%;
+
+.hc-action-button .hc-infinite-spinner {
+    --hc-spinner-color: orange;
+    font-size: 0.35em;
+}
+
+.hc-action-button.hoverAnimate>.container>.content {
+    position: relative;
+}
+
+.hc-action-button.hoverAnimate>.container>.content::after {
+    content: '';
+    top: 100%;
+    left: 0px;
+    position: absolute;
+    height: 0.0625em;
+    width: 0%;
+    border-radius: 0.5em;
+    background-color: orange;
+    transition: 0.25s 0.125s;
+}
+
+.hc-action-button.hoverAnimate:hover>.container>.content:after {
+    width: 100%;
+}
+
+.hc-action-button-content {
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
 }

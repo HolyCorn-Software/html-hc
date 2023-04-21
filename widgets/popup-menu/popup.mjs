@@ -9,7 +9,7 @@ import { hc, Widget } from "../../lib/widget/index.mjs";
 
 hc.importModuleCSS(import.meta.url);
 
-export class PopupMenu extends Widget {
+export default class PopupMenu extends Widget {
 
     /**
      * All parameters are optional
@@ -116,11 +116,17 @@ export class PopupMenu extends Widget {
                 this.html.remove();
                 this.html.classList.add('hidden');
                 this.html.classList.remove('closing')
-                this.dispatchEvent(new CustomEvent( 'hide'))
+                this.dispatchEvent(new CustomEvent('hide'))
                 done();
 
             }, { once: true });
         })
     }
 
+}
+
+
+export {
+    /** @deprecated Use the default import instead */
+    PopupMenu
 }

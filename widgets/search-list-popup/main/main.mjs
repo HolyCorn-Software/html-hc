@@ -3,6 +3,7 @@
  * This widget is the main part of the search-list-popup widget
  */
 
+import DelayedAction from "../../../lib/util/delayed-action/action.mjs";
 import { hc } from "../../../lib/widget/index.mjs";
 import ActionButton from "../../action-button/button.mjs";
 import { PopupMenu } from "../../popup-menu/popup.mjs";
@@ -193,11 +194,8 @@ export default class SearchListPopupMain extends PopupMenu {
     static get classList() {
         return ['hc-search-list-popup-main']
     }
-    [dispatchChange]() {
-        clearTimeout(this[dispatchTimeout])
-        this[dispatchTimeout] = setTimeout(() => {
-            this.dispatchEvent(new CustomEvent('change'))
-        }, 100)
-    }
+    [dispatchChange] = new DelayedAction(() => {
+        this.dispatchEvent(new CustomEvent('change'))
+    }, 150)
 
 }

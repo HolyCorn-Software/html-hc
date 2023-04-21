@@ -17,8 +17,8 @@ export default class LabelList extends Widget {
      * The 'value' property defines the items that are currently visible, the ones selected
      * The 'items_store' property defines all the elements that can exist.
      * @param {object} param0 
-     * @param {[import("./types.js").LabelListItemData]} param0.value
-     * @param {[import("./types.js").LabelListItemData]} param0.items_store
+     * @param {import("./types.js").LabelListItemData[]} param0.value
+     * @param {import("./types.js").LabelListItemData[]} param0.items_store
      * @param {boolean} param0.readonly
      */
     constructor({ value, items_store, readonly } = {}) {
@@ -42,7 +42,7 @@ export default class LabelList extends Widget {
             `
         });
 
-        /** @type {[import("./types.js").LabelListActionData]} */ this.actions
+        /** @type {import("./types.js").LabelListActionData[]} */ this.actions
         this.pluralWidgetProperty(
             {
                 selector: '.action',
@@ -73,7 +73,7 @@ export default class LabelList extends Widget {
         );
 
 
-        /** @type {[import("./types.js").LabelListItemData]} The list of items that have been selected by the user */ this.items
+        /** @type {import("./types.js").LabelListItemData[]} The list of items that have been selected by the user */ this.items
         this.pluralWidgetProperty(
             {
                 selector: '.hc-label-list-item',
@@ -120,7 +120,7 @@ export default class LabelList extends Widget {
 
         this.items = [];
 
-        /** @type {[import("./types.js").LabelListItemData]} This contains all the possibilities of what can be added to the list */
+        /** @type {import("./types.js").LabelListItemData[]} This contains all the possibilities of what can be added to the list */
         this.items_store = []
 
         this.actions = [
@@ -156,7 +156,7 @@ export default class LabelList extends Widget {
     }
 
     /**
-     * @param {[import("./types.js").LabelListItemData]}
+     * @param {import("./types.js").LabelListItemData[]}
      */
     set value(value) {
         this.items = value

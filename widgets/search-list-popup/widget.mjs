@@ -4,6 +4,7 @@
  * one or more options, from an "infinite" searchable list of options
  */
 
+import DelayedAction from "../../lib/util/delayed-action/action.mjs";
 import { hc, Widget } from "../../lib/widget/index.mjs";
 import SearchListPopupMain from "./main/main.mjs";
 
@@ -98,15 +99,14 @@ export default class SearchListPopup extends Widget {
 
         /** @type {function(('change'), function(CustomEvent), AddEventListenerOptions)} */ this.addEventListener
 
-        let changeTimeout;
-        this[main].addEventListener('change', () => {
-            clearTimeout(changeTimeout);
-            changeTimeout = setTimeout(() => {
+        this[main].addEventListener('change',
+            new DelayedAction(() => {
                 this[icons] = this[main].selected.map(x => x.image)
                 this.html.classList.toggle('empty', this[icons].length === 0)
                 this.dispatchEvent(new CustomEvent('change'))
-            }, 1000)
-        })
+            }, 1500)
+        )
+
 
         this.html.classList.add('empty')
 
@@ -122,24 +122,25 @@ export default class SearchListPopup extends Widget {
      * @param {T[]} value
      */
     set value(value) {
-        clearTimeout(this[valueSetTimeout])
 
-        this[valueSetTimeout] = setTimeout(() => {
-            this.loadWhilePromise((async () => {
-                if (typeof value.map !== 'function') {
-                    console.trace(`value is `, value)
-                }
-                const results = await Promise.allSettled(
-                    value.map(x => this.transformValue(x))
-                );
-                this[main].selected = results.filter(x => x.status === 'fulfilled').map(x => x.value)
-                const failed = results.filter(x => x.status === 'rejected')
-                if (failed.length > 0) {
-                    throw new Error(`Some values have been removed from your screen, because they could not be transformed to human readable form.\n${failed.map(x => x.reason).join("\n\n")}`)
-                }
-            })())
-        }, 500)
+        (this[fxnSetValue] ||= new DelayedAction(
+            (value) => {
+                this.loadWhilePromise((async () => {
+                    const results = await Promise.allSettled(
+                        value.map(x => this.transformValue(x))
+                    );
+                    this[main].selected = results.filter(x => x.status === 'fulfilled').map(x => x.value)
+                    const failed = results.filter(x => x.status === 'rejected')
+                    if (failed.length > 0) {
+                        throw new Error(`Some values have been removed from your screen, because they could not be transformed to human readable form.\n${failed.map(x => x.reason).join("\n\n")}`)
+                    }
+                })())
+            }, 150
+        ))(value)
+
     }
+
+
 
     static get classList() {
         return ['hc-search-list-popup']
@@ -147,4 +148,4 @@ export default class SearchListPopup extends Widget {
 
 }
 
-const valueSetTimeout = Symbol()
+const fxnSetValue = Symbol()

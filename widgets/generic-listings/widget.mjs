@@ -14,8 +14,16 @@ import ListingsMainWidget from "./widgets/listings/widget.mjs";
 
 
 
+/**
+ * @template DataType
+ */
 export default class GenericListings extends Widget {
 
+    /**
+     * 
+     * @param {object} param0 
+     * @param {string} param0.title
+     */
     constructor({ title } = {}) {
         super();
 
@@ -36,7 +44,7 @@ export default class GenericListings extends Widget {
             `
         });
 
-        /** @type {[import("../../lib/widget/widget.mjs").ExtendedHTML]} */ this.headerCustom
+        /** @type {import("../../lib/widget/widget.mjs").ExtendedHTML[]} */ this.headerCustom
         this.pluralWidgetProperty(
             {
                 selector: '*',
@@ -49,7 +57,7 @@ export default class GenericListings extends Widget {
         /** @type {string} */ this.title
         this.htmlProperty('.top-section >.title', 'title', 'innerHTML')
 
-        /** @type {ListingsMainWidget} */ this.listings
+        /** @type {ListingsMainWidget<DataType>} */ this.listings
         this.widgetProperty({
             selector: '.hc-generic-listings-main',
             parentSelector: '.container >.listings',
@@ -58,7 +66,7 @@ export default class GenericListings extends Widget {
             transforms: {
                 /**
                  * 
-                 * @param {ListingsMainWidget} widget 
+                 * @param {ListingsMainWidget<DataType>} widget 
                  * @returns 
                  */
                 set: (widget) => {
@@ -71,7 +79,7 @@ export default class GenericListings extends Widget {
         this.listings = new ListingsMainWidget()
 
 
-        /** @type {import("./types.js").ListingsStatedata} */ this.statedata
+        /** @type {import("./types.js").ListingsStatedata<DataType>} */ this.statedata
         Reflect.defineProperty(this, 'statedata', {
             get: () => this.listings.statedata,
             set: (d) => this.listings.statedata = d,

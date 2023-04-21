@@ -24,6 +24,9 @@ const state_load_promise = new Promise((resolve, reject) => {
 
 
 
+/**
+ * @extends Widget<ActionButton>
+ */
 export default class ActionButton extends Widget {
 
     /**
@@ -104,8 +107,9 @@ export default class ActionButton extends Widget {
         content =
             content instanceof HTMLElement ? content
                 : typeof content == 'string' ?
-                    document.spawn({
-                        innerHTML: content
+                    hc.spawn({
+                        innerHTML: content,
+                        classes: ['hc-action-button-content']
                     })
                     : content.html instanceof HTMLElement ?
                         content.html : undefined;

@@ -15,7 +15,7 @@ export default class LabelListNewItemPopup extends HCTSBrandedPopup {
     /**
      * 
      * @param {object} data 
-     * @param {[import("./types.js").LabelListItemData]} data.items
+     * @param {import("./types.js").LabelListItemData[]} data.items
      */
     constructor(data) {
         super();

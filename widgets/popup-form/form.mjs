@@ -24,11 +24,14 @@ import ActionButton from '../action-button/button.mjs';
 
 hc.importModuleCSS(import.meta.url);
 
+/**
+ * @template ValueType
+ */
 export default class PopupForm extends HCTSBrandedPopup {
 
     /**
      * @param {object} param0
-     * @param {import('../multi-flex-form/types.js').MultiFlexFormDefinitionData} param0.form
+     * @param {htmlhc.widget.popupform.CreateForm<ValueType>} param0.form
      * @param {string} param0.title
      * @param {string} param0.caption
      * @param {string} param0.positive 
@@ -146,10 +149,16 @@ export default class PopupForm extends HCTSBrandedPopup {
         return this.formWidget.quickStructure
     }
 
+    /**
+     * @returns {ValueType}
+     */
     get value() {
         return this.formWidget.value;
     }
 
+    /**
+     * @param {ValueType} value
+     */
     set value(value) {
         this.formWidget.values = value;
     }

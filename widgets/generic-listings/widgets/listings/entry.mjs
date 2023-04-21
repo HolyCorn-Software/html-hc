@@ -9,10 +9,13 @@ import ListingsMainWidget from "./widget.mjs";
 import { hc, Widget } from "../../../../lib/widget/index.mjs";
 import { Checkbox } from "../../../checkbox/checkbox.mjs";
 
+/**
+ * @template DataType
+ */
 export default class ListingsEntry extends Widget {
 
     /**
-     * @param {import("../../types.js").ContentMiddleWareReturn} data
+     * @param {import("../../types.js").ContentMiddleWareReturn<DataType>} data
      * @param {ListingsMainWidget} parent
      */
     constructor(data, parent) {
@@ -29,7 +32,7 @@ export default class ListingsEntry extends Widget {
         const dataSymbol = Symbol()
 
 
-        /** @type {[import("../../types.js").ListingsFieldData]} */ this.columns
+        /** @type {import("../../types.js").ListingsFieldData<DataType>[]} */ this.columns
         this.pluralWidgetProperty(
             {
                 selector: 'td.field',
@@ -38,7 +41,7 @@ export default class ListingsEntry extends Widget {
                 transforms: {
                     /**
                      * 
-                     * @param {import("../../types.js").ListingsFieldData} field 
+                     * @param {import("../../types.js").ListingsFieldData<DataType>} field 
                      */
                     set: (field) => {
                         const html = hc.spawn({
@@ -63,7 +66,7 @@ export default class ListingsEntry extends Widget {
                     /**
                      * 
                      * @param {HTMLElement} td_html 
-                     * @returns {import("../../types.js").ListingsFieldData}
+                     * @returns {import("../../types.js").ListingsFieldData<DataType>}
                      */
                     get: (td_html) => {
                         return td_html?.[dataSymbol]

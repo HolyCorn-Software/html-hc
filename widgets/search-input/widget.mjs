@@ -310,7 +310,7 @@ export class SearchInput extends Widget {
 
     /**
      * This takes in a set of items and draws it on the details section
-     * @param {[object]} items 
+     * @param {object[]} items 
      */
     async drawItems(items) {
 

@@ -17,7 +17,7 @@ export default class FileExplorerItem extends Widget {
     /**
      * 
      * @param {import("../types.js").DirectoryData} data 
-     * @param {[import("../types.js").FileExplorerAction]} actions
+     * @param {import("../types.js").FileExplorerAction[]} actions
      */
     constructor(data, actions) {
         super();
@@ -61,7 +61,7 @@ export default class FileExplorerItem extends Widget {
                 enumerable: true
             });
 
-        /** @type {[import("../types.js").FileExplorerAction]} **/ this.actions
+        /** @type {import("../types.js").FileExplorerAction[]} **/ this.actions
             this.pluralWidgetProperty({
                 selector: '.action',
                 property: 'actions',

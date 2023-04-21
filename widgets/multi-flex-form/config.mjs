@@ -41,7 +41,7 @@ export class MultiFlexFormConfiguration {
 
         /**
          * Used internally.
-         * @type {[{parent:MultiFlexFormItem, child:MultiFlexFormItem}]}
+         * @type {{parent:MultiFlexFormItem, child:MultiFlexFormItem}[]}
          */
         this.links = []
     }
@@ -151,7 +151,6 @@ export class MultiFlexFormConfiguration {
         let start = Date.now()
         flexForm.__customization_promise__ = applyLevel(flexForm);
         await flexForm.__customization_promise__;
-        console.log(`Done with Config application. It took ${Date.now() - start}ms`)
 
     }
 

@@ -7,44 +7,70 @@
 import { Collection, MatchKeysAndValues } from "mongodb"
 
 
-export interface AlarmArray<Type> extends Array<Type> {
-    $0: AlarmMainInterface,
-    $0data: Array<Type>
-}
+export type AlarmArray<Type> = htmlhc.lib.alarm.AlarmArray<Type>
 
-export type AlarmObject<Type> = Type & {
-    $0: AlarmMainInterface<Type>,
-    $0data: Type
-}
-type AlarmObjectType<T> = AlarmObject<T>
+/**
+ * @deprecated use htmlhc.lib.alarm.AlarmObject or just use the regular AlarmObject
+ */
+export type AlarmObject<Type> = htmlhc.lib.alarm.AlarmObject<T>
 
 
-export interface AlarmMainInterface<Type> {
-
-    /**
-     * This method is used to listen for subsequent events triggered when data is written to the object.
-     * 
-     * If ``` immediate ``` is true, the callback will be called immediately, before starting to listen for new events
-     */
-    addEventListener: AlarmsEventFunction<Type>,
-    removeEventListener: (event: EventNames<Type>, callback: function) => void
-    waitTillAvailable: (field) => Promise<void>
+global {
+    declare namespace htmlhc.lib.alarm {
 
 
-}
+        declare type AlarmObject<T = {}> = T & AlarmInterface<T>
 
-type Values<T> = T[keyof T]
-type UnusableTypes = any[] | number | boolean | undefined | symbol
+        type AlarmArray<T = {}> = Array<T> & AlarmInterface<T>
 
-type DoPrefix<T, Prefix = false> = T extends string ? (Prefix extends string ? `${Prefix}.${T}` : T) : never
+        declare var AlarmObjectClass: {
+            new <T>(): AlarmObjectMixin<T>
+        }
 
-type RecurEventNames<T, Prefix = false> = T extends UnusableTypes ? never : T extends string ? `${DoPrefix<T, Prefix>}-change` : keyof
-    {
-        [K in keyof T as DoPrefix<RecurEventNames<K> | (T[K] extends object ? `${RecurEventNames<T[K], K>}` : never), Prefix>]: true
+        interface AlarmObjectMixin<T> extends AlarmInterface<T> { }
+
+        type AlarmInterface<T> = {
+            $0data: T
+            $0: AlarmMainInterface<T>
+        }
+
+
+        interface AlarmMainInterface<Type> {
+
+            /**
+             * This method is used to listen for subsequent events triggered when data is written to the object.
+             * 
+             * If ``` immediate ``` is true, the callback will be called immediately, before starting to listen for new events
+             */
+            addEventListener: AlarmsEventFunction<Type>,
+            removeEventListener: (event: EventNames<Type>, callback: function) => void
+            waitTillAvailable: (field) => Promise<void>
+
+
+        }
+
+
+
+        type Values<T> = T[keyof T]
+        type UnusableTypes = any[] | number | boolean | undefined | symbol
+
+        type DoPrefix<T, Prefix = false> = T extends string ? (Prefix extends string ? `${Prefix}.${T}` : T) : never
+
+        type RecurDotNames<T, Prefix = false> = T extends UnusableTypes ? never : T extends string ? `${DoPrefix<T, Prefix>}` : keyof
+            {
+                [K in keyof T as DoPrefix<RecurDotNames<K> | (T[K] extends any[] ? `${K}-$array-items` : T[K] extends object ? `${RecurDotNames<T[K], K>}` : never), Prefix>]: true
+            }
+
+
+
+        type EventNames<T> = `change` | `${RecurDotNames<T>}-change`
+
+
+        export type AlarmsEventFunction<Type> = (event: (EventNames<Type>), callback: (event: CustomEvent<{ field: string, value: string }>) => void, options: AddEventListenerOptions, immediate: boolean) => void
+
+
+
     }
+}
 
 
-type EventNames<T> = `change` | RecurEventNames<T>
-
-
-export type AlarmsEventFunction<Type> = (event: (EventNames<Type>), callback: (event: CustomEvent<{ field: string, value: string }>) => void, options: AddEventListenerOptions, immediate) => void

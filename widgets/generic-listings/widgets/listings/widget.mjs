@@ -5,6 +5,8 @@
  * 
  * This widget is the main widget of it's parent (roles-data-manager). 
  * It contains a list of all role entries
+ * 
+ * Updated 2023 to improve typing
  */
 
 import AlarmObject from "../../../../lib/alarm/alarm.mjs";
@@ -14,6 +16,9 @@ import ListingsEntry from "./entry.mjs";
 
 
 
+/**
+ * @template DataType
+ */
 export default class ListingsMainWidget extends Widget {
 
 
@@ -39,13 +44,13 @@ export default class ListingsMainWidget extends Widget {
         });
 
 
-        /** @type {function(('selectionchange'), function( CustomEvent<>), AddEventListenerOptions)} */ this.addEventListener
+        /** @type {function(('selectionchange'), function( CustomEvent), AddEventListenerOptions)} */ this.addEventListener
 
-        /** @type {import("../../types.js").ListingsStatedata} */ this.statedata
+        /** @type {import("../../types.js").ListingsStatedata<DataType>} */ this.statedata
         this.statedata = new AlarmObject()
 
 
-        /** @type {[import("../../types.js").ListingsItemData]} */ this.itemsData
+        /** @type {import("../../types.js").ListingsItemData<DataType>[]} */ this.itemsData
 
         this.pluralWidgetProperty({
             selector: '.hc-generic-listings-item',
@@ -84,7 +89,7 @@ export default class ListingsMainWidget extends Widget {
 
                     return widget.html
                 },
-                /** @returns {import('../../types.js').ListingsItemData} */
+                /** @returns {import('../../types.js').ListingsItemData<DataType>} */
                 get: (html) => {
                     /** @type {ListingsEntry} */
                     const widget = html?.widgetObject
@@ -104,7 +109,7 @@ export default class ListingsMainWidget extends Widget {
         })
 
 
-        /** @type {ListingsEntry[]} */ this.itemWidgets
+        /** @type {ListingsEntry<DataType>[]} */ this.itemWidgets
         this.pluralWidgetProperty({
             selector: '.hc-generic-listings-item',
             parentSelector: '.container >tbody',
@@ -113,7 +118,7 @@ export default class ListingsMainWidget extends Widget {
             immediate: true,
         });
 
-        /** @type {ListingsEntry[]} */ this.checked_items
+        /** @type {ListingsEntry<DataType>[]} */ this.checked_items
         Reflect.defineProperty(this, 'checked_items', {
             get: () => this.itemWidgets.filter(x => x.checkbox.checked),
             /** @param {string[]} array */
@@ -172,7 +177,7 @@ export default class ListingsMainWidget extends Widget {
         this.mainCheckbox = new Checkbox()
 
 
-        /** @type {[import("../../types.js").HeaderItemData]} */ this.__headers
+        /** @type {import("../../types.js").HeaderItemData[]} */ this.__headers
         this.pluralWidgetProperty({
             selector: '.header',
             parentSelector: '.headers ',

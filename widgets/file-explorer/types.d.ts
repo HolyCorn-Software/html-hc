@@ -6,7 +6,6 @@
  * 
  */
 
-import { AlarmObject } from "../../lib/alarm/alarm-types";
 import DirectoryWidget from "./item/widget.mjs";
 
 
@@ -23,7 +22,7 @@ export declare interface DirectoryData {
 }
 
 
-export type FileExplorerStateData = AlarmObject<{ items: DirectoryData[], current_path: string, loading_items: string[] }>
+export type FileExplorerStateData = htmlhc.lib.alarm.AlarmObject<{ items: DirectoryData[], current_path: string, loading_items: string[] }>
 
 
 export declare interface FileExplorerParams {

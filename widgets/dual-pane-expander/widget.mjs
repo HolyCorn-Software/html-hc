@@ -56,7 +56,7 @@ export default class DualPaneExpander extends Widget {
         this.screen = new Screen(this)
 
 
-        /** @type {[import('./types.js').ItemData]} */ this.items
+        /** @type {import('./types.js').ItemData[]} */ this.items
         this.pluralWidgetProperty({
             parentSelector: '.container >.main >.left >.options',
             selector: '*',
