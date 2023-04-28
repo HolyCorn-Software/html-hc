@@ -4,7 +4,8 @@
  * This module contains type definitions for the popup-form widget
  */
 
-import { MultiFlexFormFieldData } from "../multi-flex-form/types";
+import { Collection } from "mongodb"
+
 
 global {
     namespace htmlhc.widget.popupform {
@@ -13,7 +14,7 @@ global {
         type CreateForm<T> = Values<{
             [K in keyof T]:
             [
-                MultiFlexFormFieldData & { name: K }
+                htmlhc.widget.multiflexform.MultiFlexFormFieldData & { name: K }
             ]
         }>[]
 

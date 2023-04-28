@@ -170,7 +170,7 @@ export default class MultiFlexForm extends Widget {
      * This is used used to define the layout of the form by just passing an array (of arrays (of object that look like {name:string, label:string, type:string, values: string, value:number|string}) )
      * Refer to the docs for ```MultiFlexFormConfiguration.quickCreate```
      * @see {MultiFlexFormConfiguration.quickCreate}
-     * @param {import("./types.js").MultiFlexFormDefinitionData} structure
+     * @param {htmlhc.widget.multiflexform.MultiFlexFormDefinitionData} structure
      */
     set quickStructure(structure) {
         let caller = hc.getCaller(1);
@@ -179,12 +179,12 @@ export default class MultiFlexForm extends Widget {
 
     /**
      * Tells us the layout of the form, in terms of which field is positioned where
-     * @returns {import("./types.js").MultiFlexFormDefinitionData}
+     * @returns {htmlhc.widget.multiflexform.MultiFlexFormDefinitionData}
      */
     get quickStructure() {
 
         /**
-         * @typedef {import("./types.js").MultiFlexFormFieldData|Items[]} Items
+         * @typedef {htmlhc.widget.multiflexform.MultiFlexFormFieldData|Items[]} Items
          */
 
 
@@ -216,7 +216,7 @@ export default class MultiFlexForm extends Widget {
 
     /**
      * This method returns a an object structured like this ['label', 'answer'] e.g ['Names', 'Awosi Bicobert']
-     * @param {import("./types.js").MultiFlexFormDefinitionData} structure 
+     * @param {htmlhc.widget.multiflexform.MultiFlexFormDefinitionData} structure 
      * @param {object} answers 
      * @returns {[[string, string]]}
      */

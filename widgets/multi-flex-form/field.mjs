@@ -39,8 +39,8 @@ export class MultiFlexFormField extends MultiFlexFormItem {
     }
 
     /**
-     * @param {import("./types.js").InputTypes} type The new input type
-     * @param {import("./types.js").MultiFlexFormFieldData} params extra parameters that can be passed to control how the overall outcome will be
+     * @param {htmlhc.widget.multiflexform.InputTypes} type The new input type
+     * @param {htmlhc.widget.multiflexform.MultiFlexFormFieldData} params extra parameters that can be passed to control how the overall outcome will be
      * Possible values of the type attribute are
      * text, number, date, password, textarea, and choose
      * 
@@ -202,7 +202,7 @@ export class MultiFlexFormTextbox extends MultiFlexFormItem {
 
     /**
      * 
-     * @param {import("./types.js").InputTypes} type The input type
+     * @param {htmlhc.widget.multiflexform.InputTypes} type The input type
      * @param {object} params customization for the text box
      * @param {string} params.label The label for the text box
      * @param {string} params.name Optional (but very recommended) name of field

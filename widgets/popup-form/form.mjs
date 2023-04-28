@@ -137,13 +137,13 @@ export default class PopupForm extends HCTSBrandedPopup {
     }
 
     /**
-     * @type {import('../multi-flex-form/types.js').MultiFlexFormDefinitionData}
+     * @type {htmlhc.widget.multiflexform.MultiFlexFormDefinitionData}
      */
     set form(form) {
         MultiFlexFormConfiguration.quickCreate(form).apply(this.formWidget)
     }
     /**
-     * @returns {import('../multi-flex-form/types.js').MultiFlexFormDefinitionData}
+     * @returns {htmlhc.widget.multiflexform.MultiFlexFormDefinitionData}
      */
     get form() {
         return this.formWidget.quickStructure

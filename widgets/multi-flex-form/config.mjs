@@ -204,7 +204,7 @@ export class MultiFlexFormConfiguration {
      * 
      * 
      * 
-     * @param { import("./types.js").MultiFlexFormDefinitionData } data 
+     * @param { htmlhc.widget.multiflexform.MultiFlexFormDefinitionData } data 
      * @param {string} callerUrl
      * @returns {MultiFlexFormConfiguration}
      */
