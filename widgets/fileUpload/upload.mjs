@@ -132,7 +132,7 @@ export class UniqueFileUpload extends Widget {
         Reflect.defineProperty(this, 'empty', {
             get: () => this.fileInput.value === '',
             set: (v) => {
-                this.html.classList[v ? 'remove' : 'add']('hasFile')
+                this.html.classList.toggle('hasFile', !!v)
                 this.label = !v ? UniqueFileUpload.getShortName(this.fileInput.files?.[0]?.name || `...`, 20) : originalLabel;
                 if (!v) return
                 confirm.state = ''
