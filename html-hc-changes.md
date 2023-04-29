@@ -1,3 +1,3 @@
 .
 
-Improved typing for multi-flex-form
+Improved design of upload widget

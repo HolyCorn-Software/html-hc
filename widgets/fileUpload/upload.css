@@ -6,100 +6,96 @@ This widget allows users to upload files, especially images to the unique file u
 */
 
 
-.hc-uniqueFileUpload >.container{
-    display:flex;
-    gap:1.25em;
-    font-family:aaargh;
-    justify-content:space-between;
+.hc-uniqueFileUpload>.container {
+    display: flex;
+    font-family: aaargh;
+    justify-content: space-between;
 }
 
 /** The section where we have the label and the tiny image **/
-.hc-uniqueFileUpload >.container >.main{
-    display:flex;
-    gap:0.5em;
-    box-shadow:0px 0px 12px rgb(214, 214, 217);
-    border-radius:6px;
-    padding:0.25em;
-    padding-top:0.35em;
-    align-items:center;
-    cursor:pointer;
-    padding-left:0.5em;
-    padding-right:0.5em;
-    word-wrap:break-word;
-    position:relative;
-    flex-grow:1;
-    max-width:100%;
-    z-index:1;
+.hc-uniqueFileUpload>.container>.main {
+    display: flex;
+    gap: 0.5em;
+    box-shadow: 0px 0px 12px rgb(214, 214, 217);
+    border-radius: 6px;
+    padding: 0.25em;
+    padding-top: 0.35em;
+    align-items: center;
+    cursor: pointer;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    word-wrap: break-word;
+    position: relative;
+    flex-grow: 1;
+    max-width: 100%;
+    z-index: 1;
 }
 
-.hc-uniqueFileUpload >.container >.main >.label{
+.hc-uniqueFileUpload>.container>.main>.label {
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space:nowrap;
-    max-width:100%;
+    white-space: nowrap;
+    max-width: 100%;
 }
 
 
-.hc-uniqueFileUpload >.container >.main img{
-    height:1.5em;
+.hc-uniqueFileUpload>.container>.main img {
+    height: 1.5em;
 }
 
-.hc-uniqueFileUpload.image-is-set >.container >.main:before{
+.hc-uniqueFileUpload.image-is-set>.container>.main:before {
     content: '';
-    position:absolute;
-    width:100%;
-    aspect-ratio:16/9;
-    pointer-events:none;
-    top:-100%;
+    position: absolute;
+    width: 100%;
+    aspect-ratio: 16/9;
+    pointer-events: none;
+    top: -100%;
 
-    
-    
-    opacity:0;
-    transition:0.25s 0.125s;
-    box-shadow:0px 0px 6px 8px lightgrey;
-    border-radius:0.25em;
 
-    background-image:var(--hover-image);
-    background-position:center;
-    background-size:cover;
+
+    opacity: 0;
+    transition: 0.25s 0.125s;
+    box-shadow: 0px 0px 6px 8px lightgrey;
+    border-radius: 0.25em;
+
+    background-image: var(--hover-image);
+    background-position: center;
+    background-size: cover;
 }
 
-.hc-uniqueFileUpload.image-is-set >.container >.main:hover:before{
-    top:calc(-200% - 0.5em);
-    opacity:1;
-    pointer-events:all;
+.hc-uniqueFileUpload.image-is-set>.container>.main:hover:before {
+    top: calc(-200% - 0.5em);
+    opacity: 1;
+    pointer-events: all;
 }
 
-.hc-uniqueFileUpload >.container >.actions{
-    display:inline-grid;
-    grid-auto-flow:column;
-    place-items:center;
-    gap:0.75em;
-    font-size:0.75em;
-    opacity:0;
-    pointer-events:none;
-    max-width:0px;
-    transform: scale(0);
-    transition:0.75s 0.125s;
+.hc-uniqueFileUpload>.container>.actions {
+    display: inline-grid;
+    grid-auto-flow: column;
+    place-items: center;
+    gap: 0.75em;
+    opacity: 0;
+    pointer-events: none;
+    max-width: 0px;
+    transition: 0.75s 0.125s;
+    padding-left: 1.25em;
+    font-size: 0em;
 }
 
-.hc-uniqueFileUpload >.container >.actions .hc-action-button >.container{
-    min-width:4.5em;
+.hc-uniqueFileUpload>.container>.actions .hc-action-button>.container {
+    min-width: 4.5em;
+    border-radius: 1em;
 }
 
-.hc-uniqueFileUpload input{
-    display:none;
+.hc-uniqueFileUpload input {
+    display: none;
+    pointer-events: none;
 }
 
-.hc-uniqueFileUpload.hasFile >.container >.actions{
-    opacity:1;
-    pointer-events:all;
-    max-width:300px;
-    position:relative;
-    transform: scale(1);
-}
-
-
-.hc-multi-flex-form .hc-uniqueFileUpload{
-    padding-top:1.5em; /** An adjustment for the situations where the file upload is used within forms. Let's shift it downwards to match other inputs */
+.hc-uniqueFileUpload.hasFile>.container>.actions {
+    opacity: 1;
+    pointer-events: all;
+    max-width: 300px;
+    position: relative;
+    font-size: 0.75em;
 }
