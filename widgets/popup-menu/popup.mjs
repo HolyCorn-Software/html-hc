@@ -39,7 +39,7 @@ export default class PopupMenu extends Widget {
         /** @type {boolean} Should this popup hide if the user clicks outside ?*/ this.hideOnOutsideClick = true;
 
         //Establish the close action (clicking outside the box)
-        this.html.on('click', ({ target }) => {
+        this.html.addEventListener('click', ({ target }) => {
 
             if (!this.html.$('.container >.wrapper >.data').contains(target) && this.hideOnOutsideClick) { //If the click came from a source outside the content
                 this.hide();

@@ -100,7 +100,7 @@ export default class ActionButton extends Widget {
 
 
         Object.assign(this, arguments[0])
-        this.html.on('click', () => this.dispatchEvent(new CustomEvent(('click'))));
+        this.html.addEventListener('click', () => this.dispatchEvent(new CustomEvent(('click'))));
 
     }
     set content(content) {

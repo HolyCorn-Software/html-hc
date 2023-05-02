@@ -325,6 +325,12 @@ export class SlideContainer extends Widget {
 
             })()
 
+            try {
+                await this[pending_transition_symbol]
+            } catch (e) {
+                console.warn(`Error sliding to index ${index} `, e)
+            }
+
         })()
     }
 

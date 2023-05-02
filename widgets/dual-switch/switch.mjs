@@ -36,7 +36,7 @@ export class DualSwitch extends Widget {
             `
         })
 
-        this.html.on('click', () => {
+        this.html.addEventListener('click', () => {
             this.html.classList.toggle('positive')
             this.dispatchEvent(new CustomEvent('change'))
         })

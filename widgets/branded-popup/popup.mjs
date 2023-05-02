@@ -5,7 +5,7 @@ This widget allows **popup** menu's that are **branded**
 */
 
 import { HCTSBrandedMenu } from '../branded-menu/index.mjs'
-import { PopupMenu } from '../popup-menu/index.mjs'
+import PopupMenu from '../popup-menu/popup.mjs'
 import { hc } from '../../lib/widget/index.mjs'
 
 
@@ -52,8 +52,8 @@ export default class HCTSBrandedPopup extends PopupMenu {
         return this[menu_widget_symbol].content
     }
 
-    loadBlock(html){
-        return super.loadBlock(html|| this[menu_widget_symbol].html.$('.main-row >.content'))
+    loadBlock(html) {
+        return super.loadBlock(html || this[menu_widget_symbol].html.$('.main-row >.content'))
     }
 
 }

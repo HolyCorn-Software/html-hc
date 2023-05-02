@@ -23,7 +23,7 @@ export class Reveal extends Widget {
 				<div class='full'></div>
 		`})
 
-		this.html.$('.short').on('click', function () {
+		this.html.$('.short').addEventListener('click', function () {
 			this.active = !this.active;
 		}.bind(this))
 

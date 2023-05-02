@@ -113,7 +113,7 @@ export class MultiFlexFormItem extends Widget {
             clone.classList.add('shrink-clone') //CSS will take it from here with an animation to shrink the clone
 
             //Once CSS is done, we can now remove the clone
-            clone.on('animationend', () => {
+            clone.addEventListener('animationend', () => {
                 setTimeout(() => clone.remove(), 100); //Then remove the clone
                 done();
 

@@ -29,7 +29,7 @@ export class LocationButton extends Widget {
             `
         })
 
-        this.html.$('.container').on("click", () => {
+        this.html.$('.container').addEventListener("click", () => {
             this.getLocation();
         })
 

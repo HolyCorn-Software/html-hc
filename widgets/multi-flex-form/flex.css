@@ -8,7 +8,7 @@ A highly modular animated flexible form
     display: flex;
     flex-direction: column;
     padding-top: 0.75em;
-    max-width: calc(100% - 9.9px);
+    max-width: calc(100% - 2px);
     padding-bottom: 0.75em;
 }
 

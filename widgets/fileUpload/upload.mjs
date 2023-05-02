@@ -81,7 +81,7 @@ export class UniqueFileUpload extends Widget {
         this.html.$('.confirm').appendChild(confirm.html)
         this.html.$('.cancel').appendChild(cancel.html)
 
-        this.html.$('.main').on('click', () => {
+        this.html.$('.main').addEventListener('click', () => {
             this.html.$('input').click();
         });
 
@@ -132,8 +132,9 @@ export class UniqueFileUpload extends Widget {
         Reflect.defineProperty(this, 'empty', {
             get: () => this.fileInput.value === '',
             set: (v) => {
-                this.html.classList.toggle('hasFile', !!v)
-                this.label = !v ? UniqueFileUpload.getShortName(this.fileInput.files?.[0]?.name || `...`, 20) : originalLabel;
+                this.html.classList.toggle('hasFile', !v)
+                //The following calculations on the max number of characters in the name, is based on the width occupied by a single character (16), and the space already taken off the main widget
+                this.label = !v ? UniqueFileUpload.getShortName(this.fileInput.files?.[0]?.name || `...`, Math.floor((this.html.$('.container').getBoundingClientRect().width - 72) / 16)) : originalLabel;
                 if (!v) return
                 confirm.state = ''
                 this.fileInput.value = ''
@@ -141,7 +142,7 @@ export class UniqueFileUpload extends Widget {
         })
 
         //When the file input changes, we apply the change to the actual widget
-        this.fileInput.on('change', () => {
+        this.fileInput.addEventListener('change', () => {
             this.dispatchEvent(new CustomEvent('fileselected'))
         })
 

@@ -42,10 +42,10 @@ export class HoverLine extends Widget{
 
                 let link = new Hoverline();
                 link.content = 'Home'
-                link.html.on('click', ()=>window.location = '/');
+                link.html.addEventListener('click', ()=>window.location = '/');
                     OR LIKE THIS...
                 link = new Hoverline('About');
-                link.html.on('click', ()=>window.location = '/about.html')
+                link.html.addEventListener('click', ()=>window.location = '/about.html')
 
             NOTE
                 The content property can also take html elements

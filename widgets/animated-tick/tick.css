@@ -8,6 +8,9 @@ The animated tick widget
     display:inline-flex;
     position:relative;
 }
+.hc-animated-tick .stroke{
+    transition:0.65s 0.125s;
+}
 
 .hc-animated-tick.activated .stroke{
     stroke-dasharray:50;
@@ -18,5 +21,4 @@ The animated tick widget
 
 .hc-animated-tick.activated.animated .stroke{
     stroke-dashoffset:0;
-    transition:0.65s 0.125s;
 }

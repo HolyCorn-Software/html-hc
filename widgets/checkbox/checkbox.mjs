@@ -14,7 +14,7 @@ export class Checkbox extends Widget {
             innerHTML: "<div class='content'></div>"
         });
 
-        this.html.on("click", function () {
+        this.html.addEventListener("click", function () {
             this.checked = !this.checked
         }.bind(this))
 

@@ -81,7 +81,7 @@ export default class PopupForm extends HCTSBrandedPopup {
         /** @type {PopupFormEventHandler} */ this.addEventListener
         /** @type {typeof this.addEventListener} */ this.addEventListener
 
-        this.positiveButton.html.on('click', async () => {
+        this.positiveButton.html.addEventListener('click', async () => {
             this.dispatchEvent(new CustomEvent('complete'))
             if (this.execute) {
                 this.positiveButton.state = 'waiting'

@@ -32,7 +32,7 @@ export class HCTSLogo extends Widget{
         })
 
 
-        this.html.on('click', ()=>{
+        this.html.addEventListener('click', ()=>{
             if(this.returnHomeOnClick){
                 window.location = '/'
             }

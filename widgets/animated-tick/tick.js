@@ -14,7 +14,7 @@ export class AnimatedTick extends Widget {
      * @param {object} param0 
      * @param {AnimatedTick['activated']} param0.activated
      */
-    constructor({activated}={}) {
+    constructor({ activated } = {}) {
         super();
         super.html = document.spawn({
             class: AnimatedTick.classList,
@@ -25,7 +25,7 @@ export class AnimatedTick extends Widget {
             `
         });
 
-        
+
         Object.assign(this, arguments[0])
     }
     static get classList() {
@@ -44,13 +44,23 @@ export class AnimatedTick extends Widget {
             resolve();
         })
     }
+    /**
+     * This is a more controled way of setting the state of the widget
+     * @param {boolean} value
+     */
+    set value(value) {
+        this.html.classList.toggle('animated', !!value)
+    }
+    get value() {
+        return this.html.classList.contains('animated')
+    }
 
     /**
      * Changing this variable will make the widget either eligible or not eligible for the animation.
      * Once it is eligible for animation, the actual tick will disappear, so that it can actually get animated
      */
     set activated(state) {
-        this.html.classList[state ? 'add' : 'remove']('activated')
+        this.html.classList.toggle('activated', !!state)
         if (!state) {
             this.html.classList.remove('animated');
         }

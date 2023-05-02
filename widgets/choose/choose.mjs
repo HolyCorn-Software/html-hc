@@ -27,7 +27,7 @@ export class Choose extends Widget{
 
         this.htmlProperty('.container .label', 'label', 'innerHTML')
 
-        this.html.on('click', ()=>{
+        this.html.addEventListener('click', ()=>{
             this.searchPopupMenu.popup.show();
         })
         

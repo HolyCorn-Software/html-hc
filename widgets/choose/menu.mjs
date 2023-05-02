@@ -44,7 +44,7 @@ export class SearchableMenu extends Widget {
 
         //Implement the search filtering process
         let search_programmed; //For optimisation. This variable hold a timeout key to a search that has been scheduled a few millis ahead, so that other searches will be declined
-        this.html.$('.input').on(['keydown', 'change'], ({ target: input }) => {
+        this.html.$('.input').addEventListener(['keydown', 'change'], ({ target: input }) => {
             if (search_programmed) {
                 return; //Let's not exhaust the CPU with too many searches
             }
@@ -111,7 +111,7 @@ export class SearchableMenu extends Widget {
         item = item instanceof MenuItem ? item : new MenuItem(item);
         this.html.$('.data').appendChild(item.html);
 
-        item.html.on('click', () => {
+        item.html.addEventListener('click', () => {
             this.value = item.value;
         })
     }

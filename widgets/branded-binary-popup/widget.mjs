@@ -46,11 +46,11 @@ export default class BrandedBinaryPopup extends HCTSBrandedPopup {
             content: 'No'
         });
 
-        no.html.on('click', () => {
+        no.html.addEventListener('click', () => {
             this.hide();
         })
 
-        yes.html.on('click', () => {
+        yes.html.addEventListener('click', () => {
             this.#do_action(yes)
         })
 

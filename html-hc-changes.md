@@ -1,3 +1,9 @@
 .
 
-Added utility watch-to-css, which allows for smooth layouts, by providing the ability to monitor properties, and relay the information to other properties in CSS
+Corrected minor bug with uniqueFileUpload
+
+Improved layout of multi-flex-form
+
+Improved layout of fileUpload
+
+Changed instances of use of deprecated methods

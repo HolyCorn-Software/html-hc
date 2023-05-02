@@ -21,7 +21,7 @@ export default class ContinueButton extends Widget{
             `
         })
 
-        this.html.$('.content').on('click', ()=>this.dispatchEvent(new CustomEvent( 'click')))
+        this.html.$('.content').addEventListener('click', ()=>this.dispatchEvent(new CustomEvent( 'click')))
 
         Object.assign(this, arguments[0]);
         

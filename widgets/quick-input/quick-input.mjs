@@ -3,15 +3,15 @@ Copyright 2021 HolyCorn Software
 This module represents an input field that has a drop down with quick fill suggestions that have been programmatically set
 */
 
-import {hc, Widget} from '../../lib/widget/index.mjs';
+import { hc, Widget } from '../../lib/widget/index.mjs';
 hc.importModuleCSS(import.meta.url);
 
 export class QuickInput extends Widget {
 
-    constructor({label}={}) {
+    constructor({ label } = {}) {
         super();
 
-        this.html = document.spawn({
+        this.html = hc.spawn({
             class: 'hc-quick-input',
             innerHTML: `
                 <div class='content'>
@@ -27,7 +27,7 @@ export class QuickInput extends Widget {
             `
         })
 
-        this.html.$('.triangle').on('click', () => {
+        this.html.$('.triangle').addEventListener('click', () => {
             this.html.classList.toggle('active');
             this.listenClicks();
 
@@ -44,13 +44,13 @@ export class QuickInput extends Widget {
 
     }
 
-    listenClicks() { 
+    listenClicks() {
         //This method is internal, and it is not expected that you call upon it.
         //This function sets up a callback to handle clicks, so that the drop down may hide when it looses focus.
         if (this.watchingClicks) return;
         let drop = this.html.$('.drop-down');
 
-        document.body.on('click', e => {
+        document.body.addEventListener('click', e => {
             let rect = JSON.parse(JSON.stringify(drop.getBoundingClientRect())); //To obtain a rect object whose properties are modifiable
             rect.top = this.html.getBoundingClientRect().top - 25;
             rect.bottom += 25; // The extra 25 is allow that the user may click slightly away from the box and still be tolerated
@@ -67,24 +67,24 @@ export class QuickInput extends Widget {
             throw Error(`Sorry, Please pass an object of type ${Option.name}`)
         }
         this.html.$('.options').appendChild(option.html);
-        option.html.on('click', () => {
+        option.html.addEventListener('click', () => {
             this.value = option.value;
             this.html.classList.remove('active');
         })
     }
 
-    remove(option_or_option_value){
+    remove(option_or_option_value) {
         let value = option_or_option_value instanceof Option ? option_or_option_value.value : option_or_option_value
         this.html.$(`.options .hc-quick-input-option[value="${value}"]`).remove()
     }
-    empty(){
+    empty() {
         //remove all
-        for (var option of this.options){
+        for (var option of this.options) {
             option.html.remove()
         }
     }
-    get options(){
-        return [...this.html.$$('.options .hc-quick-input-option')].map(x=>x.object)
+    get options() {
+        return [...this.html.$$('.options .hc-quick-input-option')].map(x => x.object)
     }
 
     quickAdd(options) {
@@ -98,17 +98,17 @@ export class QuickInput extends Widget {
                    {value:'height', htmlContent:custom_widget.html} //Which means 'htmlContent' can replace the 'label' property to provide what is visible to the user
                ];
         */
-        for(var option of options){
+        for (var option of options) {
             this.add(new Option(option));
         }
-        
+
 
     }
 
 
     set value(value) {
         this.html.$('input').value = value;
-        this.dispatchEvent(new CustomEvent( 'change'));
+        this.dispatchEvent(new CustomEvent('change'));
     }
     get value() {
         return this.html.$('input').value;
@@ -143,7 +143,7 @@ export class QuickInput extends Widget {
                     {label:'Other coins', value:'alt'}
                 ])
 
-                quick.on('change', ()=>{
+                quick.addEventListener('change', ()=>{
                     confirm(\`Thank you for choosing\${quick.value} as your favourite coin\`)
                 })
 
@@ -159,8 +159,8 @@ export class Option extends Widget {
     constructor({ label, value, htmlContent }) {
 
         super();
-        
-        this.html = document.spawn({
+
+        this.html = hc.spawn({
             class: 'hc-quick-input-option',
             innerHTML: `
                 <div class='content'>
@@ -174,15 +174,15 @@ export class Option extends Widget {
         this.htmlProperty('.label', 'label', 'innerHTML')
         Object.assign(this, arguments[0]);
     }
-    
+
     set htmlContent(html) {
         this.html.$('.label').appendChild(html);
     }
-    set value(value){
+    set value(value) {
         this.html.setAttribute('value', value)
         this.html.$('.value').innerHTML = value
     }
-    get value(){
+    get value() {
         return this.html.getAttribute('value')
     }
 
