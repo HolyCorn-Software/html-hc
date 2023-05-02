@@ -140,7 +140,6 @@ export default class Spinner extends Widget{
         this.html.parentElement?.classList.remove('hc-infinite-spinner-blocker-attached')
         
         this.html.remove();
-        console.log(`The spinner html is `, this.html)
         this.html = this.html.$('.hc-infinite-spinner');
 
     }
