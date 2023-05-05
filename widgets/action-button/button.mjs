@@ -35,8 +35,9 @@ export default class ActionButton extends Widget {
      * @param {typeof this.content} param0.content
      * @param {typeof this.onclick} param0.onclick
      * @param {typeof this.state} param0.state
+     * @param {boolean} param0.hoverAnimate
      */
-    constructor({ content, onclick } = {}) {
+    constructor({ content, onclick, state, hoverAnimate } = {}) {
 
         super({ css: import.meta.url })
 
@@ -97,6 +98,8 @@ export default class ActionButton extends Widget {
 
         /** @type {function(('click'), function(CustomEvent), AddEventListenerOptions} */ this.addEventListener
 
+        /** @type {boolean} */ this.hoverAnimate
+        this.htmlProperty(undefined, 'hoverAnimate', 'class')
 
 
         Object.assign(this, arguments[0])

@@ -17,7 +17,7 @@ export class LocationButton extends Widget {
     constructor() {
         super();
 
-        this.html = document.spawn({
+        this.html = hc.spawn({
             class: 'hc-savemymomo-location-button',
             innerHTML: `
                 <div class='container'>
@@ -63,9 +63,9 @@ export class LocationButton extends Widget {
 
         setTimeout(() => {
             if (!this.value) {
-                let field = this.html.ancestor('.field'); //check hc/lib.js Queries elements up the chain
+                let field = this.html.closest('.field'); //check hc/lib.js Queries elements up the chain
                 if (field) {
-                    field.object.warn("Check the connection")
+                    field.widgetObject.warn("Check the connection")
                 }
             }
         }, 60 * 1000)
