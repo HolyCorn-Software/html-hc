@@ -1,11 +1,11 @@
 .
 
-Improved layout of backforth widget
+Made the waitTillDOMAttached() method more efficient
 
-Improved types for the pluralWidgetProperty
+Added a feature which widgets can take advantage. The class hc-widget-ready, is automatically added to the html of a widget the first time it is appended to the DOM.
 
-Removed deprecated features of html-hc
+Improved design of the back-forth widget
 
-Updated code, to remove use of deprecated features
+Improved usability of the action-button widget
 
-Improved usability (to the engineer), of the action-button widget
+Made slide-container widget more resource-efficient, by limiting the time it takes to wait for the slide process to complete.

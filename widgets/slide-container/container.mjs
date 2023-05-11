@@ -196,6 +196,8 @@ export class SlideContainer extends Widget {
                             clearInterval(interval);
                         }
                     }, 5);
+
+                    setTimeout(() => clearInterval(interval), 3000)
                 });
 
                 /**

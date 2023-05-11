@@ -20,10 +20,16 @@ The hover animation of the button can be set or removed when the 'hoverAnimate' 
     cursor: pointer;
     font-family: roboto;
     background-color: #2965DA;
-    transition: 0.125s 0.125s;
     flex-grow: 1;
     color: white;
     position: relative;
+    transition: 0s;
+    opacity: 0;
+}
+
+.hc-action-button.hc-widget-ready>.container {
+    transition: 0.125s 0.125s;
+    opacity: 1;
 }
 
 .hc-action-button>.container>.overlay {
