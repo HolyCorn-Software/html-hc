@@ -18,7 +18,7 @@ export class MultiFlexFormRow extends MultiFlexFormItem{
     }
 
     get elements(){
-        return this.html.$('.container').children.map(x=>x.object);
+        return this.html.$('.container').children.map(x=>x.widgetObject);
     }
     append(element){
         this.html.$('.container').appendChild(element.html)

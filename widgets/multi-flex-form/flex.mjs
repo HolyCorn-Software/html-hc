@@ -64,7 +64,7 @@ export default class MultiFlexForm extends Widget {
      * @returns {[MultiFlexFormRow|MultiFlexFormField]}
      */
     get items() {
-        return [...this.html.$('.container').children].map(x => x.object)
+        return [...this.html.$('.container').children].map(x => x.widgetObject)
     }
 
     hide_field(name) {
