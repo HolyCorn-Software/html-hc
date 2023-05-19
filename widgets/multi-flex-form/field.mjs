@@ -178,13 +178,13 @@ export class MultiFlexFormField extends MultiFlexFormItem {
 
     get name() {
 
-        return this.html.$('.container').children[0]?.object?.name
+        return this.html.$('.container').children[0]?.widgetObject?.name
     }
 
     set name(name) {
 
         try {
-            return this.html.$('.container').children[0].object.name = name;
+            return this.html.$('.container').children[0].widgetObject.name = name;
         } catch (e) {
             console.log(e)
         }
