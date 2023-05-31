@@ -244,7 +244,7 @@ export class UniqueFileUpload extends Widget {
         formData.append('file', file);
 
         /** @type {ActionButton} */
-        let button = this.html.$('.confirm').children[0].object
+        let button = this.html.$('.confirm').children[0].widgetObject
         button.state = 'waiting';
 
 
