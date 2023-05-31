@@ -8,53 +8,53 @@ import { hc, Widget } from "../../lib/widget/index.mjs";
 
 hc.importModuleCSS(import.meta.url);
 
-export default class Spinner extends Widget{
+export default class Spinner extends Widget {
 
     //The logic of this widget is multiple semi-circles that animate at different intervals
 
-    constructor(){
+    constructor() {
 
         super();
 
         super.html = document.spawn({
-            class:'hc-infinite-spinner paused',
-            innerHTML:`
+            class: 'hc-infinite-spinner paused',
+            innerHTML: `
                 <div class='container'>
                 </div>
             `
         })
 
-        for(var i=0; i<5; i++){
+        for (var i = 0; i < 5; i++) {
             this.html.$('.container').spawn({
-                class:'unit',
-                style:{'animation-delay':`${i*0.15}s`}
+                class: 'unit',
+                style: { 'animation-delay': `${i * 0.15}s` }
             })
         }
 
         Object.assign(this, arguments[0])
-        
+
     }
 
     /**
      * Call this method to make the spinner start spinning
      */
-    start(){
-        if(this.isAttached){
+    start() {
+        if (this.isAttached) {
             this.detach()
         }
-        
+
         //Wait for a random time
         //We do it like this so that each spinner through out the DOM will have some uniqueness
-        let {html} = this;
+        let { html } = this;
         html.classList.remove('paused');
-        html.style.setProperty('animation-delay',`${hc.random(0, 1)}s`)
+        html.style.setProperty('animation-delay', `${hc.random(0, 1)}s`)
     }
 
     /**
      * Call this method to make the spinner to stop the spinner from spinning
      */
-    stop(){
-        if(this.isAttached){
+    stop() {
+        if (this.isAttached) {
             this.detach();
         }
         this.html.classList.add('paused');
@@ -65,20 +65,20 @@ export default class Spinner extends Widget{
      * @returns {boolean}
      *
     */
-    get isAttached(){
+    get isAttached() {
         return this.html.$('.hc-infinite-spinner') ? true : false
     }
 
-    html_is_not_attached(){
+    html_is_not_attached() {
         //To make sure that the html of this widget is not attached to another element
         //This is useful with the detach() and attach() methods especially
-        if(this.isAttached){
+        if (this.isAttached) {
             throw new Error(`This widget is probably attached to another element`);
         }
         return
     }
-    
-    attach(element){
+
+    attach(element) {
         //Make sure spinner is already running before calling this method
         //Call Spinner.start() first
 
@@ -89,22 +89,25 @@ export default class Spinner extends Widget{
 
         //First we put the html (this.html) into an HTMLElement with class blocker, so that the blocker can cover the whole element to be blocked, while containing the orignal spinner html
         this.html = document.spawn({
-            class:'hc-infinite-spinner-blocker',
-            children:[this.html]
+            class: 'hc-infinite-spinner-blocker',
+            children: [this.html]
         })
+
+        const computedStyle = window.getComputedStyle(element)
 
 
         //Mimicing extra properties like border radius makes the blocker to fit even better
-        for(var attribute of ['border-radius']){
+        for (var attribute of ['border-radius']) {
             //The 'cs' attribute is defined in ../lib.js
-            this.html.style.setProperty(attribute, element.cs[attribute])
+            this.html.style.setProperty(attribute, computedStyle[attribute])
         }
 
         //In CSS children elements (like blocker html) are positioned relative to the next positioned element up the chain
         //So we position the element to be blocked (by setting position:relative) in order that our blocker html may also be positioned
-        if(element.cs['position']==='static'){ //'static' is the default value when an element is not positioned
+        if (computedStyle['position'] === 'static') { //'static' is the default value when an element is not positioned
             element.style.setProperty('position', 'relative');
         }
+        
 
 
         //So that the blocker scrolls with the element to be blocked
@@ -114,31 +117,31 @@ export default class Spinner extends Widget{
         element.classList.add('hc-infinite-spinner-blocker-attached')
 
     }
-    detach(){ //If you called, spinner.attach() recently to block an element, you can use this method to reverse the process
+    detach() { //If you called, spinner.attach() recently to block an element, you can use this method to reverse the process
         //Call spinner.stop() first, if need be
 
-        if(!this.isAttached){
+        if (!this.isAttached) {
             return //console.trace('Not attached in the first place'); //Cannot detach what is not attached
         }
 
         let attachment_error = false;
-        try{
+        try {
             this.html_is_not_attached();
             //If the method this.html_is_not_attached() is called successfully, then the widget is not attached
             //So if the widget is not attached to another element, what are we detaching ?
             attachment_error = true;
-        }catch(e){
+        } catch (e) {
             //Yes! the method is expected to throw an exception
             //Otherwise it is not attached
 
         }
 
-        if(attachment_error){
+        if (attachment_error) {
             throw new Error(`Cannot detach widget`)
         }
         //Remove the special CSS properties that used to apply to the containing element when it was blocked
         this.html.parentElement?.classList.remove('hc-infinite-spinner-blocker-attached')
-        
+
         this.html.remove();
         this.html = this.html.$('.hc-infinite-spinner');
 
@@ -149,26 +152,26 @@ export default class Spinner extends Widget{
      * @param {HTMLElement} element 
      * @param {Promise} promise 
      */
-    async attachWithPromise(element, promise){
+    async attachWithPromise(element, promise) {
         this.start()
         this.attach(element)
         let error;
-        try{
+        try {
             await promise
-        }catch(e){
+        } catch (e) {
             error = e;
         }
 
         this.detach()
         this.stop()
 
-        if(error){
+        if (error) {
             throw error
         }
     }
 
 
-    static help(){
+    static help() {
         return `
                 Copyright 2021 HolyCorn Software
                 Spinner Widget
@@ -211,8 +214,8 @@ export default class Spinner extends Widget{
         `
     }
 
-    static get classList(){
+    static get classList() {
         return ['hc-infinite-spinner']
     }
-    
+
 }

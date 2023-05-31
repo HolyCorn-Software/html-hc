@@ -21,7 +21,7 @@ class ActionButtonMessage extends Widget {
                     <div class='main'>
                         <div class='message'>
                             <div class='icon'>
-                                <img src='${path}/icons/warn.svg'>
+                                <img src='${path}icons/warn.svg'>
                             </div>
                             <div class='content'>Warning !</div>
                         </div>
@@ -83,9 +83,10 @@ export class ActionButtonMessageAPI {
 
     async warn(message, timeout = Infinity) {
         this.#messenger.content = message;
-        this.#messenger.icon = `${path}/icons/warn.svg`
+        this.#messenger.icon = `${path}icons/warn.svg`
         this.#messenger.show(timeout)
     }
+    
 
 
 }
