@@ -3,7 +3,7 @@ Copyright 2021 HolyCorn Software
 This module helps the MultiFlexForm to have its flexibility, by being able to contain elements, and animate themselves
 */
 
-import { Widget } from "../../lib/widget/index.mjs";
+import { Widget, hc } from "../../lib/widget/index.mjs";
 
 
 
@@ -13,8 +13,7 @@ export class MultiFlexFormItem extends Widget {
     constructor({ css, ...args } = {}) {
         super({ css: [import.meta.url, css] });
 
-        /**@type {import("../lib/widget.js").ExtendedHTML} */
-        this.html = document.spawn({
+        this.html = hc.spawn({
             class: 'hc-multi-flex-form-item',
             innerHTML: `
                 <div class='container'>
@@ -84,7 +83,7 @@ export class MultiFlexFormItem extends Widget {
 
 
             //Just before the animation starts, let's make sure its smooth
-            new_child.html.style.setProperty('--current-width', new_child.html.cs['width'])
+            new_child.html.style.setProperty('--current-width', `${new_child.html.getBoundingClientRect().width}px`)
             new_child.html.classList.add('newChild');
         })
 
@@ -104,9 +103,8 @@ export class MultiFlexFormItem extends Widget {
         let clone = this.html.cloneNode(true)
         this.html.replaceWith(clone);
 
-        //console.log(`clone! `, clone)
 
-        clone.style.setProperty('--current-width', clone.cs['width'])
+        clone.style.setProperty('--current-width', `${clone.getBoundingClientRect().width}px`)
 
 
         await new Promise(done => {
@@ -114,7 +112,7 @@ export class MultiFlexFormItem extends Widget {
 
             //Once CSS is done, we can now remove the clone
             clone.addEventListener('animationend', () => {
-                setTimeout(() => clone.remove(), 100); //Then remove the clone
+                clone.remove() //Then remove the clone
                 done();
 
             })
