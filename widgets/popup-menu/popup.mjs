@@ -41,14 +41,18 @@ export default class PopupMenu extends Widget {
         //Establish the close action (clicking outside the box)
         this.html.addEventListener('click', ({ target }) => {
 
-            if (!this.html.$('.container >.wrapper >.data').contains(target) && this.hideOnOutsideClick) { //If the click came from a source outside the content
-                this.hide();
+            const isOutside = !this.html.$('.container >.wrapper >.data').contains(target);
+            if (isOutside) {
+                this.dispatchEvent(new CustomEvent("prehide"))
+                if (this.hideOnOutsideClick) { //If the click came from a source outside the content
+                    this.hide();
+                }
             }
         })
 
         Object.assign(this, arguments[0])
 
-        /** @type {function(('hide'), function(CustomEvent), AddEventListenerOptions)} */ this.addEventListener
+        /** @type {function(('hide'|"prehide"), function(CustomEvent), AddEventListenerOptions)} */ this.addEventListener
 
     }
 

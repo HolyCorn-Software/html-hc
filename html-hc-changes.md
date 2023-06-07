@@ -1,3 +1,5 @@
 .
 
-Fixed minor bug with multi-flex-form, originating from earlier changes made to core html-hc library
+Added 'prehide' event which consumers make use of, to implement custom hide behaviour
+
+Improved the UI of the back-forth widget
