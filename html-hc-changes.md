@@ -1,3 +1,3 @@
 .
 
-Switched to a lighter version of the UUID library
+Fixed issue with cookie management
