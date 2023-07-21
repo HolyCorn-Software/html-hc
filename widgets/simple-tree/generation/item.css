@@ -1,0 +1,115 @@
+/*  
+    Copyright 2023 HolyCorn Software
+    The html-hc library
+    The simple-tree widget
+    This stylesheet is responsible for the layout of a single item on the tree
+*/
+
+.hc-simple-tree-generation-item {
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.5s 0.125s !important;
+}
+
+.hc-simple-tree-generation-item.hc-widget-ready {
+    opacity: 1;
+}
+
+.hc-simple-tree-generation-item>.container {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 1.25em;
+    text-align: center;
+    cursor: pointer;
+}
+
+.hc-simple-tree-generation-item>.container>.image {
+    position: relative;
+    width: 2em;
+    height: 2em;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    transition: 0.25s 0.125s;
+    padding: 0.5em;
+    border: 0.125em solid currentColor;
+}
+
+.hc-simple-tree-generation-item>.container>.image>img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+.hc-simple-tree-generation-item>.container:hover>.image {
+    filter: brightness(180%);
+}
+
+
+.hc-simple-tree-generation-item.active:not(.no-children)>.container::after,
+.hc-simple-tree-generation.has-ancestors .hc-simple-tree-generation-item>.container::before {
+    content: '';
+    position: absolute;
+    width: 0.125em;
+    height: 0em;
+    background-color: currentColor;
+    top: calc(100% - 1.25em);
+    animation: 0.5s 0.125s hc-simple-tree-generation-item-grow-height forwards;
+}
+
+.hc-simple-tree-generation.next-gen-hiding>.container>.items .hc-simple-tree-generation-item.active>.container::after,
+.hc-simple-tree-generation.next-gen-hiding>.container>.next-gen .hc-simple-tree-generation.has-ancestors .hc-simple-tree-generation-item>.container::before {
+    animation: 0.5s hc-simple-tree-generation-item-grow-height-2 reverse forwards;
+}
+
+.hc-simple-tree-generation.next-gen-hiding>.container>.next-gen .hc-simple-tree-generation-item {
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.hc-simple-tree-generation.has-ancestors>.container>.items>.hc-simple-tree-generation-item>.container {
+    padding-top: 1.75em;
+}
+
+.hc-simple-tree-generation.has-ancestors>.container>.items>.hc-simple-tree-generation-item>.container::before {
+    top: -0.25em;
+}
+
+@keyframes hc-simple-tree-generation-item-grow-height {
+    0% {
+        pointer-events: none;
+        height: 0px;
+        opacity: 0;
+    }
+
+    100% {
+        pointer-events: all;
+        height: 1.75em;
+        opacity: 1;
+    }
+}
+
+@keyframes hc-simple-tree-generation-item-grow-height-2 {
+    0% {
+        pointer-events: none;
+        height: 0px;
+        opacity: 0;
+    }
+
+    100% {
+        pointer-events: all;
+        height: 1.75em;
+        opacity: 1;
+    }
+}
+
+.hc-simple-tree-generation-item>.container>.label {
+    font-size: 0.85em;
+    font-family: bariolBold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

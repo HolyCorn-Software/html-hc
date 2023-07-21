@@ -44,6 +44,17 @@ export default class GenericListings extends Widget {
             `
         });
 
+        hc.watchToCSS(
+            {
+                source: this.html.$('.container >.top-section'),
+                target: this.html,
+                apply: '--top-section-height',
+                watch: {
+                    dimension: 'height'
+                }
+            }
+        )
+
         /** @type {import("../../lib/widget/widget.mjs").ExtendedHTML[]} */ this.headerCustom
         this.pluralWidgetProperty(
             {

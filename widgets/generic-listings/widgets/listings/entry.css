@@ -24,6 +24,7 @@
     border-radius: 1em;
     transition: 0.15s 0.37s;
 }
+
 .hc-generic-listings-item>.highlightable:not(.checkbox)>* {
     transition: 0.15s 0.05s;
 }
@@ -34,7 +35,8 @@
 
 
 
-.hc-generic-listings-item>* {
+.hc-generic-listings-item>*:not(.checkbox),
+.hc-generic-listings-item>*:not(.checkbox)>* {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

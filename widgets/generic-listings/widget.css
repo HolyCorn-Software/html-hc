@@ -9,60 +9,61 @@
 */
 
 .hc-generic-listings {
-    overflow-y:auto;
-    /* max-height:var(--dashboard-content-available-height); */
-    position:relative;
+    overflow-y: auto;
+    max-height: calc(var(--dashboard-content-available-height, calc(100vh - 2em)) - 2em);
+    position: relative;
 
-    
+
 }
 
 
-.hc-generic-listings::-webkit-scrollbar{
-    
+.hc-generic-listings::-webkit-scrollbar {
+
     /* background-color:red; */
-    background-color:transparent;
-    max-width:8px;
+    background-color: transparent;
+    max-width: 8px;
 }
 
-.hc-generic-listings::-webkit-scrollbar-thumb{
-    border:8px solid rgb(57, 156, 17);
+.hc-generic-listings::-webkit-scrollbar-thumb {
+    border: 8px solid rgb(57, 156, 17);
     /* background-color:; */
-    border-radius:6px;
+    border-radius: 6px;
 }
 
-.hc-generic-listings >.container{
-    display:flex;
-    flex-direction:column;
-    gap:2em;
+.hc-generic-listings>.container {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
 }
 
-.hc-generic-listings >.container >.top-section {
-    display:flex;
-    flex-direction:column;
-    position:sticky;
-    top:-1em;
-    z-index:1;
-    transition:0.5s;
-    background-color:rgba(255, 255, 255, 0.952);
-    padding:0.5em;
-    padding-top:1em;
-    padding-left:2%;
-}
-.hc-generic-listings >.container >.top-section >.title{
-    font-size:1.5em;
-    font-family:robotoBold;
+.hc-generic-listings>.container>.top-section {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: -1em;
+    z-index: 1;
+    transition: 0.5s;
+    background-color: rgba(255, 255, 255, 0.952);
+    padding: 0.5em;
+    padding-top: 1em;
+    padding-left: 2%;
 }
 
-.hc-generic-listings >.container >.top-section >.actions{
-    display:flex;
-    justify-content:flex-end;
-    gap:2em;
-    padding-right:1em;
+.hc-generic-listings>.container>.top-section>.title {
+    font-size: 1.5em;
+    font-family: robotoBold;
 }
 
-.hc-generic-listings >.container >.top-section >.actions .hc-action-button >.container{
-    background-color:rgb(229, 242, 250);
-    border-radius:0.85em;
-    color:rgb(30, 29, 34);
+.hc-generic-listings>.container>.top-section>.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2em;
+    padding-right: 1em;
+}
+
+.hc-generic-listings>.container>.top-section>.actions .hc-action-button>.container {
+    background-color: rgb(229, 242, 250);
+    border-radius: 0.85em;
+    color: rgb(30, 29, 34);
     font-family: robotoLight;
 }

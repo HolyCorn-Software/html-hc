@@ -1,0 +1,76 @@
+/*  
+    Copyright 2023 HolyCorn Software
+    The html-hc library
+    The sections-thread widget
+    This stylesheet targets the item sub-widget, which is responsible for the looks
+    of each item on the map of the widget
+*/
+
+
+.hc-sections-thread-map-item>.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.hc-sections-thread-map-item>.container>.main {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.hc-sections-thread-map-item>.container>.main>.dot {
+    display: inline-flex;
+    margin-left: 0.25em;
+    top: -0.25em;
+    position: relative;
+}
+
+.hc-sections-thread-map-item>.container>.main>.dot::before {
+    border: 0.125em solid currentColor;
+    width: 1.2em;
+    height: 1.2em;
+    position: absolute;
+    margin: auto;
+    left: calc(-0.2em);
+    top: calc(-0.2em);
+    content: '';
+    border-radius: 100%;
+}
+
+.hc-sections-thread-map-item>.container>.main>.dot::after {
+
+    width: 1em;
+    height: 1em;
+    border-radius: 100%;
+    background-color: currentColor;
+    position: absolute;
+    margin: auto;
+    left: 0px;
+    top: 0px;
+    content: '';
+}
+
+
+.hc-sections-thread-map-item>.container>.main>.label {
+    font-family: k2d;
+    max-width: clamp(1em, 100% - 2em, 100% - 2em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: 0.25s 0.125s;
+    padding: 0.25em;
+    margin-left: 0.35em;
+}
+
+.hc-sections-thread-map-item>.container:hover>.main>.label {
+    border-radius: 0.5em;
+    background-color: rgb(226, 233, 238);
+
+}
+
+
+.hc-sections-thread-map-item.selected {
+    color: orange;
+}
