@@ -74,17 +74,6 @@ export default class GenericListings extends Widget {
             parentSelector: '.container >.listings',
             childType: 'widget',
             property: 'listings',
-            transforms: {
-                /**
-                 * 
-                 * @param {ListingsMainWidget<DataType>} widget 
-                 * @returns 
-                 */
-                set: (widget) => {
-                    return widget.html
-                },
-                get: (html) => html?.widgetObject
-            }
         });
 
         this.listings = new ListingsMainWidget()
