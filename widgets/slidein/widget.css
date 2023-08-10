@@ -1,0 +1,80 @@
+/*  
+    Copyright 2023 HolyCorn Software
+    The html-hc librar
+     This stylesheet works on the slidein widget, which allows for 
+     notifications slide from top to bottom, or from bottom to top.
+*/
+
+
+.hc-slide-in {
+    position: fixed;
+    z-index: 4;
+    top: 0px;
+    left: 0px;
+    --color1: rgb(5, 12, 37);
+}
+
+.hc-slide-in>.container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    align-items: center;
+}
+
+.hc-slide-in:not(.hc-widget-ready)>.container>.main {
+    transition: 0s 0s;
+    animation: none;
+    display: none;
+    opacity: 0;
+    width: 0px;
+    height: 0px;
+}
+
+.hc-slide-in>.container>.main {
+    display: inline-flex;
+    background-color: var(--color1);
+    box-shadow: 0px 0.75em 1.5em var(--color1);
+    color: aliceblue;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: 0.5s 0.5s;
+}
+
+.hc-slide-in>.container ::selection {
+    display: none;
+}
+
+.hc-slide-in.hc-widget-ready.showing>.container>.main {
+    animation: 0.5s 0.5s hc-slide-in-show forwards;
+}
+
+.hc-slide-in.hc-widget-ready.hiding>.container>.main {
+    animation: 0.5s hc-slide-in-show-2 reverse forwards;
+}
+
+
+@keyframes hc-slide-in-show {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(10%);
+    }
+}
+
+@keyframes hc-slide-in-show-2 {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(10%);
+    }
+}
