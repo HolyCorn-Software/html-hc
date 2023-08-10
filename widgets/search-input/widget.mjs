@@ -103,7 +103,10 @@ export class SearchInput extends Widget {
         this.actions = [
             {
                 label: 'X',
-                onclick: () => this.details_showing = false
+                onclick: () => {
+                    this.details_showing = false
+                    this.updateStrings(true)
+                }
             }
         ]
 
@@ -275,8 +278,11 @@ export class SearchInput extends Widget {
         return this.is_multi_select ? [...this[values_symbol]].map(x => x.value) : this[values_symbol][0]?.value
     }
 
-    updateStrings() {
-        this.html.$('input').value = this.is_multi_select ? "" : this[values_symbol].map(x => x.label).join(' ')
+    updateStrings(force) {
+        if (this.is_multi_select && !force) {
+            return;
+        }
+        this.html.$('input').value = this[values_symbol].map((x, i, arr) => arr.length > 1 && i == arr.length - 1 ? 'and ' + x.label : x.label).join(',')
     }
 
     setValue(item) {

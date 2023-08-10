@@ -1,0 +1,12 @@
+/*  
+    Copyright 2023 HolyCorn Software
+    The html-hc library
+    The simple-tree widget
+    This stylesheet contains general rules for the widget's layout
+*/
+
+.hc-simple-tree {
+    display: flex;
+    justify-content: center;
+    --max-width: clamp(150px, 100vw - 2em, 35em);
+}

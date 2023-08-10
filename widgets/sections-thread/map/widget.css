@@ -1,0 +1,33 @@
+/*  
+    Copyright 2023 HolyCorn Software
+    The html-hc library
+    The sections-thread
+    This stylesheet handles general aspects of the reading map
+*/
+
+.hc-sections-thread-map>.container {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+}
+
+.hc-sections-thread-map>.container>.items {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    justify-content: space-between;
+}
+
+.hc-sections-thread-map>.container>.items>* {
+    position: relative;
+}
+
+.hc-sections-thread-map>.container>.items>*:not(:last-child)::before {
+    content: '';
+    border: 0.125em solid currentColor;
+    position: absolute;
+    transform: rotate(90deg);
+    left: calc(0em);
+    top: 3em;
+    width: 1.25em;
+}

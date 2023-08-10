@@ -44,6 +44,17 @@ export default class GenericListings extends Widget {
             `
         });
 
+        hc.watchToCSS(
+            {
+                source: this.html.$('.container >.top-section'),
+                target: this.html,
+                apply: '--top-section-height',
+                watch: {
+                    dimension: 'height'
+                }
+            }
+        )
+
         /** @type {import("../../lib/widget/widget.mjs").ExtendedHTML[]} */ this.headerCustom
         this.pluralWidgetProperty(
             {
@@ -63,17 +74,6 @@ export default class GenericListings extends Widget {
             parentSelector: '.container >.listings',
             childType: 'widget',
             property: 'listings',
-            transforms: {
-                /**
-                 * 
-                 * @param {ListingsMainWidget<DataType>} widget 
-                 * @returns 
-                 */
-                set: (widget) => {
-                    return widget.html
-                },
-                get: (html) => html?.widgetObject
-            }
         });
 
         this.listings = new ListingsMainWidget()

@@ -1,0 +1,40 @@
+/*  
+    Copyright 2023 HolyCorn Software
+    The html-hc library
+    This stylesheet works on the sections-thread widget
+*/
+
+
+.hc-sections-thread>.container {
+    display: flex;
+    flex-direction: column;
+    max-width: clamp(80vw, 750px, 99vw);
+}
+
+.hc-sections-thread>.container>.map {
+    position: sticky;
+    margin-top: 1em;
+    top: 5em;
+
+}
+
+.hc-sections-thread>.container>.map>* {
+    position: relative;
+    top: 1em;
+    left: calc(100% - var(--map-width, 5em) - 1em);
+    max-width: calc(35% - 2em);
+    box-shadow: 0px 0px 0.5em rgb(189, 192, 194);
+    display: inline-flex;
+    min-height: 150px;
+    padding: 0.5em;
+    border-radius: 0.25em;
+    background-color: inherit;
+}
+
+.hc-sections-thread>.container>.content {
+    position: relative;
+    z-index: 1;
+    max-width: clamp(200px, 100% - var(--map-width, 5em) - 1.75em, 100%);
+    margin-left: 0.5em;
+    transform: translateY(calc(var(--map-height) * -1));
+}

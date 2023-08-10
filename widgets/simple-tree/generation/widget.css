@@ -1,0 +1,130 @@
+/*  
+    Copyright 2023 HolyCorn Software
+    The html-hc library
+    This stylesheet contains directives for positioning items of a generation.
+    A generation is a set of items that belong to a common ancestor
+*/
+
+
+.hc-simple-tree-generation>.container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+    transition: 0.5s 0.25s;
+    align-items: center;
+}
+
+.hc-simple-tree-generation>.container>.items {
+    display: flex;
+    gap: 1.5em;
+    align-self: center;
+    overflow: hidden;
+    overflow-x: auto;
+    min-height: 5em;
+    max-width: calc(var(--max-width) - 1.5em);
+    padding-right: 1em;
+}
+
+.hc-simple-tree-generation>.container>.items::-webkit-scrollbar {
+    display: none;
+
+}
+
+.hc-simple-tree-generation>.container>.items>* {
+    transition: 0.5s 0.125s;
+}
+
+.hc-simple-tree-generation>.container>.next-gen {
+    position: relative;
+}
+
+.hc-simple-tree-generation.has-ancestors>.container>.items:not(:empty)::before {
+    content: '';
+    --width: calc(max(var(--generation-width, 3em), var(--parent-generation-width)));
+    width: 0px;
+    position: absolute;
+    height: 0.125em;
+    background-color: currentColor;
+    align-self: center;
+    top: -0.5em;
+    left: calc(50% - (var(--width) / 2) - 0.35em);
+    animation: 0.5s 0.125s hc-simple-tree-generation-grow-width forwards;
+    opacity: 0;
+}
+
+.hc-simple-tree-generation.has-just-one-child>.container>.next-gen>.hc-simple-tree-generation.has-just-one-child>.container>.items:not(:empty)::before {
+    --width: 0px;
+}
+
+.hc-simple-tree-generation.next-gen-hiding>.container>.next-gen .hc-simple-tree-generation>.container>.items:not(:empty)::before {
+    animation: 0.5s hc-simple-tree-generation-grow-width-2 reverse forwards;
+}
+
+.hc-simple-tree-generation.next-gen-hiding>.container {
+    animation: 0.5s hc-simple-tree-generation-disable-pionter forwards;
+
+}
+
+@keyframes hc-simple-tree-generation-disable-pointer {
+
+    0% {
+        pointer-events: none;
+    }
+
+    100% {
+        pointer-events: all;
+    }
+
+}
+
+.hc-simple-tree-generation.next-gen-showing>.container>.next-gen {
+    position: relative;
+}
+
+.hc-simple-tree-generation:not(.next-gen-showing)>.container>.next-gen>* {
+    display: none;
+}
+
+
+.hc-simple-tree-generation.next-gen-showing>.container>.items>*:not(.active) {
+    opacity: 0.2;
+}
+
+
+@keyframes hc-simple-tree-generation-grow-width {
+    0% {
+        width: 0px;
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+        width: var(--width);
+    }
+}
+
+@keyframes hc-simple-tree-generation-grow-width-2 {
+    0% {
+        width: 0px;
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+        width: var(--width);
+    }
+}
+
+
+.hc-simple-tree-generation.has-just-one-child.has-ancestors>.container {
+    gap: 0em;
+}
+
+.hc-simple-tree-generation.has-just-one-child.has-ancestors>.container>.next-gen>.hc-simple-tree-generation:not(.has-just-one-child)>.container>.items {
+
+    padding-top: 0.75em;
+}
+
+.hc-simple-tree-generation.has-just-one-child.has-ancestors>.container>.next-gen>.hc-simple-tree-generation:not(.has-just-one-child)>.container>.items::before {
+    top: 0.25em;
+}
