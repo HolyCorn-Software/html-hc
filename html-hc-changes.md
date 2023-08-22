@@ -1,6 +1,5 @@
 .
 
-Added slidein widget, for UIs that drop top-down, and bottom-up.
+Improved technical usability of the multi-flex-form widget, by adding 'value' information.
 
-Improved safety of the EventChannelClient object.
-Made code shorter, and more concise
+Improved typing of the multi-flex-form widget.

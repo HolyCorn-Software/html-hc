@@ -160,12 +160,17 @@ export class MultiFlexFormField extends MultiFlexFormItem {
         this.__values__ = params.values;
     }
     get definition() {
-        return {
+        const dat = {
             label: this.label,
-            values: this.values,
             name: this.name,
-            type: this.type
+            type: this.type,
+            value: this.value,
+            values: this.values
         }
+        if (typeof dat.values === 'undefined') {
+            delete dat.values
+        }
+        return dat
     }
 
     get value() {
