@@ -69,9 +69,12 @@ class MainWidget extends AccordionItem {
 
         super.html.classList.add('hc-slim-calendar-input-year-month-select-main');
 
-        this.content.widgetObject.addEventListener('ui-change', () => {
+        const onchange = () => {
             this.refreshUI()
-        });
+        }
+
+        this.content.widgetObject.addEventListener('ui-change', onchange);
+        this.content.widgetObject.addEventListener('change', onchange);
 
         let closeTimeout;
 

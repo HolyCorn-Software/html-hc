@@ -40,6 +40,7 @@
 
 .hc-slim-calendar-input-year-month-select.hc-cayofedpeople-accordion>.container {
     width: unset;
+    max-width: 100%;
 }
 
 

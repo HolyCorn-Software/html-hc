@@ -68,10 +68,13 @@ export default class SlimCalendarInput extends Widget {
 
         /** @type {(event: "change", cb: (event: CustomEvent) => void, opts: AddEventListenerOptions) => void} */ this.addEventListener;
 
-        this[yearMonth].addEventListener('change', new DelayedAction(() => {
-            this.dispatchEvent(new CustomEvent('change'))
-            this[dateSelect].month = this[yearMonth].value
-        }, 250));
+        const fireChange = new DelayedAction(() => {
+            this.dispatchEvent(new CustomEvent('change'));
+        }, 250);
+        this[yearMonth].addEventListener('change', () => {
+            this[dateSelect].month = this[yearMonth].value;
+            fireChange()
+        });
 
         this[dateSelect].addEventListener('change', () => {
             this.dispatchEvent(new CustomEvent('change'))
