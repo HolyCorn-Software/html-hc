@@ -1,0 +1,15 @@
+/*  
+    Copyright 2023 HolyCorn Software
+    The html-hc Project
+    This stylesheet is responsible for the UI of the slim-calendar-input widget
+*/
+
+
+.hc-slim-calendar-input>.container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.5em;
+
+    --hc-slim-calendar-input-highlight-color: aliceblue;
+    --hc-slim-calendar-input-select-color: rgb(235, 155, 155);
+}

@@ -1,0 +1,52 @@
+/*  
+    Copyright 2023 HolyCorn Software
+    The html-hc library
+    This stylesheet targets the date-select widget of the slim-calendar-input widget
+*/
+
+.hc-slim-calendar-input-date-select>.container {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+}
+
+.hc-slim-calendar-input-date-select>.container>.dates {
+    display: flex;
+    gap: 0.5em;
+    overflow: hidden;
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.hc-slim-calendar-input-date-select>.container>.dates>.date>.container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35em;
+    align-items: center;
+    font-family: bariolBold;
+}
+
+.hc-slim-calendar-input-date-select>.container>.dates::-webkit-scrollbar {
+    display: none;
+    color: transparent;
+}
+
+.hc-slim-calendar-input-date-select>.container>.dates>.date>.container>.date {
+    border-radius: 100%;
+    aspect-ratio: 1/1;
+    width: 1em;
+    padding: 0.75em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.hc-slim-calendar-input-date-select>.container>.dates>.date>.container:hover>.date {
+    background-color: var(--hc-slim-calendar-input-highlight-color);
+}
+
+.hc-slim-calendar-input-date-select>.container>.dates>.date.selected>.container>.date {
+    background-color: var(--hc-slim-calendar-input-select-color);
+
+}

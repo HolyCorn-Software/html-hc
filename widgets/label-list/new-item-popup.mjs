@@ -15,13 +15,14 @@ export default class LabelListNewItemPopup extends HCTSBrandedPopup {
     /**
      * 
      * @param {object} data 
+     * @param {string} data.caption
      * @param {import("./types.js").LabelListItemData[]} data.items
      */
     constructor(data) {
         super();
 
         const select = new InlineSelect({
-            label: `Select New Role`
+            label: data.caption || `Select New Role`
         })
 
         this.html.classList.add('hc-label-list-new-item-popup')
