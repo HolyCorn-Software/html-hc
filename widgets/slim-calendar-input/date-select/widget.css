@@ -42,6 +42,10 @@
     cursor: pointer;
 }
 
+.hc-slim-calendar-input-date-select>.container>.dates>.date.today>.container>.date {
+    color: rgb(210, 39, 216);
+}
+
 .hc-slim-calendar-input-date-select>.container>.dates>.date>.container:hover>.date {
     background-color: var(--hc-slim-calendar-input-highlight-color);
 }

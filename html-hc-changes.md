@@ -1,5 +1,5 @@
 .
 
-Corrected minor bug with slim-calendar-input widget.
+Improved the UX of the slim-calendar-input widget, by coloring the current date.
 
-Improved the UI of slim-calendar-input.
+Improved code quality, by improving typing.

@@ -160,7 +160,7 @@ export default class FileExplorer extends Widget {
                 },
                 /**
                  * 
-                 * @param {import("../lib/widget.js").ExtendedHTML & {widgetObject: ActionButton}} action 
+                 * @param {htmlhc.lib.widget.ExtendedHTML & {widgetObject: ActionButton}} action 
                  */
                 get: (action) => {
                     return {

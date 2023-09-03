@@ -146,7 +146,7 @@ export default class Generation extends Widget {
                     set: (genId) => {
                         return new Generation(treedata, genId).html
                     },
-                    /** @param {import("../../../lib/widget/types").ExtendedHTML<Generation>} html*/
+                    /** @param {htmlhc.lib.widget.ExtendedHTML<Generation>} html*/
                     get: html => html.widgetObject?.id
                 }
             }

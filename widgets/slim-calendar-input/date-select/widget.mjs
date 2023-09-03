@@ -52,6 +52,12 @@ export default class DateSelect extends Widget {
                             }
                         );
 
+                        const todate = new Date().setHours(0, 0, 0, 0)
+
+                        if (new Date(timestamp).setHours(0, 0, 0, 0) === todate) {
+                            html.classList.add('today')
+                        }
+
                         html.addEventListener('click', () => {
                             this.value = timestamp
                             this.dispatchEvent(new CustomEvent('change'))
