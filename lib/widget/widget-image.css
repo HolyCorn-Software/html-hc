@@ -4,7 +4,7 @@
     This stylesheet contains some useful declarations for dynamic images set via the defineImageProperty() method
 */
 
-.hc-widget-image {
+.hc-htmlhc-widget-image {
     width: 100%;
     height: 100%;
     object-fit: cover;

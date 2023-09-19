@@ -1,9 +1,16 @@
 .
 
-Improved typing.
+Improved the loading UI of all widgets.
 
-Removed redundant declaration in fonts.css.
+Added a utility called loading-action, which permits widgets to perform actions while loading, in a manner that allows the user to retry an action, if it fails. It is available via the `blockWithAction()` method
 
-Improved UX of images that are added using the defineImageProperty() method.
+Improved code quality of the widget-image utility, by properly naming CSS classes.
 
-Created flex-reveal widget, to produce smooth UIs, where the user taps a button to reveal a menu, which slides across.
+Improved the auto-css import feature.
+
+Improved the popup-menu widget, by improving the logic for the detection of outside clicks.
+
+Corrected minor bug with the watch-to-css utility.
+
+Improved the default layout of images imported with the widget-image utility.
+
