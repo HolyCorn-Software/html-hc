@@ -17,7 +17,7 @@ export default class DualPaneExpander extends Widget {
         super();
 
         this.html = hc.spawn({
-            classes: ['hc-dual-pane-expander'],
+            classes: DualPaneExpander.classList,
             innerHTML: `
                 <div class='container'>
                     <div class='title'>Payments</div>
@@ -55,6 +55,18 @@ export default class DualPaneExpander extends Widget {
 
         this.screen = new Screen(this)
 
+        const waitTillTransitionEnd = (maxTime = 5000) => {
+            return new Promise((resolve) => {
+                const done = () => {
+                    clearTimeout(timeout)
+                    resolve()
+                    this.html.removeEventListener('transitionend', done)
+                }
+                let timeout = setTimeout(resolve, maxTime)
+                this.html.addEventListener('transitionend', done)
+            })
+        }
+
 
         /** @type {import('./types.js').ItemData[]} */ this.items
         this.pluralWidgetProperty({
@@ -77,9 +89,18 @@ export default class DualPaneExpander extends Widget {
                                 widget_child.selected = false;
                             }
                         }
-                        this.screen.title = data.contentLabel
-                        this.screen.content = widget.content
-                        this.screen.actions = [...data.actions || []]
+
+                        this.html.classList.add('content-switch-state-1')
+                        waitTillTransitionEnd(1500).then(() => {
+                            this.html.classList.add('content-switch-state-2')
+                            this.html.classList.remove('content-switch-state-1')
+                            this.screen.title = data.contentLabel
+                            this.screen.content = widget.content
+                            this.screen.actions = [...data.actions || []]
+                            waitTillTransitionEnd(1000).then(() => {
+                                this.html.classList.remove('content-switch-state-2')
+                            })
+                        })
 
                         this.dispatchEvent(new CustomEvent('select', {
                             detail: { data, widget }
@@ -128,6 +149,11 @@ export default class DualPaneExpander extends Widget {
         })
 
 
+    }
+
+    /** @readonly */
+    static get classList() {
+        return ['hc-dual-pane-expander']
     }
 
 }

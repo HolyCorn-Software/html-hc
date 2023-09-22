@@ -20,7 +20,11 @@ export class AnimatedTick extends Widget {
             class: AnimatedTick.classList,
             innerHTML: `
                 <div class='container'>
-                    <svg xmlns="http://www.w3.org/2000/svg" height="0.9em" width="0.9em" viewBox="0 0 25 25"><g class='stroke' stroke="currentColor" stroke-width="3" fill="transparent"><path d="M2.5,12.5 L12.5,22.5 L25,5"/></g></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="0.9em" width="0.9em" viewBox="0 0 25 25">
+                        <g class='stroke' stroke="currentColor" stroke-width="3" fill="transparent">
+                            <path d="M2.5,12.5 L12.5,22.5 L25,5"/>
+                        </g>
+                    </svg>
                 </div>
             `
         });
@@ -37,11 +41,11 @@ export class AnimatedTick extends Widget {
      * @returns {Promise<void>}
      */
     animate() {
+        this.activated = true;
+        this.html.classList.add('animated')
         return new Promise((resolve, reject) => {
-
-            this.activated = true;
-            this.html.classList.add('animated')
-            resolve();
+            this.html.addEventListener('animationend', resolve)
+            setTimeout(resolve, 5000)
         })
     }
     /**

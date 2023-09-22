@@ -4,21 +4,17 @@ The animated tick widget
 */
 
 
-.hc-animated-tick >.container{
-    display:inline-flex;
-    position:relative;
-}
-.hc-animated-tick .stroke{
-    transition:0.65s 0.125s;
+.hc-animated-tick>.container {
+    display: inline-flex;
+    position: relative;
 }
 
-.hc-animated-tick.activated .stroke{
-    stroke-dasharray:50;
-    stroke-dashoffset:50;
-
+.hc-animated-tick>.container>svg>.stroke {
+    transition: 0.65s 0.125s;
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
 }
 
-
-.hc-animated-tick.activated.animated .stroke{
-    stroke-dashoffset:0;
+.hc-animated-tick.activated.animated>.container>svg>.stroke {
+    stroke-dashoffset: 0;
 }
