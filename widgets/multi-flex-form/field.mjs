@@ -11,6 +11,7 @@ import { hc } from "../../lib/widget/index.mjs";
 import { UniqueFileUpload } from "../fileUpload/upload.mjs";
 import { InlineSelect } from "../inline-select/index.mjs";
 import DualSwitch from "../dual-switch/switch.mjs";
+import DelayedAction from "../../lib/util/delayed-action/action.mjs";
 
 hc.importModuleCSS(import.meta.url)
 
@@ -244,11 +245,12 @@ export class MultiFlexFormTextbox extends MultiFlexFormItem {
 
 
         // We don't want to wait till the user exits the textbox before a change event is fired. We want it on the fly
-        for (let event of ['keydown', 'keypress', 'change', 'blur', 'focus', 'keyup']) {
+        const onchange = new DelayedAction(() => {
+            this.dispatchEvent(new CustomEvent('change'));
+        }, 250, 500)
 
-            this.html.$('.container >*').addEventListener(event, () => {
-                this.dispatchEvent(new CustomEvent('change'));
-            });
+        for (let event of ['keydown', 'keyup', 'change', 'blur', 'focus']) {
+            this.html.$('.container >*').addEventListener(event, onchange);
         }
         /** @type {function(('change'), function(CustomEvent), AddEventListenerOptions)} */ this.addEventListener
 
