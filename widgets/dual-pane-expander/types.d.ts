@@ -8,9 +8,9 @@
 
 
 export declare interface ItemData {
-    name: string,
-    actionLabel: HTMLElement,
-    contentLabel: HTMLElement,
-    content: HTMLElement,
-    actions: HTMLElement
+    name: string
+    actionLabel: HTMLElement
+    contentLabel: HTMLElement
+    content: HTMLElement
+    actions: HTMLElement[]
 }

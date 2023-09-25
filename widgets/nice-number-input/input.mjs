@@ -4,6 +4,7 @@
  * It offers a "+" and a "-" button, as well as allowing the user to manually type in a value
  */
 
+import DelayedAction from "../../lib/util/delayed-action/action.mjs";
 import { hc } from "../../lib/widget/index.mjs";
 import { Widget } from "../../lib/widget/index.mjs";
 
@@ -45,12 +46,12 @@ export class NiceNumberInput extends Widget {
         }
 
         for (let eventName of ['change', 'keydown']) {
-            this.html.$('.container >input').addEventListener(eventName, (event) => {
+            this.html.$('.container >input').addEventListener(eventName, new DelayedAction((event) => {
                 if (event instanceof CustomEvent) {
                     return //We cannot be triggered by ourselves. Recursion is not good!
                 }
                 this.dispatchEvent(new CustomEvent('change'))
-            })
+            }, 250))
         }
 
         /** @type {function(('change'), function(CustomEvent), AddEventListenerOptions)} */ this.addEventListener

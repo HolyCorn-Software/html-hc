@@ -20,8 +20,10 @@ export default class LabelList extends Widget {
      * @param {import("./types.js").LabelListItemData[]} param0.value
      * @param {import("./types.js").LabelListItemData[]} param0.items_store
      * @param {boolean} param0.readonly
+     * @param {string} param0.label
+     * @param {string} param0.newCaption
      */
-    constructor({ value, items_store, readonly } = {}) {
+    constructor({ value, items_store, readonly, label, newCaption } = {}) {
         super();
 
         this.html = hc.spawn({
@@ -29,11 +31,11 @@ export default class LabelList extends Widget {
             innerHTML: `
                 <div class='container'>
 
+                    <div class='label'></div>
+
                     <div class='main'>
                         
-                        <div class='items'>
-                            <!-- The selected items of the list go here -->
-                        </div>
+                        <div class='items'></div>
 
                         <div class='actions'><!-- The Actions, e.g + button --></div>
                     </div>
@@ -41,6 +43,9 @@ export default class LabelList extends Widget {
                 </div>
             `
         });
+
+        /** @type {string} */ this.label
+        this.htmlProperty('.container >.label', 'label', 'innerHTML')
 
         /** @type {import("./types.js").LabelListActionData[]} */ this.actions
         this.pluralWidgetProperty(
@@ -136,12 +141,15 @@ export default class LabelList extends Widget {
         /** @type {boolean} */ this.readonly //This one property determines a lot. It could hide X, and + buttons
         this.htmlProperty(undefined, 'readonly', 'class', undefined, 'readonly')
 
+        /** @type {string} */ this.newCaption
+
         Object.assign(this, arguments[0]);
     }
     onAdd() {
         //Open a popup where the user can select what to add to the list
         let popup = new LabelListNewItemPopup({
-            items: this.items_store
+            items: this.items_store,
+            caption: this.newCaption
         });
         popup.show()
         popup.addEventListener('complete', () => {

@@ -13,9 +13,7 @@ global {
 
         type CreateForm<T> = Values<{
             [K in keyof T]:
-            [
-                htmlhc.widget.multiflexform.MultiFlexFormFieldData & { name: K }
-            ]
+            (htmlhc.widget.multiflexform.MultiFlexFormFieldData & { name: K })[]
         }>[]
 
     }

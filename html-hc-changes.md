@@ -1,6 +1,9 @@
 .
 
-Added slidein widget, for UIs that drop top-down, and bottom-up.
+Deprecated the parsePath() function.
 
-Improved safety of the EventChannelClient object.
-Made code shorter, and more concise
+Improved logic of the animated-tick widget.
+
+Improved design of dual-pane-expander widget.
+
+Created the wide-slider widget, for situations where multiple items need to be shown at once.

@@ -1,0 +1,57 @@
+/*  
+    Copyright 2023 HolyCorn Software
+    The html-hc library
+    This stylesheet targets the year-month-select widget of the slim-calendar-input widget.
+*/
+
+
+
+.hc-slim-calendar-input-year-month-select-content>.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.hc-slim-calendar-input-year-month-select-content>.container>.months {
+    display: flex;
+    gap: 1em;
+    flex-wrap: wrap;
+    padding: 1em;
+}
+
+.hc-slim-calendar-input-year-month-select-content>.container>.months>* {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em;
+    transition: 0.25s 0.125s;
+    border-radius: 100%;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+}
+
+.hc-slim-calendar-input-year-month-select-content>.container>.months>*:hover {
+    background-color: var(--hc-slim-calendar-input-highlight-color);
+
+}
+
+.hc-slim-calendar-input-year-month-select-content>.container>.months>*.selected {
+    background-color: var(--hc-slim-calendar-input-select-color);
+}
+
+.hc-slim-calendar-input-year-month-select.hc-cayofedpeople-accordion>.container {
+    width: unset;
+    max-width: 100%;
+}
+
+
+.hc-slim-calendar-input-year-month-select-main.hc-cayofedpeople-accordion-item>.container>.header {
+    padding: 0px;
+    box-shadow: none;
+    justify-content: flex-start;
+}
+
+.hc-slim-calendar-input-year-month-select-main.hc-cayofedpeople-accordion-item>.container>.header>.fold-icon {
+    height: 0.38em;
+    width: 1.5em;
+
+}

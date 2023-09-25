@@ -6,6 +6,11 @@
 .hc-label-list>.container {
     display: inline-flex;
     flex-direction: column;
+    row-gap: 1em;
+}
+
+.hc-label-list>.container>.label:empty {
+    display: none;
 }
 
 .hc-label-list>.container>.main {
@@ -18,6 +23,10 @@
     display: inline-flex;
     flex-wrap: wrap;
     gap: 1em;
+}
+
+.hc-label-list>.container>.main>.items:empty {
+    display: none;
 }
 
 .hc-label-list>.container>.main>.actions {
@@ -37,6 +46,7 @@
     font-family: k2dLight;
     font-size: 1.5em;
     cursor: pointer;
+    align-self: center;
 }
 
 

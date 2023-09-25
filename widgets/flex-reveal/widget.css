@@ -1,0 +1,77 @@
+/*  
+    Copyright 2023 HolyCorn Software
+    The html-hc library
+    This stylesheet is meant to structure the flex-reveal widget
+*/
+
+.hc-flex-reveal>.container {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.hc-flex-reveal>.container>.main {
+    display: flex;
+    align-items: center;
+}
+
+.hc-flex-reveal.calculating>.container>.main>.content {
+    position: absolute;
+    opacity: 0;
+    animation: none;
+    transition: none;
+}
+
+.hc-flex-reveal:not(.expanded):not(.calculating)>.container>.main>.content {
+    position: relative;
+    animation: hc-flex-reveal-content-collapse 0.5s forwards;
+    opacity: 1;
+}
+
+.hc-flex-reveal>.container>.main>.trigger {
+    width: 2em;
+    height: 2em;
+    position: relative;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.hc-flex-reveal>.container>.main>.trigger>* {
+    width: 100%;
+    height: 100%;
+}
+
+.hc-flex-reveal.expanded:not(.calculating)>.container>.main>.content {
+    animation: hc-flex-reveal-content-expand 0.5s forwards;
+    position: relative;
+}
+
+
+@keyframes hc-flex-reveal-content-expand {
+
+    0% {
+        max-width: 0px;
+        opacity: 0;
+    }
+
+    40% {
+        opacity: 0.2;
+    }
+
+    100% {
+        max-width: var(--hc-flex-reveal-content-width);
+        opacity: 1;
+    }
+}
+
+
+@keyframes hc-flex-reveal-content-collapse {
+    0% {
+        max-width: var(--hc-flex-reveal-content-width);
+    }
+
+    100% {
+        max-width: 0px;
+        opacity: 0;
+    }
+}

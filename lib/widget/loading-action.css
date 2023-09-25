@@ -1,0 +1,103 @@
+/*  
+    Copyright 2023 HolyCorn Software
+    The html-hc library
+    This stylesheet affects the UI of a widget, when it has failed to complete a loading action
+*/
+
+.hc-htmlhc-loading-action-error-ui {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8em;
+    z-index: 1;
+}
+
+.hc-htmlhc-loading-action-error-ui::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: red;
+    opacity: 0.5;
+    position: absolute;
+}
+
+.hc-htmlhc-loading-action-error-ui>.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    --spacing: 0.35em;
+    --icon-size: clamp(0.5em, 4em, var(--hc-htmlhc-loading-action-errored-target-width) - 5.75em);
+    width: clamp(3em, calc(var(--hc-htmlhc-loading-action-errored-target-width) - 1em - 25%), 400px);
+    max-height: calc(100% - 0.25em);
+    box-shadow: 0px 0px 0.35em #cde1e7;
+    border-radius: 0.75em;
+    background-color: white;
+    padding-left: var(--icon-size);
+}
+
+.hc-htmlhc-loading-action-error-ui>.container>.main {
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--spacing);
+    padding: var(--spacing);
+    position: relative;
+    max-width: calc(100% - var(--icon-size));
+    height: 100%;
+}
+
+
+.hc-htmlhc-loading-action-error-ui>.container>.main::before {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    background-image: url('./icon-action-error.svg');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    content: '';
+    position: absolute;
+    left: calc(0px - var(--icon-size));
+    top: calc(var(--spacing) / 2);
+}
+
+
+.hc-htmlhc-loading-action-error-ui>.container>.main>.info {
+    max-width: clamp(100px, var(--hc-htmlhc-loading-action-errored-target-width) - 1em, 100% - 2em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: calc(var(--hc-htmlhc-loading-action-errored-target-height) - 5em);
+}
+
+.hc-htmlhc-loading-action-error-ui>.container>.main>.actions {
+    display: flex;
+    gap: 0.25em;
+    flex-direction: column;
+}
+
+
+.hc-htmlhc-loading-action-error-ui>.container>.main>.actions>* {
+    display: inline-flex;
+    padding: 0.35em;
+    border-radius: 0.35em;
+    background-color: rgb(7, 83, 197);
+    color: white;
+    font-family: bariolBold;
+    justify-content: center;
+    cursor: pointer;
+}
+
+
+.hc-htmlhc-loading-action-is-errored {
+    min-width: 6em;
+    min-height: 5em;
+    position: relative;
+}
+
+.hc-htmlhc-loading-action-is-errored>*:not(.hc-htmlhc-loading-action-error-ui) {
+    filter: grayscale(0.3) blur(8px);
+    pointer-events: none;
+}

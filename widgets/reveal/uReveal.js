@@ -6,7 +6,7 @@
 //Revised 2021 by Akwo Thomas Ngwa
 
 
-import { Widget } from '../../lib/widget/index.mjs';
+import { Widget, hc } from '../../lib/widget/index.mjs';
 
 
 export class Reveal extends Widget {
@@ -16,7 +16,7 @@ export class Reveal extends Widget {
 
 		super();
 
-		super.html = document.spawn({
+		super.html = hc.spawn({
 			class: 'hc-uReveal',
 			innerHTML: `
 				<div class='short'></div>

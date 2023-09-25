@@ -1,0 +1,33 @@
+/*  
+    Copyright 2023 HolyCorn Software
+    The html-hc library
+    The wide-slider widget.
+    This stylesheet targets the widget.
+*/
+
+
+.hc-wide-slider {
+    position: relative;
+    width: clamp(200px, 1200px, 100vw - 3em);
+}
+
+.hc-wide-slider>.container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+
+}
+
+.hc-wide-slider>.container>.items {
+    width: 100%;
+    position: relative;
+    display: flex;
+    gap: 1em;
+    overflow: hidden;
+}
+
+.hc-wide-slider>.container>.items>* {
+    transition: 0.5s 0.125s;
+    transform: var(--hc-wide-slider-transform);
+}

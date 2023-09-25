@@ -17,7 +17,7 @@ export default class AccordionItem extends Widget {
      * 
      * @param {object} param0 
      * @param {string} param0.label
-     * @param {import("../../lib/widget/types.js").ExtendedHTML<ContentWidget>} param0.content
+     * @param {htmlhc.lib.widget.ExtendedHTML<ContentWidget>} param0.content
      */
     constructor({ label, content } = {}) {
         super();
@@ -44,7 +44,7 @@ export default class AccordionItem extends Widget {
         /** @type {string} */ this.label
         this.htmlProperty(".container .header >.label", "label", "innerHTML");
 
-        /** @type {import("../../lib/widget/types.js").ExtendedHTML<ContentWidget>} */ this.content
+        /** @type {htmlhc.lib.widget.ExtendedHTML<ContentWidget>} */ this.content
         this.widgetProperty({
             selector: '*',
             parentSelector: '.container >.content-section',
