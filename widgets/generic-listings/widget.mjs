@@ -33,7 +33,7 @@ export default class GenericListings extends Widget {
                 <div class='container'>
 
                     <div class='top-section'>
-                        <div class='title'>Roles Data</div>
+                        <div class='title'>Title</div>
                         <div class='actions'></div>
                         <div class='custom'></div>
                     </div>

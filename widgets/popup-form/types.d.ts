@@ -4,7 +4,7 @@
  * This module contains type definitions for the popup-form widget
  */
 
-import { Collection } from "mongodb"
+import ''
 
 
 global {

@@ -17,7 +17,12 @@ const timeout = Symbol()
 export default class SlideIn extends Widget {
 
 
-    constructor() {
+    /**
+     * 
+     * @param {object} param0 
+     * @param {SlideIn['content']} param0.content
+     */
+    constructor({ content } = {}) {
 
         super();
 
@@ -39,6 +44,8 @@ export default class SlideIn extends Widget {
                 property: 'content',
             }
         )
+
+        Object.assign(this, arguments[0])
     }
 
     async show() {

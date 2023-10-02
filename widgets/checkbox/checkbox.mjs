@@ -30,8 +30,8 @@ export class Checkbox extends Widget {
      */
     set checked(checked) {
         checked = Boolean(checked)
-        this.html.classList[checked ? "add" : "remove"]("checked")
-        this.html.classList[checked ? "remove" : "add"]("unchecked")
+        this.html.classList.toggle("checked", checked)
+        this.html.classList.toggle("unchecked", !checked)
         this.dispatchEvent(new CustomEvent("change"))
         this.html.dispatchEvent(new CustomEvent("change"))
     }

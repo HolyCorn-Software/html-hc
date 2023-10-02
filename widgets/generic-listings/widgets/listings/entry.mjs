@@ -5,7 +5,6 @@
  */
 
 
-import ListingsMainWidget from "./widget.mjs";
 import { hc, Widget } from "../../../../lib/widget/index.mjs";
 import { Checkbox } from "../../../checkbox/checkbox.mjs";
 
@@ -16,13 +15,12 @@ export default class ListingsEntry extends Widget {
 
     /**
      * @param {import("../../types.js").ContentMiddleWareReturn<DataType>} data
-     * @param {ListingsMainWidget} parent
      */
-    constructor(data, parent) {
+    constructor(data) {
         super();
 
         this.html = hc.spawn({
-            classes: ['hc-generic-listings-item'],
+            classes: ListingsEntry.classList,
             tag: 'tr',
             innerHTML: `
                 <td class='checkbox'></td>
@@ -47,6 +45,9 @@ export default class ListingsEntry extends Widget {
                         const html = hc.spawn({
                             tag: 'td',
                             classes: ['field', field.style?.highlightable ? 'highlightable' : 'no-highlight'],
+                            attributes: {
+                                title: field.content.innerText || field.content
+                            }
                         });
 
 
@@ -105,6 +106,11 @@ export default class ListingsEntry extends Widget {
         this.columns = data.columns
         this.data = data
 
+    }
+
+    /** @readonly */
+    static get classList() {
+        return ['hc-generic-listings-item']
     }
 
 }

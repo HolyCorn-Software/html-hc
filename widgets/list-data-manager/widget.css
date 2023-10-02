@@ -1,0 +1,51 @@
+/*  
+    Copyright 2023 HolyCorn Software
+    The html-hc library.
+    The listings-data-manager widget.
+    This stylesheet adds special certain UI features to the widget.
+*/
+
+
+.hc-htmlhc-list-data-manager>.container>.actions {
+    display: flex;
+    position: absolute;
+    min-width: 5em;
+    min-height: 2em;
+    box-shadow: 0px 0px 0.25em lightgrey;
+    top: calc(var(--actions-top, clamp(14em, 100%, 100vh) - 2em) - 2em);
+    z-index: 1;
+    left: var(--actions-left, calc(--actions-content-width));
+    border-radius: 0.5em;
+    gap: 1em;
+    padding: 0.5em;
+    background-color: white;
+    transition: 0.5s 0.25s;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.hc-htmlhc-list-data-manager.actions-visible>.container>.actions:not(:empty) {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.hc-htmlhc-list-data-manager>.container>.actions>* {
+    transition: 0.5s 0.25s;
+    cursor: pointer;
+    border-bottom: 0.125em solid transparent;
+    width: 2.75em;
+    height: 2.75em;
+    object-fit: contain;
+    object-position: center;
+    position: relative;
+    padding-bottom: 0.25em;
+}
+
+.hc-htmlhc-list-data-manager>.container>.actions>*:hover {
+    border-bottom: 0.125em solid lightblue;
+}
+
+.hc-htmlhc-list-data-manager>.container>.actions>*.disabled {
+    pointer-events: none;
+    filter: brightness(50%) grayscale(0.8) opacity(0.4);
+}

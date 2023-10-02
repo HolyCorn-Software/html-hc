@@ -1,9 +1,13 @@
 .
 
-Deprecated the parsePath() function.
+Corrected minor bug with the delayed-action utility.
 
-Improved logic of the animated-tick widget.
+Improved code quality.
 
-Improved design of dual-pane-expander widget.
+Improved typing.
 
-Created the wide-slider widget, for situations where multiple items need to be shown at once.
+Improved the Widget blockWithAction() method, by making it more robust, and making possible for multiple simultaneous calls to the function.
+
+Improved UI of the loading-action utility.
+
+Created new powerful widget called list-data-manager, capable of creating management UIs for data in sets.

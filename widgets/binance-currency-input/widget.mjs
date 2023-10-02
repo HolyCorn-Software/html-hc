@@ -16,9 +16,8 @@ export default class BinanceCurrencyInput extends BinanceCurrenciesInput {
      * @param {SearchListPopupTypes.ListSizeLimits} param0.listSize
      * @param {BinanceCurrencyInputTypes.InputType} param0.currencyType
      */
-    constructor({ name, label, listSize, currencyType } = {}) {
-        listSize ||= { min: 1, max: 32 }
-        super({ ...arguments[0], listSize })
+    constructor({ name, label, currencyType } = {}) {
+        super({ ...arguments[0], listSize: { min: 1, max: 1 } })
     }
 
     /**

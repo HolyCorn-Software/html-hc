@@ -12,8 +12,6 @@
     overflow-y: auto;
     max-height: calc(var(--dashboard-content-available-height, calc(100vh - 2em)) - 2em);
     position: relative;
-
-
 }
 
 

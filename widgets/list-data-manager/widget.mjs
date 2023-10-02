@@ -1,0 +1,403 @@
+/**
+ * Copyright 2023 HolyCorn Software
+ * The html-hc library.
+ * This widget (list-data-manager), allows us to create views that manage lists of data of a given type,
+ * by simply defining the structure of data expected
+ */
+
+import DelayedAction from "../../lib/util/delayed-action/action.mjs";
+import { Widget, hc } from "../../lib/widget/index.mjs";
+import ActionButton from "../action-button/button.mjs";
+import BrandedBinaryPopup from "../branded-binary-popup/widget.mjs";
+import GenericListings from "../generic-listings/widget.mjs";
+import PopupForm from "../popup-form/form.mjs";
+
+
+const main = Symbol()
+
+const maxItems = Symbol()
+
+
+/**
+ * @template DataType
+ * @extends Widget<ListDataManager>
+ */
+export default class ListDataManager extends Widget {
+
+    /**
+     * @param {object} param0 
+     * @param {string} param0.title
+     * @param {htmlhc.widget.list_data_manager.Config<DataType>} param0.config
+     */
+    constructor({ title, config } = {}) {
+        super();
+
+        this.html = hc.spawn(
+            {
+                classes: ListDataManager.classList,
+                innerHTML: `
+                    <div class='container'>
+                        <div class='main'></div>
+                        <div class='actions'></div>
+                    </div>
+                `
+            }
+        );
+
+        this[maxItems] = 50;
+        // TODO: Deal with max elements per view UI
+
+
+        /** @type {HTMLElement[]} */ this.actions
+        this.pluralWidgetProperty({
+            parentSelector: '.container >.actions',
+            selector: '*',
+            property: 'actions',
+            childType: 'html'
+        });
+
+
+
+        hc.watchToCSS(
+            {
+                source: this.html.$('.container >.actions'),
+                target: this.html,
+                watch: {
+                    dimension: 'width'
+                },
+                apply: '--actions-content-width',
+            }
+        );
+
+
+
+
+        this.widgetProperty(
+            {
+                selector: ['', ...GenericListings.classList].join('.'),
+                parentSelector: '.container >.main',
+                property: main,
+                childType: 'widget',
+                onchange: () => {
+                    /**@type {GenericListings<DataType>} */
+                    const listings = this[main];
+                    listings.statedata.contentMiddleware = [
+                        {
+                            name: 'list-data-manager',
+                            set: (input) => {
+                                return {
+                                    columns: config.display.map((conf, index) => {
+                                        return {
+                                            metadata: index == 0 ? input : undefined,
+                                            content: new ItemView(conf.view, input[conf.name], input).html
+                                        }
+                                    })
+                                }
+                            },
+                            get: (data) => data.columns[0].metadata,
+                        }
+                    ];
+
+                    listings.statedata.headers = config.display.map(x => ({ label: x.label }))
+
+                    listings.statedata.content = []
+                    const btnNw = new ActionButton(
+                        {
+                            content: `New`,
+                            onclick: async () => {
+                                const form = new PopupForm(
+                                    {
+                                        title: `New`,
+                                        caption: `Enter details`,
+                                        negative: `Cancel`,
+                                        positive: `Create`,
+                                        form: config.input,
+                                        execute: async () => {
+                                            const value = await config.create([form.value]) || [form.value]
+                                            listings.statedata.content.push(...value)
+                                            setTimeout(() => form.hide(), 1200)
+                                        }
+                                    }
+                                );
+
+                                form.show()
+                            },
+                            state: config.create ? 'initial' : 'disabled'
+                        }
+                    );
+
+                    const btnDel = new ActionButton(
+                        {
+                            content: `Delete`,
+                            state: 'disabled',
+                            onclick: async () => {
+                                if (listings.listings.checked_items.length < 1) { return }
+                                const popup = new BrandedBinaryPopup(
+                                    {
+                                        title: `Delete`,
+                                        question: `Do you really want to delete?`,
+                                        positive: `Delete`,
+                                        negative: `No`,
+                                        execute: async () => {
+                                            const items = listings.listings.checked_items.map(x => x.columns[0].metadata)
+                                            const eq = (a, b) => JSON.stringify(a) == JSON.stringify(b)
+                                            await config.delete(items)
+                                            listings.statedata.content = listings.statedata.content.filter(x => items.findIndex(it => eq(it, x)) == -1)
+                                            setTimeout(() => popup.hide(), 1250)
+                                        }
+                                    }
+                                )
+                                popup.show()
+                            }
+                        }
+                    )
+
+                    if (config.create) {
+                        listings.actions.push(btnNw)
+                    }
+
+                    if (config.delete) {
+                        listings.actions.push(btnDel)
+                    }
+
+                    listings.listings.addEventListener('selectionchange', () => {
+                        btnDel.state = listings.listings.checked_items.length == 0 ? 'disabled' : 'initial'
+                    })
+
+
+
+                    // This section deals with the logic of showing a menu when the user hovers over an item on the listings widget.
+
+                    /** This variable tells us if the mouse is over the actions html */
+                    let mouseIsOverActions;
+
+                    /** This variable stores the timeout key, that can be used to abort hiding of the actions html */
+                    let actionsHideTimeout;
+
+                    /** This variable contains the last listings item that the user hovered on */
+                    let lastTarget;
+
+                    /** This method hides the actions html */
+                    const hide = () => {
+                        actionsHideTimeout = setTimeout(() => {
+                            this.html.classList.remove('actions-visible')
+                        }, 20_000)
+                    }
+
+                    /** This method stops the system from hiding the actions html */
+                    const cancelHide = () => clearTimeout(actionsHideTimeout)
+
+                    /**
+                     * This method is called for whenever the mouse leaves an item on the listings widget
+                     */
+                    const onMouseLeaveItem = () => {
+                        if (!mouseIsOverActions) {
+                            hide()
+                        }
+                    }
+
+                    /** @type {DataType} */
+                    let selectedItem;
+
+                    this[main].html.addEventListener('mousemove', new DelayedAction(
+                        /**
+                         * 
+                         * @param {MouseEvent} event 
+                         * @returns 
+                         */
+                        async (event) => {
+                            /** @type {HTMLElement} */
+                            let target = event.target
+                            let done;
+
+                            while (target != this[main].html) {
+                                target = target.parentElement
+                                if (target.tagName.toLowerCase() == 'tr') {
+                                    const entry = target.widgetObject;
+                                    selectedItem = entry?.columns[0].metadata;
+                                    if (!selectedItem) return;
+                                    const actionsVisible = this.html.classList.contains('actions-visible');
+                                    if ((!actionsVisible) || (lastTarget !== target)) {
+                                        this.html.classList.add('actions-visible')
+                                        this.html.style.setProperty('--actions-top', `${target.getBoundingClientRect().bottom - this.html.getBoundingClientRect().top}px`)
+                                        this.html.style.setProperty('--actions-left', `${event.pageX - this.html.getBoundingClientRect().left}px`)
+                                        target.addEventListener('mouseleave', onMouseLeaveItem, { once: true })
+                                        cancelHide()
+                                        lastTarget = target;
+                                        done = true
+                                        await Promise.race(
+                                            [
+                                                new Promise(x => this.html.$('.container >.actions').addEventListener('transitionend', x)),
+                                                new Promise(x => setTimeout(x, actionsVisible ? 350 : 0))
+                                            ]
+                                        )
+                                    }
+                                    break;
+                                }
+
+                            }
+
+                            if (done) {
+
+                                const loader = new Widget();
+                                loader.html = hc.spawn({});
+                                this.actions = [loader.html];
+
+                                loader.blockWithAction(
+                                    async () => {
+                                        this.actions = (await config.actions?.(selectedItem)) || []
+                                        loader.html.remove()
+                                    }
+                                );
+                            }
+
+                        }, 250, 2000))
+
+                    this.html.$('.container >.actions').addEventListener('mouseenter', () => {
+                        cancelHide()
+                        mouseIsOverActions = true
+                    })
+
+
+                    this.html.$('.container >.actions').addEventListener('mouseleave', () => {
+                        hide()
+                        mouseIsOverActions = false
+                    })
+
+
+
+
+
+
+
+                    this.blockWithAction(async () => {
+                        return await config.fetch()
+                    }).then(async stream => {
+                        for await (let item of stream) {
+                            if (listings.statedata.content.length >= this[maxItems]) {
+                                await new Promise(resolve => this.addEventListener('max-items-increased', resolve, { once: true }))
+                            }
+
+                            listings.statedata.content.push(item)
+
+                        }
+                    })
+                }
+            }
+        );
+
+        /** @type {GenericListings<DataType>} */
+        this[main] = new GenericListings({ title });
+
+
+
+    }
+
+    get content() {
+        /** @type {GenericListings<DataType>} */
+        const listings = this[main]
+        return listings.statedata.content
+    }
+    /**
+     * @param {DataType[]} content
+     */
+    set content(content) {
+
+        /** @type {GenericListings<DataType>} */
+        const listings = this[main]
+        listings.statedata.content = content
+    }
+
+    set title(title) {
+        this[main].title = title;
+    }
+
+    get title() {
+        return this[main].title
+    }
+
+    /** @readonly */
+    static get classList() {
+        return ['hc-htmlhc-list-data-manager']
+    }
+
+}
+
+
+/**
+ * @extends Widget<ItemView>
+ */
+class ItemView extends Widget {
+
+    /**
+     * 
+     * @param {htmlhc.widget.list_data_manager.Display['view'])} view
+     * @param {any} data 
+     * @param {any} superdata
+     */
+    constructor(view, data, superdata) {
+        super()
+
+        this.html = hc.spawn(
+
+            {
+                classes: ItemView.classList,
+                innerHTML: `
+                    <div class='container'>
+                    </div>
+                `
+            }
+        );
+
+        if (typeof view === 'string') {
+            // For example ::image, ::text
+
+
+            const standardRegExp = /^::(.+)$/
+            if (standardRegExp.test(view)) {
+                let html;
+                switch (data) {
+                    case "::image":
+                        html = hc.spawn({
+                            tag: 'img',
+                            attributes: { src: data }
+                        });
+                        break;
+                    default:
+                        html = hc.spawn({ innerHTML: data })
+                        break;
+                }
+                this.html.$('.container').appendChild(html)
+            } else {
+                this.blockWithAction(
+                    async () => {
+                        /** @type {Widget} */
+                        const widget = new (await import(view)).default(data)
+                        this.html.$('.container').appendChild(
+                            widget.html
+                        )
+                    }
+                )
+            }
+        }
+
+        if (typeof view === 'function') {
+            this.blockWithAction(
+                async () => {
+                    const value = await view(data, superdata)
+                    this.html.$(':scope >.container').appendChild(
+                        value instanceof HTMLElement ? value : hc.spawn({ innerHTML: value })
+                    )
+                }
+            );
+        }
+
+    }
+
+    /** @readonly */
+    static get classList() {
+        return ['hc-htmlhc-list-data-manager-item-view']
+    }
+
+
+}
