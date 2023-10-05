@@ -356,9 +356,10 @@ class ItemView extends Widget {
             const standardRegExp = /^::(.+)$/
             if (standardRegExp.test(view)) {
                 let html;
-                switch (data) {
+                switch (view) {
                     case "::image":
                         html = hc.spawn({
+                            classes: ['hc-htmlhc-list-data-manager-item-standard-image'],
                             tag: 'img',
                             attributes: { src: data }
                         });

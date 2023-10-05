@@ -1,13 +1,7 @@
 .
 
-Corrected minor bug with the delayed-action utility.
+Improved typing of list-data-manager widget.
 
-Improved code quality.
+Improved UI of list-data-manager.
 
-Improved typing.
-
-Improved the Widget blockWithAction() method, by making it more robust, and making possible for multiple simultaneous calls to the function.
-
-Improved UI of the loading-action utility.
-
-Created new powerful widget called list-data-manager, capable of creating management UIs for data in sets.
+Fixed minor bug with list-data-manager view capabilities.

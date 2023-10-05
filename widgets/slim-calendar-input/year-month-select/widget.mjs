@@ -5,7 +5,6 @@
  * This sub-widget (year-month-select), is the part of the slim-calendar-input widget, where the user selects the month, and year
  */
 
-import DelayedAction from "../../../lib/util/delayed-action/action.mjs";
 import { Widget, hc } from "../../../lib/widget/index.mjs";
 import AccordionItem from "../../arcordion/item.mjs";
 import Accordion from "../../arcordion/widget.mjs";

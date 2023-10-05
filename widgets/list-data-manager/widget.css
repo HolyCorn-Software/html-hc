@@ -49,3 +49,10 @@
     pointer-events: none;
     filter: brightness(50%) grayscale(0.8) opacity(0.4);
 }
+
+.hc-htmlhc-list-data-manager-item-standard-image {
+    width: 2em;
+    height: 2em;
+    object-fit: contain;
+    object-position: center;
+}

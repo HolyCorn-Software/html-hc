@@ -26,7 +26,7 @@ global {
         }
         interface Display<T> {
             label: string
-            name: string
+            name: keyof T
             view: StandardView | ((input: any, data: T) => HTMLElement | Promise<HTMLElement>)
         }
 
