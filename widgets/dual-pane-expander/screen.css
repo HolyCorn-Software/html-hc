@@ -6,33 +6,34 @@
 */
 
 
-.hc-dual-pane-expander-screen >.container{
-    display:flex;
-    align-items:center;
-    flex-direction:column;
-    gap:1.5em;
-    padding-top:1em;
-    font-family:k2dThin;
+.hc-dual-pane-expander-screen>.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.5em;
+    padding-top: 1em;
+    font-family: k2dThin;
 }
 
-.hc-dual-pane-expander-screen >.container >.title{
-    font-family:k2dExtraBold;
-    font-size:1.25em;
+.hc-dual-pane-expander-screen>.container>.title {
+    font-family: k2dExtraBold;
+    font-size: 1.25em;
     text-align: center;
 }
 
-.hc-dual-pane-expander-screen >.container >.action {
+.hc-dual-pane-expander-screen>.container>.action {
     display: flex;
-    justify-content:center;
+    justify-content: center;
 }
-.hc-dual-pane-expander-screen >.container >.action >.hc-action-button >.container{
-    background-color:black;
-    color:white;
-    border-radius:0.75em;
-    min-width:10em;
+
+.hc-dual-pane-expander-screen>.container>.action>.hc-action-button>.container {
+    background-color: black;
+    color: white;
+    border-radius: 0.75em;
+    width: clamp(5em, 10em, 100%);
 }
 
 
-.hc-dual-pane-expander-screen >.container >.content{
+.hc-dual-pane-expander-screen>.container>.content {
     text-align: center;
 }
