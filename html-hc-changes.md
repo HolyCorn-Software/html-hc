@@ -1,3 +1,3 @@
 .
 
-Improved responsiveness of the dual-pane-expander widget.
+Added ability for modify data to the list-data-manager widget.

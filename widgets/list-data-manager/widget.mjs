@@ -70,6 +70,7 @@ export default class ListDataManager extends Widget {
         );
 
 
+        /** @type {(event: 'item-selected', cb: (ev: CustomEvent<DataType>) => void, opts: AddEventListenerOptions )} */ this.addEventListener
 
 
         this.widgetProperty(
@@ -140,7 +141,6 @@ export default class ListDataManager extends Widget {
                                         negative: `No`,
                                         execute: async () => {
                                             const items = listings.listings.checked_items.map(x => x.columns[0].metadata)
-                                            const eq = (a, b) => JSON.stringify(a) == JSON.stringify(b)
                                             await config.delete(items)
                                             listings.statedata.content = listings.statedata.content.filter(x => items.findIndex(it => eq(it, x)) == -1)
                                             setTimeout(() => popup.hide(), 1250)
@@ -160,8 +160,65 @@ export default class ListDataManager extends Widget {
                         listings.actions.push(btnDel)
                     }
 
+                    /**
+                     * This method tries to figure out which data item the user has clicked, by clicking any area of the UI
+                     * @param {HTMLElement} target 
+                     * @returns {DataType}
+                     */
+                    const getDataFromHTML = (target) => {
+                        while (target != this[main].html) {
+                            target = target.parentElement
+                            if (target.tagName.toLowerCase() == 'tr') {
+                                return target.widgetObject?.columns[0].metadata;
+                            }
+
+                        }
+                    }
+
+                    if (config.edit && (config.edit.execute || config.create)) {
+
+                        this.addEventListener('item-selected', (event) => {
+                            const popup = new PopupForm(
+                                {
+                                    form: config.edit.form || config.input,
+                                    execute: async () => {
+                                        const value = event.detail
+                                        Object.assign(value, popup.value)
+                                        const newValue = (await (config.edit.execute || ((i) => config.create([i]).then(ret => ret?.[0])))(value)) || value;
+                                        this.content = this.content.map(item => eq(item, event.detail) ? newValue : item)
+                                        setTimeout(() => popup.hide(), 1250)
+                                    },
+                                    positive: `Update`,
+                                    negative: `Cancel`,
+                                    title: `Edit Content`,
+                                    caption: `Enter new details`
+                                }
+                            );
+                            popup.waitTillDOMAttached().then(() => popup.blockWithAction(
+                                async () => {
+                                    popup.value = (await config.edit?.setForm?.(event.detail)) || event.detail
+                                }
+                            ));
+
+                            popup.show()
+
+                        })
+                    }
+
                     listings.listings.addEventListener('selectionchange', () => {
                         btnDel.state = listings.listings.checked_items.length == 0 ? 'disabled' : 'initial'
+                    })
+
+
+
+                    // The logic of dispatching events when the user selects a data item
+                    this[main].html.addEventListener("click", (event) => {
+                        const data = getDataFromHTML(event.target)
+                        if (!data) {
+                            console.log(`Could not get data from `, event.target)
+                            return;
+                        }
+                        this.dispatchEvent(new CustomEvent('item-selected', { detail: data }))
                     })
 
 
@@ -210,28 +267,36 @@ export default class ListDataManager extends Widget {
                             let target = event.target
                             let done;
 
+                            const dataItem = getDataFromHTML(event.target)
+
+                            if (!dataItem) {
+                                return
+                            }
+                            const actionsVisible = this.html.classList.contains('actions-visible');
+                            if ((!actionsVisible) || (lastTarget !== target)) {
+                                this.html.classList.add('actions-visible')
+                                this.html.style.setProperty('--actions-top', `${target.getBoundingClientRect().bottom - this.html.getBoundingClientRect().top}px`)
+                                this.html.style.setProperty('--actions-left', `${event.pageX - this.html.getBoundingClientRect().left}px`)
+                                target.addEventListener('mouseleave', onMouseLeaveItem, { once: true })
+                                cancelHide()
+                                lastTarget = target;
+                                done = true
+                                await Promise.race(
+                                    [
+                                        new Promise(x => this.html.$('.container >.actions').addEventListener('transitionend', x)),
+                                        new Promise(x => setTimeout(x, actionsVisible ? 350 : 0))
+                                    ]
+                                )
+                            }
+
+
                             while (target != this[main].html) {
                                 target = target.parentElement
                                 if (target.tagName.toLowerCase() == 'tr') {
                                     const entry = target.widgetObject;
                                     selectedItem = entry?.columns[0].metadata;
                                     if (!selectedItem) return;
-                                    const actionsVisible = this.html.classList.contains('actions-visible');
-                                    if ((!actionsVisible) || (lastTarget !== target)) {
-                                        this.html.classList.add('actions-visible')
-                                        this.html.style.setProperty('--actions-top', `${target.getBoundingClientRect().bottom - this.html.getBoundingClientRect().top}px`)
-                                        this.html.style.setProperty('--actions-left', `${event.pageX - this.html.getBoundingClientRect().left}px`)
-                                        target.addEventListener('mouseleave', onMouseLeaveItem, { once: true })
-                                        cancelHide()
-                                        lastTarget = target;
-                                        done = true
-                                        await Promise.race(
-                                            [
-                                                new Promise(x => this.html.$('.container >.actions').addEventListener('transitionend', x)),
-                                                new Promise(x => setTimeout(x, actionsVisible ? 350 : 0))
-                                            ]
-                                        )
-                                    }
+
                                     break;
                                 }
 
@@ -402,3 +467,6 @@ class ItemView extends Widget {
 
 
 }
+
+
+const eq = (a, b) => JSON.stringify(a) == JSON.stringify(b)
