@@ -1,3 +1,3 @@
 .
 
-Fixed minor UX glitch of the list-data-manager widget.
+Fixed minor bug of the list-data-manager widget.

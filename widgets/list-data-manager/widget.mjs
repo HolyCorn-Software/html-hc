@@ -182,7 +182,7 @@ export default class ListDataManager extends Widget {
                                 {
                                     form: config.edit.form || config.input,
                                     execute: async () => {
-                                        const value = event.detail
+                                        const value = JSON.parse(JSON.stringify(event.detail))
                                         Object.assign(value, popup.value)
                                         const newValue = (await (config.edit.execute || ((i) => config.create([i]).then(ret => ret?.[0])))(value)) || value;
                                         this.content = this.content.map(item => eq(item, event.detail) ? newValue : item)
