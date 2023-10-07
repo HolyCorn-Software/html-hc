@@ -166,7 +166,7 @@ export default class ListDataManager extends Widget {
                      * @returns {DataType}
                      */
                     const getDataFromHTML = (target) => {
-                        while (target != this[main].html) {
+                        while ((target != this[main].html) && !target?.classList.contains('checkbox')) {
                             target = target.parentElement
                             if (target.tagName.toLowerCase() == 'tr') {
                                 return target.widgetObject?.columns[0].metadata;
@@ -215,7 +215,6 @@ export default class ListDataManager extends Widget {
                     this[main].html.addEventListener("click", (event) => {
                         const data = getDataFromHTML(event.target)
                         if (!data) {
-                            console.log(`Could not get data from `, event.target)
                             return;
                         }
                         this.dispatchEvent(new CustomEvent('item-selected', { detail: data }))

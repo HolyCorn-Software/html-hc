@@ -1,3 +1,3 @@
 .
 
-Added ability for modify data to the list-data-manager widget.
+Fixed minor UX glitch of the list-data-manager widget.
