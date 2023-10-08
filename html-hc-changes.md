@@ -1,3 +1,3 @@
 .
 
-Fixed minor bug of the list-data-manager widget.
+Improved the responsiveness of the wide-slider widget.

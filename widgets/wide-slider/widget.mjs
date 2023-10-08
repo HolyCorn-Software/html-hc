@@ -68,7 +68,8 @@ export default class WideSlider extends Widget {
             //Change the real index, since the item wasn't found
             return;
         }
-        const offset = item.getBoundingClientRect().left - item.parentElement.getBoundingClientRect().left
+        const paddingLeft = new Number(window.getComputedStyle(this.html.$('.container >.items')).paddingLeft.split(/[^0-9_.]/)[0]).valueOf()
+        const offset = item.getBoundingClientRect().left - item.parentElement.getBoundingClientRect().left - paddingLeft
         this.html.style.setProperty('--hc-wide-slider-transform', `translateX(${this[xTransform] - offset}px)`)
         this[realIndex] = index
     }

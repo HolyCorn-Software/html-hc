@@ -9,6 +9,7 @@
 .hc-wide-slider {
     position: relative;
     width: clamp(200px, 1200px, 100vw - 3em);
+    max-width: 100%;
 }
 
 .hc-wide-slider>.container {
@@ -20,7 +21,6 @@
 }
 
 .hc-wide-slider>.container>.items {
-    width: 100%;
     position: relative;
     display: flex;
     gap: 1em;
