@@ -15,7 +15,8 @@
     font-size: 0.8em;
     z-index: 1;
     --target-width: max(var(--hc-htmlhc-loading-action-errored-target-width), 250px);
-    width: var(--target-width);
+    --width: var(--target-width);
+    width: var(--width);
 }
 
 .hc-htmlhc-loading-action-error-ui::before {

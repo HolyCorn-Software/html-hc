@@ -1,3 +1,7 @@
 .
 
-Improved the responsiveness of the wide-slider widget.
+Fixed minor issue with the masterly font.
+
+Fixed minor UI bug with the loading-action module.
+
+Fixed minor bug with the pluralWidgetProperty utility.

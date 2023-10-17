@@ -41,9 +41,7 @@ export default class WideSlider extends Widget {
                 childType: 'html'
             }
         );
-
-        window.wdsl = this
-
+        
         hc.watchToCSS(
             {
                 source: this.html,
