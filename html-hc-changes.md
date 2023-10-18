@@ -1,3 +1,3 @@
 .
 
-Improved the UI of the loading-action utility.
+Improved the layout of the loading-action utility error view.

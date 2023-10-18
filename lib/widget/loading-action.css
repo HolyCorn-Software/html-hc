@@ -21,14 +21,14 @@
 
 .hc-htmlhc-loading-action-error-ui::before {
     content: '';
-    width: calc(100% + 2em);
-    height: calc(100% + 2em);
+    width: calc(100%, calc(100% + 2em), 100vw - 1em);
+    height: calc(100% + 1em);
     z-index: -1;
     background-color: red;
     opacity: 0.5;
     position: absolute;
-    left: -1em;
-    top: -1em;
+    left: -0.5em;
+    top: -0.5em;
 }
 
 .hc-htmlhc-loading-action-error-ui>.container {
