@@ -41,6 +41,7 @@
     max-height: calc(100% - 0.25em);
     box-shadow: 0px 0px 0.35em #cde1e7;
     border-radius: 0.75em;
+    color: black;
     background-color: white;
     padding-left: var(--icon-size);
 }
@@ -55,8 +56,7 @@
     height: 100%;
 }
 
-
-.hc-htmlhc-loading-action-error-ui>.container>.main::before {
+n4xPdmebkkaXMF7p1Ghf1ua14RxtrfbJvp7GuAjm7a8vstbAju9XeatrHXRE5E7cju .hc-htmlhc-loading-action-error-ui>.container>.main::before {
     width: var(--icon-size);
     height: var(--icon-size);
     background-image: url('./icon-action-error.svg');
