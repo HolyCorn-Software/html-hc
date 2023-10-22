@@ -146,7 +146,33 @@ export default class DualPaneExpander extends Widget {
             set: (v) => this.screen.actions = v,
             configurable: true,
             enumerable: true
-        })
+        });
+
+        hc.watchToCSS(
+            {
+                source: this.html.$('.container >.main >.left'),
+                target: this.html,
+                watch: {
+                    dimension: 'height'
+                },
+                apply: '--min-height'
+            }
+        );
+
+        hc.watchToCSS(
+            {
+                source: this.html.$('.container >.main >.right'),
+                target: this.html,
+                watch: {
+                    dimension: 'width'
+                },
+                apply: () => {
+                    const right = this.html.$('.container >.main >.right')
+                    const knownMaxWidth = new Number((right.style.getPropertyValue('--max-content-width') || '0').split(/[^0-9.]/)[0]).valueOf()
+                    right.style.setProperty('--max-content-width', `${Math.max(right.getBoundingClientRect().width, knownMaxWidth)}px`)
+                }
+            }
+        )
 
 
     }

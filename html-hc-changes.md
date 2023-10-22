@@ -1,3 +1,3 @@
 .
 
-Improved the layout of the loading-action utility error view.
+Improved responsiveness of the dual-pane-expander widget.
