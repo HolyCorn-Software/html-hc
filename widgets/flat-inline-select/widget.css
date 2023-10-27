@@ -1,0 +1,47 @@
+/*  
+    Copyright 2023 HolyCorn Software
+    The html-hc library
+    This widget is created for the flat-inline-select widget
+*/
+
+
+
+.hc-htmlhc-flat-inline-select>.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+}
+
+.hc-htmlhc-flat-inline-select>.container>.title {
+    font-size: 1.35em;
+}
+
+.hc-htmlhc-flat-inline-select>.container>.title:empty {
+    display: none;
+}
+
+.hc-htmlhc-flat-inline-select>.container>.content {
+    position: relative;
+    display: flex;
+    gap: 1em;
+    flex-wrap: wrap;
+}
+
+.hc-htmlhc-flat-inline-select-item>.container {
+    border-radius: 1.5em;
+    padding: 0.5em;
+    cursor: pointer;
+    transition: 0.5s 0.125s;
+    background-color: rgb(149, 188, 231);
+    color: black;
+}
+
+.hc-htmlhc-flat-inline-select-item:hover>.container {
+    background-color: rgb(10, 115, 235);
+}
+
+.hc-htmlhc-flat-inline-select-item.selected>.container {
+    background-color: rgb(4, 93, 194);
+    color: beige;
+}

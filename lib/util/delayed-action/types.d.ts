@@ -8,6 +8,6 @@
 declare namespace htmlhc.lib.util.delayedAction {
 
     var FunctionType: {
-        new <T>(fxn: (...input: T) => any): (...input: T) => any
+        new <I, O>(fxn: (...input: I) => O): (...input: I) => Promise<Awaited<O>>
     }
 }
