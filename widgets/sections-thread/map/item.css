@@ -32,24 +32,21 @@
     width: 1.2em;
     height: 1.2em;
     position: absolute;
-    margin: auto;
-    left: calc(-0.2em);
-    top: calc(-0.2em);
+    left: calc(-0.2em - calc(0.125em / 10));
+    top: calc(-0.2em - calc(0.125em / 10));
     content: '';
     border-radius: 100%;
 }
 
 .hc-sections-thread-map-item>.container>.main>.dot::after {
-
     width: 1em;
     height: 1em;
-    border-radius: 100%;
     background-color: currentColor;
     position: absolute;
-    margin: auto;
     left: 0px;
     top: 0px;
     content: '';
+    border-radius: 100%;
 }
 
 

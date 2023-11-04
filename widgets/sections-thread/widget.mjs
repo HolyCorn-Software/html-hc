@@ -161,6 +161,17 @@ export default class SectionsThread extends Widget {
             }
         );
 
+        hc.watchToCSS(
+            {
+                source: this.html.$('.container >.content'),
+                target: this.html,
+                apply: '--content-width',
+                watch: {
+                    dimension: 'width'
+                }
+            }
+        )
+
 
 
     }

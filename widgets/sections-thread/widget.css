@@ -9,32 +9,34 @@
     display: flex;
     flex-direction: column;
     max-width: clamp(80vw, 750px, 99vw);
+    --hc-sections-thread-width: clamp(80vw, 750px, 99vw);
 }
 
 .hc-sections-thread>.container>.map {
     position: sticky;
     margin-top: 1em;
     top: 5em;
+    width: 100%;
 
 }
 
 .hc-sections-thread>.container>.map>* {
     position: relative;
     top: 1em;
-    left: calc(100% - var(--map-width, 5em) - 1em);
-    max-width: calc(35% - 2em);
-    box-shadow: 0px 0px 0.5em rgb(189, 192, 194);
+    left: clamp(2em, var(--content-width, 100%) + var(--map-width), 100% - var(--map-width) + 2em);
+    max-width: calc((var(--hc-sections-thread-width) * 0.35) - 2em);
     display: inline-flex;
     min-height: 150px;
     padding: 0.5em;
     border-radius: 0.25em;
     background-color: inherit;
+    font-size: 0.85em;
 }
 
 .hc-sections-thread>.container>.content {
     position: relative;
     z-index: 1;
-    max-width: clamp(200px, 100% - var(--map-width, 5em) - 1.75em, 100%);
+    max-width: clamp(150px, 100% - var(--map-width, 5em) + 1em, 100%);
     margin-left: 0.5em;
     transform: translateY(calc(var(--map-height) * -1));
 }
