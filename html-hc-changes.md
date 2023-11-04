@@ -1,3 +1,3 @@
 .
 
-Improved responsiveness of fileUpload, and multi-flex-form widgets.
+Optimized the loading of images, to increase performance.
