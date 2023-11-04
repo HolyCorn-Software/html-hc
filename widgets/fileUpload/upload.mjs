@@ -68,7 +68,13 @@ export class UniqueFileUpload extends Widget {
         let confirm = new ActionButton({
             content: 'Confirm'
         })
-        confirm.onclick = this.doUpload.bind(this)
+        confirm.onclick = () => {
+            this.doUpload().then(
+                () => setTimeout(() => {
+                    setLabel()
+                }, 5000)
+            ).catch(e => window.dispatchEvent(new ErrorEvent('error', { error: e })))
+        }
 
         let cancel = new ActionButton({
             content: 'Cancel'
@@ -126,6 +132,14 @@ export class UniqueFileUpload extends Widget {
             enumerable: true
         })
 
+        const setLabel = () => {
+            //The following calculations on the max number of characters in the name, is based on the width occupied by a single character, and the space already taken off the main widget
+            const em = (value) => new Number(/[0-9.]+/.exec(window.getComputedStyle(this.html.$('.container >.main')).fontSize)[0]).valueOf() * value
+            const shouldLabel = this.fileInput.files?.length > 0
+            this.label = shouldLabel ? UniqueFileUpload.getShortName(this.fileInput.files?.[0]?.name || `...`, Math.floor((this.html.getBoundingClientRect().width - (this.html.classList.contains('hasFile') ? em(4.5 + 2.5) : (em(5) * -1))) / em(1))) : originalLabel;
+
+        }
+
 
         //Manipulating this property will hide and show specific parts of the UI, which can either allow or stop the user from uploading
         /** @type {boolean} */ this.empty
@@ -133,8 +147,7 @@ export class UniqueFileUpload extends Widget {
             get: () => this.fileInput.value === '',
             set: (v) => {
                 this.html.classList.toggle('hasFile', !v)
-                //The following calculations on the max number of characters in the name, is based on the width occupied by a single character (16), and the space already taken off the main widget
-                this.label = !v ? UniqueFileUpload.getShortName(this.fileInput.files?.[0]?.name || `...`, Math.floor((this.html.$('.container').getBoundingClientRect().width - 72) / 16)) : originalLabel;
+                setLabel()
                 if (!v) return
                 confirm.state = ''
                 this.fileInput.value = ''
@@ -157,6 +170,17 @@ export class UniqueFileUpload extends Widget {
             this.refresh_image()
 
         })
+
+        hc.watchToCSS(
+            {
+                source: this.html.$('.container >.actions'),
+                target: this.html,
+                watch: {
+                    dimension: 'width'
+                },
+                apply: '--actions-width'
+            }
+        )
 
     }
 
@@ -269,6 +293,12 @@ export class UniqueFileUpload extends Widget {
 
         button.state = 'success'
 
+        setTimeout(() => {
+            if (button.state == 'success') {
+                button.state = 'initial'
+            }
+        }, 1500)
+
     }
 
     #spinner = new Spinner()
@@ -294,7 +324,7 @@ export class UniqueFileUpload extends Widget {
     static getShortName(name, maxLength) {
         if (name.length <= maxLength) return name
         if (maxLength < 6) {
-            throw new Error('Cannot shorten name to a length less than six(6)')
+            return `${name.substring(0, maxLength - 3)}...`
         }
         return `${name.substring(0, maxLength - 6)}...${name.substring(name.length - 3, name.length)}`
     }

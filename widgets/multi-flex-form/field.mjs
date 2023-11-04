@@ -263,6 +263,22 @@ export class MultiFlexFormTextbox extends MultiFlexFormItem {
 
         /** @type {string} */ this.valueProperty
 
+
+        hc.watchToCSS(
+            {
+                source: this.html,
+                target: this.html,
+                watch: {
+                    dimension: 'width'
+                },
+                apply: () => {
+                    const styles = window.getComputedStyle(this.html.$('input,textarea'))
+                    const getValue = (string) => new Number(/[0-9.]+/.exec(string)[0]).valueOf()
+                    this.html.style.setProperty('--input-padding', `${getValue(styles.paddingLeft) + getValue(styles.paddingRight)}px`)
+                }
+            }
+        )
+
     }
 
     get value() {

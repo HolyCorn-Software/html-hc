@@ -1,3 +1,3 @@
 .
 
-Improved responsiveness of the dual-pane-expander widget.
+Improved responsiveness of fileUpload, and multi-flex-form widgets.

@@ -38,7 +38,7 @@ It is used to create various custom inputs
     /* box-shadow: 0px 0px 3px rgba(0, 255, 255, 0.322); */
     font-size: 0.75em;
     padding: 0.35em;
-    width: calc(100% - 0.75em);
+    width: calc(100% - var(--input-padding, 0.75em));
     flex-grow: 1;
 }
 
@@ -66,8 +66,8 @@ It is used to create various custom inputs
     font-size: 0.75em;
     font-family: k2dThin;
     transition: 0.25s 0.5s;
-    left: 0.125em;
-    transform: translateY(1.35em);
+    left: calc(var(--input-padding) / 2);
+    transform: translateY(calc(var(--input-padding) / 2 + 0.85em));
 }
 
 .hc-multi-flex-form-textbox>.container:is(:not(.empty), :hover):before {
