@@ -5,48 +5,49 @@
 
 .hc-nice-number-input {
     display: flex;
-    max-width:100%;
+    max-width: 100%;
 }
 
 .hc-nice-number-input>.container {
     display: flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:2em;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2em;
     flex-grow: 1;
     border: 1px solid #424A57;
-    padding-left:5%;
-    padding-right:5%;
-    border-radius:7px;
-    max-width:calc(100% - 3.5em);
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    border-radius: 7px;
+    max-width: calc(100% - 3.5em);
 }
 
-.hc-nice-number-input>.container >.control{
-    font-size:1.75em;
-    cursor:pointer;
-    padding:0.125em;
-    padding-right:0.5em;
-    padding-left:0.5em;
-    transition:0.25s 0.125s;
+.hc-nice-number-input>.container>.control {
+    font-size: 1.75em;
+    cursor: pointer;
+    padding: 0.125em;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+    transition: 0.25s 0.125s;
 }
 
-.hc-nice-number-input>.container >.control:hover{
-    font-size:2em;
-    color:deeppink;
+.hc-nice-number-input>.container>.control:hover {
+    font-size: 2em;
+    color: deeppink;
 
 }
 
-.hc-nice-number-input>.container >.control::selection{
+.hc-nice-number-input>.container>.control::selection {
     background: transparent;
 }
 
-.hc-nice-number-input >.container >input{
-    outline:transparent;
-    font-family:inherit;
-    border:transparent;
-    background:transparent;
-    text-align:center;
-    font-family:archive;
+.hc-nice-number-input>.container>input {
+    outline: transparent;
+    font-family: inherit;
+    border: transparent;
+    background: transparent;
+    text-align: center;
+    font-family: archive;
     font-size: 1.75em;
-    max-width:calc(100% - 5em);
+    max-width: calc(100% - 8em);
+    min-width: 3em;
 }

@@ -69,4 +69,29 @@ global {
 
 
     }
+
+    namespace htmlhc.widget {
+        /**
+         * This interface contains names of common events widgets expect to be fired in HTML.
+         */
+        interface WidgetHTMLEvents {
+            'example': {
+                value: number
+                done: boolean
+            }
+        }
+
+        type WidgetHTMLEventsExpanded = WidgetHTMLEvents[keyof WidgetHTMLEvents]
+    }
+
+
+
+    interface WidgetEvent<E = any> extends Event {
+        readonly detail: htmlhc.widget.WidgetHTMLEvents[E];
+    }
+
+    declare var WidgetEvent: {
+        prototype: WidgetEvent;
+        new <E extends keyof htmlhc.widget.WidgetHTMLEvents>(type: E, eventInitDict?: CustomEventInit<htmlhc.widget.WidgetHTMLEvents[E]>): WidgetEvent<E>;
+    };
 }

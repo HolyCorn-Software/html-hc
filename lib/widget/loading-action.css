@@ -56,7 +56,7 @@
     height: 100%;
 }
 
-n4xPdmebkkaXMF7p1Ghf1ua14RxtrfbJvp7GuAjm7a8vstbAju9XeatrHXRE5E7cju .hc-htmlhc-loading-action-error-ui>.container>.main::before {
+.hc-htmlhc-loading-action-error-ui>.container>.main::before {
     width: var(--icon-size);
     height: var(--icon-size);
     background-image: url('./icon-action-error.svg');
@@ -74,7 +74,7 @@ n4xPdmebkkaXMF7p1Ghf1ua14RxtrfbJvp7GuAjm7a8vstbAju9XeatrHXRE5E7cju .hc-htmlhc-lo
     max-width: clamp(100px, var(--target-width) - 1em, 100% - 2em);
     overflow: hidden;
     text-overflow: ellipsis;
-    max-height: calc(var(--hc-htmlhc-loading-action-errored-target-height) - 5em);
+    max-height: calc(var(--hc-htmlhc-loading-action-errored-target-height) - 4em);
 }
 
 .hc-htmlhc-loading-action-error-ui>.container>.main>.actions {
@@ -98,7 +98,7 @@ n4xPdmebkkaXMF7p1Ghf1ua14RxtrfbJvp7GuAjm7a8vstbAju9XeatrHXRE5E7cju .hc-htmlhc-lo
 
 .hc-htmlhc-loading-action-is-errored {
     min-width: 6em;
-    min-height: 5em;
+    min-height: 6.5em;
     position: relative;
 }
 

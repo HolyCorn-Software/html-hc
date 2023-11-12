@@ -1,0 +1,113 @@
+/*  
+    Copyright 2022 HolyCorn Software
+    The Matazm Project
+    This stylesheet determines the layout of the navigation widget of the travel-timetable widget
+*/
+
+
+
+.hc-matazm-travel-timetable-navigation>.container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.hc-matazm-travel-timetable-navigation>.container>.main {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+
+.hc-matazm-travel-timetable-navigation>.container>.main>.nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 2em;
+    align-items: center;
+    padding-left: 1em;
+}
+
+.hc-matazm-travel-timetable-navigation>.container>.main>.nav>.year-select {
+    max-width: 350px;
+    font-size: 0.85rem;
+}
+
+.hc-matazm-travel-timetable-navigation>.container>.main>.nav>.month-select {
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+    font-family: bariolBold;
+    font-size: 1.5em;
+}
+
+.hc-matazm-travel-timetable-navigation>.container>.main>.nav>.month-select>.month-label {
+    display: flex;
+    align-items: center;
+}
+
+.hc-matazm-travel-timetable-navigation>.container>.main>.nav>.month-select>.arrow {
+    cursor: pointer;
+    transition: 0.25s 0.125s;
+}
+
+.hc-matazm-travel-timetable-navigation>.container>.main>.nav>.month-select>.arrow:hover {
+    color: darkorange;
+}
+
+.hc-matazm-travel-timetable-navigation>.container>.main>.stage>table {
+    table-layout: fixed;
+    min-width: 100%;
+    border-spacing: 0.75em;
+}
+
+.hc-matazm-travel-timetable-navigation>.container>.main>.stage>table>thead {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.hc-matazm-travel-timetable-navigation>.container>.main>.stage>table td {
+    text-align: center;
+    position: relative;
+    width: 1.9em;
+    height: 1.9em;
+    aspect-ratio: 1/1;
+}
+
+.hc-matazm-travel-timetable-navigation>.container>.main>.stage>table td.dim {
+    opacity: 0.3;
+}
+
+.hc-matazm-travel-timetable-navigation>.container>.main>.stage>table>tbody {
+    font-weight: 100;
+}
+
+.hc-matazm-travel-timetable-navigation>.container>.main>.stage>table>tbody>tr>td {
+    cursor: pointer;
+}
+
+.hc-matazm-travel-timetable-navigation>.container>.main>.stage>table>tbody>tr>td:before {
+    border-radius: 100%;
+    content: '';
+    height: 1.75em;
+    aspect-ratio: 1/1;
+    position: absolute;
+    top: calc(50% - 0.875em);
+    left: calc(50% - 0.875em);
+    transition: 0.25s 0.125s;
+    border: 1px solid transparent;
+}
+
+.hc-matazm-travel-timetable-navigation>.container>.main>.stage>table>tbody>tr>td:not(.highlight):hover:before {
+    border: 1px solid rgb(48, 47, 47);
+}
+
+.hc-matazm-travel-timetable-navigation>.container>.main>.stage>table>tbody>tr>td.highlight {
+    border: 1px solid rgb(190, 16, 16) !important;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+}
+
+.hc-matazm-travel-timetable-navigation>.container>.main>.stage>table>tbody>tr>td.today {
+    color: rgb(197, 17, 101);
+    font-weight: bolder;
+}
