@@ -9,6 +9,10 @@ The animated tick widget
     position: relative;
 }
 
+.hc-animated-tick>.container>svg {
+    transform: rotate(10deg);
+}
+
 .hc-animated-tick>.container>svg>.stroke {
     transition: 0.65s 0.125s;
     stroke-dasharray: 50;

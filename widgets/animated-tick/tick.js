@@ -22,7 +22,7 @@ export class AnimatedTick extends Widget {
                 <div class='container'>
                     <svg xmlns="http://www.w3.org/2000/svg" height="0.9em" width="0.9em" viewBox="0 0 25 25">
                         <g class='stroke' stroke="currentColor" stroke-width="3" fill="transparent">
-                            <path d="M2.5,12.5 L12.5,22.5 L25,5"/>
+                            <path d="M2,16 L12.5,22.5 L23,5.5"/>
                         </g>
                     </svg>
                 </div>

@@ -32,7 +32,7 @@ global {
     namespace htmlhc.widget {
         interface WidgetHTMLEvents {
             'backforth-goto': htmlhc.widget.backforth.ViewData
-            'backforth-goback': undefined
+            'backforth-goback': { offset?: number }
         }
     }
 

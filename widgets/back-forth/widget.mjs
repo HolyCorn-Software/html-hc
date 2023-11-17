@@ -85,8 +85,8 @@ export default class BackForth extends Widget {
 
 
 
-        const goBack = new DelayedAction(() => {
-            if (!(this.statedata.history.length > 1)) {
+        const goBack = new DelayedAction((offset = 1) => {
+            if (!(this.statedata.history.length > offset)) {
                 if (this.canQuit) {
                     this.dispatchEvent(new CustomEvent('quit'))
                 } else {
@@ -94,8 +94,8 @@ export default class BackForth extends Widget {
                 }
                 return
             }
-            this.statedata.history.pop() //Remove the current view from the history
-            this.loadView(this.statedata.history.at(-1), true) //Remove the view before that, and that's what we're going to be navigating to
+            this.statedata.history = this.statedata.history.slice(0, this.statedata.history.length - offset) //Remove the current view from the history
+            this.loadView(this.statedata.history[this.statedata.history.length - 1], true) //Remove the view before that, and that's what we're going to be navigating to
         }, 100)
 
 
@@ -111,8 +111,8 @@ export default class BackForth extends Widget {
             event.stopPropagation()
         });
 
-        this.html.addEventListener('backforth-goback', () => {
-            goBack()
+        this.html.addEventListener('backforth-goback', ({ detail: { offset } }) => {
+            goBack(offset || 1)
         })
 
         if (initialView) {
