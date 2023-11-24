@@ -7,7 +7,7 @@ This module allows the button to display custom messages
 import { Widget, hc } from "../../lib/widget/index.mjs";
 
 hc.importModuleCSS(import.meta.url);
-let { path } = hc.parsePath(import.meta.url)
+let path = new URL('./', import.meta.url,).href
 
 class ActionButtonMessage extends Widget {
 
@@ -43,10 +43,10 @@ class ActionButtonMessage extends Widget {
     async show(timeout = Infinity) {
         this.html.remove()
         this.button.html.appendChild(this.html)
-        setTimeout(()=>this.html.classList.add('visible'), 20)
+        setTimeout(() => this.html.classList.add('visible'), 20)
 
         if (timeout !== Infinity && timeout !== 0) {
-            setTimeout(() => this.hide(), timeout+20);
+            setTimeout(() => this.hide(), timeout + 20);
         }
 
         await new Promise(resolve => {
@@ -86,7 +86,7 @@ export class ActionButtonMessageAPI {
         this.#messenger.icon = `${path}icons/warn.svg`
         this.#messenger.show(timeout)
     }
-    
+
 
 
 }

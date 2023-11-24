@@ -28,13 +28,11 @@ export class SearchableMenu extends Widget {
                 <div class='container'>
                     <div class='bar'>
                         <input class='input'>
-                        <img src='${hc.parsePath(import.meta.url).path}/ic_search_48px.svg' class='search-icon'>
+                        <img src='${new URL('../ic_search_48px.svg', import.meta.url).herf}' class='search-icon'>
                     </div>
 
 
-                    <div class='data'>
-
-                    </div>
+                    <div class='data'></div>
                     
                 </div>
             `

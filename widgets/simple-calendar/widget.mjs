@@ -235,7 +235,7 @@ export default class SimpleCalendar extends Widget {
 
         const value = new Number(this.tdSelected?.innerText).valueOf() || 1
         const isDimmed = this.tdSelected?.classList.contains('dim')
-        return new Date(this.statedata.current.year, isDimmed ? this.statedata.current.month + (value < 7 ? 1 : -1) : this.statedata.current.month, value)
+        return new Date(new Date(this.statedata.current.year, isDimmed ? this.statedata.current.month + (value < 7 ? 1 : -1) : this.statedata.current.month, value).setHours(0, 0, 0, 0))
     }
     /**
      * @param {Date}
