@@ -23,10 +23,6 @@ const state_load_promise = new Promise((resolve, reject) => {
 
 
 
-
-/**
- * @extends Widget<ActionButton>
- */
 export default class ActionButton extends Widget {
 
     /**

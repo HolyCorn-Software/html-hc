@@ -4,6 +4,7 @@
  * This widget allows us to present the user with a calendar-like UI
  */
 
+import DelayedAction from "../../lib/util/delayed-action/action.mjs";
 import AlarmObject from "/$/system/static/html-hc/lib/alarm/alarm.mjs";
 import { hc, Widget } from "/$/system/static/html-hc/lib/widget/index.mjs";
 import { NiceNumberInput } from "/$/system/static/html-hc/widgets/nice-number-input/input.mjs";
@@ -91,10 +92,14 @@ export default class SimpleCalendar extends Widget {
 
         //Whenever either the current month or year changes, draw the widget if, and only if, both month and year are set
         const mainProperties = ['month', 'year']
-        let drawTimeout;
-        const onMainPropChange = () => {
-            clearTimeout(drawTimeout)
-            drawTimeout = setTimeout(() => {
+
+        let lastDraw = {
+            month: undefined,
+            year: undefined
+        }
+
+        const onMainPropChange = new DelayedAction(
+            () => {
 
                 //Deal with the label of the current month
                 this.html.$('.container >.main >.nav >.month-select >.month-label').innerHTML = improviseName(months[this.statedata.current.month]) + (this.statedata.current.year == new Date().getFullYear() ? '' : ` ${this.statedata.current.year}`)
@@ -103,10 +108,14 @@ export default class SimpleCalendar extends Widget {
                 this.yearSelect.value = this.statedata.current.year
 
                 if (mainProperties.every(m => typeof this.statedata.current[m] !== 'undefined')) {
+                    if (lastDraw.month == this.statedata.current.month && lastDraw.year == this.statedata.current.year) {
+                        return
+                    }
+                    lastDraw.month = this.statedata.current.month
+                    lastDraw.year = this.statedata.current.year
                     this.draw()
                 }
-            }, 20)
-        }
+            }, 200)
         for (let prop of mainProperties) {
             this.statedata.$0.addEventListener(`current.${prop}-change`, onMainPropChange)
         }
@@ -146,20 +155,23 @@ export default class SimpleCalendar extends Widget {
                                 tag: 'tr',
                                 children: numbers.map(number => {
                                     const classes = []
-                                    if (number < 0) {
+                                    const thisDate = new Date(number);
+                                    if ((thisDate.getMonth() != this.statedata.current.month) || (thisDate.getFullYear() != this.statedata.current.year)) {
                                         classes.push("dim")
                                     }
-                                    const date = new Date;
-                                    if (number === date.getDate() && date.getMonth() == this.statedata.current.month && date.getFullYear() === this.statedata.current.year) {
+                                    const today = (new Date).setHours(0, 0, 0, 0);
+                                    if (number === today) {
                                         classes.push('today')
                                     }
                                     const td = hc.spawn(
                                         {
                                             tag: 'td',
                                             classes: classes,
-                                            innerHTML: `${Math.abs(number)}`.padStart(2, '0')
+                                            innerHTML: `<div>${`${Math.abs(new Date(number).getDate())}`.padStart(2, '0')}</div>`
                                         }
-                                    )
+                                    );
+                                    td.time = number
+
                                     td.addEventListener('click', () => {
                                         this.tdSelected?.classList.remove('highlight')
                                         td.classList.add('highlight')
@@ -222,20 +234,7 @@ export default class SimpleCalendar extends Widget {
      * @returns {Date}
      */
     get selectedDate() {
-        //Simple logic!
-        //The undimmed dates on the calendar, are dates of the current month
-        //The dim dates on the calendar less than 7 are for the month after the current month
-        //The dim dates on the calendar greater than 7 are for the previous month
-
-        //First things first, is the data even there ?
-        if (!this.statedata.current.year || !this.statedata.current.month || !this.tdSelected) { //If the current date is not set
-            //Select something
-            return this[selectedDate0] = new Date();
-        }
-
-        const value = new Number(this.tdSelected?.innerText).valueOf() || 1
-        const isDimmed = this.tdSelected?.classList.contains('dim')
-        return new Date(new Date(this.statedata.current.year, isDimmed ? this.statedata.current.month + (value < 7 ? 1 : -1) : this.statedata.current.month, value).setHours(0, 0, 0, 0))
+        return new Date(this.tdSelected?.time || Date.now())
     }
     /**
      * @param {Date}
@@ -248,12 +247,13 @@ export default class SimpleCalendar extends Widget {
         this.statedata.current.year = date.getFullYear()
         this.statedata.current.month = date.getMonth()
         this.tdSelected?.classList.remove('highlight')
-        const today = new Date()
-        const todayTd = [...this.html.$$(`.container >.main >.stage >table >tbody >tr >td`)].find(x => x.innerText == today.getDate().toString().padStart(2, '0'))
-        todayTd.classList.add('highlight')
+        const dateTd = [...this.html.$$(`.container >.main >.stage >table >tbody >tr >td`)].find(x => x.innerText == date.getDate().toString().padStart(2, '0'))
+        dateTd?.classList.add('highlight')
+
     }
 
     draw() {
+
 
         //We're going to be manipulating this Date object
         const date = new Date(this.statedata.current.year, this.statedata.current.month, 1)
@@ -277,7 +277,7 @@ export default class SimpleCalendar extends Widget {
 
         //So, fill in the dates of the previous month
         for (let i = 0; i < dayOne; i++) {
-            dates[0][i] = -(new Date(date.getFullYear(), date.getMonth(), -(dayOne - i - 1)).getDate())
+            dates[0][i] = (new Date(date.getFullYear(), date.getMonth(), -(dayOne - i - 1)).setHours(0, 0, 0, 0))
         }
 
 
@@ -285,14 +285,14 @@ export default class SimpleCalendar extends Widget {
             const tmp = new Date(date.getTime())
             tmp.setDate(i)
             const currWeek = Math.floor((dayOne + count) / 7);
-            (dates[currWeek] ||= [])[tmp.getDay()] = tmp.getDate()
+            (dates[currWeek] ||= [])[tmp.getDay()] = tmp.setHours(0, 0, 0, 0)
         }
 
 
         //Finally, the last days of the week last week (belonging to the next month)
 
         for (let i = monthEndDay + 1; i < 7; i++) {
-            const newFill = -new Date(date.getFullYear(), date.getMonth() + 1, i - monthEndDay).getDate();
+            const newFill = new Date(date.getFullYear(), date.getMonth() + 1, i - monthEndDay).setHours(0, 0, 0, 0);
             dates[dates.length - 1][i % 7] = newFill
         }
 

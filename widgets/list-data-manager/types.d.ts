@@ -34,10 +34,10 @@ global {
 
             }
         }
-        interface Display<T> {
+        interface Display<T, K = string> {
             label: string
-            name: keyof T
-            view: StandardView | ((input: any, data: T) => HTMLElement | Promise<HTMLElement>)
+            name: (keyof T) | K
+            view: StandardView | ((input: T[K], data: T) => HTMLElement | Promise<HTMLElement>)
         }
 
         type StandardView = "::image" | "::text"

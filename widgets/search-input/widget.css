@@ -14,12 +14,12 @@
     flex-direction: column;
     max-height: var(--search-input-max-height);
     gap: 0.5em;
-    transition:0.25s 0.125s;
-    padding-top:0.75em;
+    transition: 0.25s 0.125s;
+    padding-top: 0.75em;
 }
 
-.hc-search-input:not(.details-showing) >.container >.details-section{
-    gap:0px;
+.hc-search-input:not(.details-showing)>.container>.details-section {
+    gap: 0px;
 }
 
 .hc-search-input>.container>.input-section>input {
@@ -28,9 +28,9 @@
     border-radius: 5px;
     outline: transparent;
     font-family: bariolBold;
-    min-width: 100%;
-    border:1px solid grey;
-    font-size:1em;
+    min-width: calc(100% - 0.5em);
+    border: 1px solid grey;
+    font-size: 1em;
 }
 
 .hc-search-input>.container>.details-section {
@@ -41,8 +41,8 @@
     max-height: calc(var(--search-input-max-height) - 2.95em);
     overflow-y: auto;
     scrollbar-color: rgb(60, 67, 85);
-    transition:0.5s 0.125s;
-    display:flex;
+    transition: 0.5s 0.125s;
+    display: flex;
     flex-direction: column;
     /* margin-left:0.25em; */
 }
@@ -50,14 +50,14 @@
 /** The logic of hiding the details-section */
 .hc-search-input:not(.details-showing)>.container>.details-section {
     opacity: 0;
-    max-width:0px;
+    max-width: 0px;
     max-height: 0px;
-    padding:0px;
+    padding: 0px;
 }
 
 .hc-search-input.details-showing>.container>.details-section {
     opacity: 1;
-    max-width:100%;
+    max-width: 100%;
     max-height: calc(var(--search-input-max-height) - 2.95em);
     transition: 0.5s 0.125s, 0.5s 0.25s opacity;
 }
@@ -80,35 +80,35 @@
 }
 
 
-.hc-search-input>.container>.details-section>.content>*{
-    transition:0.25s 0.125s;
-    color:rgb(57 87 114);
-    padding-left:0.5em;
-    padding-top:0.25em;
+.hc-search-input>.container>.details-section>.content>* {
+    transition: 0.25s 0.125s;
+    color: rgb(57 87 114);
+    padding-left: 0.5em;
+    padding-top: 0.25em;
 }
 
-.hc-search-input >.container >.details-section >.content >.hc-infinite-spinner-blocker{
-    font-size:0.5em;
-    top:-1.5em;
+.hc-search-input>.container>.details-section>.content>.hc-infinite-spinner-blocker {
+    font-size: 0.5em;
+    top: -1.5em;
 }
 
 /** The PROMPT text that tells the user to start typing something */
-.hc-search-input>.container>.details-section>.content::before{
-    opacity:0;
-    transition:0.125s;
+.hc-search-input>.container>.details-section>.content::before {
+    opacity: 0;
+    transition: 0.125s;
     font-family: k2d;
     content: 'Start typing something, then select an option';
 }
 
-.hc-search-input.details-showing>.container.empty>.details-section>.content:empty::before{
-    opacity:1;
-    transition:0.75s 1s;
+.hc-search-input.details-showing>.container.empty>.details-section>.content:empty::before {
+    opacity: 1;
+    transition: 0.75s 1s;
 }
 
 .hc-search-input>.container>.details-section>.content>*:hover {
-    background-color:rgb(129, 182, 235);
-    color:white;
-    border-radius:5px;
+    background-color: rgb(129, 182, 235);
+    color: white;
+    border-radius: 5px;
 }
 
 
@@ -123,32 +123,32 @@
     background-color: #e3e3e3;
 }
 
-.hc-search-input >.container >.details-section >.content >*:hover::before{
-    background-color:transparent;
+.hc-search-input>.container>.details-section>.content>*:hover::before {
+    background-color: transparent;
 }
 
-.hc-search-input >.container >.details-section >.content .hc-uCheckbox{
-    color:#082951;
+.hc-search-input>.container>.details-section>.content .hc-uCheckbox {
+    color: #082951;
 }
 
-.hc-search-input >.container >.details-section >.actions{
-    display:flex;
-    justify-content:flex-end;
-    gap:0.5em;
-    padding-right:0.25em;
+.hc-search-input>.container>.details-section>.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5em;
+    padding-right: 0.25em;
     position: sticky;
-    top:-0.25em;
-    background-color: rgba(255,255,255, 0.65);
-    z-index:1;
+    top: -0.25em;
+    background-color: rgba(255, 255, 255, 0.65);
+    z-index: 1;
 }
 
-.hc-search-input >.container >.details-section >.actions >.action{
-    cursor:pointer;
-    transition:0.125s 0.25s;
+.hc-search-input>.container>.details-section>.actions>.action {
+    cursor: pointer;
+    transition: 0.125s 0.25s;
 }
 
-.hc-search-input >.container >.details-section >.actions >.action:hover{
-    color:rgb(205, 14, 74);
+.hc-search-input>.container>.details-section>.actions>.action:hover {
+    color: rgb(205, 14, 74);
 }
 
 
@@ -163,11 +163,10 @@
     font-family: k2dThin;
     transition: 0.25s 0.5s;
     left: 0.125em;
-    font-size:1.18em;
+    font-size: 1.18em;
 }
 
 .hc-search-input>.container:is(:not(.empty), :hover):before {
     transform: translateY(-1.5em);
     transition: 0.25s;
 }
-

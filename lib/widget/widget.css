@@ -4,13 +4,20 @@ Just some basic rules that every widget has to follow
 */
 
 
-.hc-widget >.container{
-    
-    position:relative;
+.hc-widget>.container {
+
+    position: relative;
 }
 
-.hc-widget.hc-animations-frozen *{
-    transition:0s 0s;
+.hc-widget.hc-animations-frozen * {
+    transition: 0s 0s;
     animation-delay: 0s;
     animation-duration: 0s;
+}
+
+.hc-widget.destroyed {
+    font-size: 0em;
+    transform: scale(0);
+    opacity: 0;
+    transition: 0.25s 0.125s;
 }

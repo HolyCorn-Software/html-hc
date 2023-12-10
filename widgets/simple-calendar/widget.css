@@ -85,26 +85,31 @@
     cursor: pointer;
 }
 
-.hc-matazm-travel-timetable-navigation>.container>.main>.stage>table>tbody>tr>td:before {
+.hc-matazm-travel-timetable-navigation>.container>.main>.stage>table>tbody>tr>td>* {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3ex;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+}
+
+.hc-matazm-travel-timetable-navigation>.container>.main>.stage>table>tbody>tr>td >*:before {
     border-radius: 100%;
     content: '';
     height: 1.75em;
     aspect-ratio: 1/1;
     position: absolute;
-    top: calc(50% - 0.875em);
-    left: calc(50% - 0.875em);
     transition: 0.25s 0.125s;
     border: 1px solid transparent;
 }
 
-.hc-matazm-travel-timetable-navigation>.container>.main>.stage>table>tbody>tr>td:not(.highlight):hover:before {
+.hc-matazm-travel-timetable-navigation>.container>.main>.stage>table>tbody>tr>td:not(.highlight):hover >*:before {
     border: 1px solid rgb(48, 47, 47);
 }
 
-.hc-matazm-travel-timetable-navigation>.container>.main>.stage>table>tbody>tr>td.highlight {
+.hc-matazm-travel-timetable-navigation>.container>.main>.stage>table>tbody>tr>td.highlight>* {
     border: 1px solid rgb(190, 16, 16) !important;
-    aspect-ratio: 1/1;
-    border-radius: 100%;
 }
 
 .hc-matazm-travel-timetable-navigation>.container>.main>.stage>table>tbody>tr>td.today {
