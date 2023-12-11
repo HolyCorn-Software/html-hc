@@ -101,6 +101,7 @@ export default class SimpleCalendar extends Widget {
         const onMainPropChange = new DelayedAction(
             () => {
 
+
                 //Deal with the label of the current month
                 this.html.$('.container >.main >.nav >.month-select >.month-label').innerHTML = improviseName(months[this.statedata.current.month]) + (this.statedata.current.year == new Date().getFullYear() ? '' : ` ${this.statedata.current.year}`)
 
@@ -108,12 +109,16 @@ export default class SimpleCalendar extends Widget {
                 this.yearSelect.value = this.statedata.current.year
 
                 if (mainProperties.every(m => typeof this.statedata.current[m] !== 'undefined')) {
-                    if (lastDraw.month == this.statedata.current.month && lastDraw.year == this.statedata.current.year) {
-                        return
-                    }
+                    const lastValue = this.tdSelected?.time
+                    // if (lastDraw.month == this.statedata.current.month && lastDraw.year == this.statedata.current.year) {
+                    //     return
+                    // }
                     lastDraw.month = this.statedata.current.month
                     lastDraw.year = this.statedata.current.year
                     this.draw()
+                    if (this.dates.flat(2).findIndex(x => x == lastValue) !== -1) {
+                        this.selectedDate = new Date(lastValue)
+                    }
                 }
             }, 200)
         for (let prop of mainProperties) {
@@ -183,7 +188,7 @@ export default class SimpleCalendar extends Widget {
                         )
                     },
                     get: (html) => {
-                        return [...html.children].map(child => new Number(child.innerHTML).valueOf())
+                        return [...html.children].map(child => new Number(child.time).valueOf())
                     }
                 }
             }
@@ -243,12 +248,34 @@ export default class SimpleCalendar extends Widget {
         this[selectedDate0] = date
         this.dispatchEvent(new CustomEvent('selectionchange'))
     }
+
+    /**
+     * @param {Date} date
+     */
     set [selectedDate0](date) {
-        this.statedata.current.year = date.getFullYear()
-        this.statedata.current.month = date.getMonth()
+
+        const realDate = new Date(new Date(date.getTime()).setHours(0, 0, 0, 0))
+
+
+        const getTdToBeSelected = () => [...this.html.$$(`.container >.main >.stage >table >tbody >tr >td`)].find(x => x.time == realDate.getTime());
+
+        // Remove the highlight from the current highlighted one
         this.tdSelected?.classList.remove('highlight')
-        const dateTd = [...this.html.$$(`.container >.main >.stage >table >tbody >tr >td`)].find(x => x.innerText == date.getDate().toString().padStart(2, '0'))
-        dateTd?.classList.add('highlight')
+
+        // If the date to be set is not on the current view,
+        if (!getTdToBeSelected()) {
+            // then switch the view.
+            this.statedata.current.year = realDate.getFullYear()
+            this.statedata.current.month = realDate.getMonth()
+            // And then, some other function is going to notice the change, and the call the draw function, before setting the value another time.
+            setTimeout(() => {
+                getTdToBeSelected()?.classList.add('highlight')
+            }, 300)
+        } else {
+            getTdToBeSelected().classList.add('highlight')
+        }
+
+
 
     }
 

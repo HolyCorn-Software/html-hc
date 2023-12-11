@@ -3,14 +3,20 @@
  * This module contains type definitions for the search-input widget
  */
 
+import ''
 
+global {
 
-/**
- * This defines methods that must be provided when initializing the SearchInput widget
- */
-export declare interface SearchInputHooks<T = any> {
-    fetchItems: (filter: string) => Promise<T[]>,
-    getView: (item: T) => Promise<HTMLElement[]>,
-    getLabel: (item: T) => string,
-    getValue: (item: T) => string | number | boolean
+    namespace htmlhc.widget.search_input {
+
+        /**
+         * This defines methods that must be provided when initializing the SearchInput widget
+         */
+        export declare interface SearchInputHooks<T = any> {
+            fetchItems: (filter: string) => Promise<T[]>,
+            getView: (item: T) => Promise<HTMLElement[]>,
+            getLabel: (item: T) => string,
+            getValue: (item: T) => string | number | boolean
+        }
+    }
 }
