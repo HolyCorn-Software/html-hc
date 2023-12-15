@@ -1,5 +1,3 @@
 .
 
-Improved UX of the simple-calendar widget.
-
-Improved typing.
+Added features related to refresh.
