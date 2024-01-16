@@ -15,16 +15,17 @@
  * 
  **/
 
-import {Widget} from '../../lib/widget/index.mjs'
+import { Widget } from '../../lib/widget/index.mjs'
 
-export class HCTSLogo extends Widget{
 
-    constructor({returnHomeOnClick=true, image}={}){
-        super({css:import.meta.url})
+export class HCTSLogo extends Widget {
+
+    constructor({ returnHomeOnClick = true, image } = {}) {
+        super()
 
         this.html = document.spawn({
-            class:'hc-hcts-logo',
-            innerHTML:`
+            class: 'hc-hcts-logo',
+            innerHTML: `
                 <div class='container'>
                     <img src='/$/shared/static/logo.png'>
                 </div>
@@ -32,34 +33,34 @@ export class HCTSLogo extends Widget{
         })
 
 
-        this.html.addEventListener('click', ()=>{
-            if(this.returnHomeOnClick){
+        this.html.addEventListener('click', () => {
+            if (this.returnHomeOnClick) {
                 window.location = '/'
             }
         })
 
         this.htmlProperty('img', '__image__', 'attribute', undefined, 'src')
 
-        
+
 
 
         Object.assign(this, arguments[0])
-        
-        
+
+
     }
 
-    set image(img){
-        if(!img) return;
+    set image(img) {
+        if (!img) return;
         this.__image__ = img;
     }
-    get image(){
+    get image() {
         this.__image__ = img;
     }
 
-    static default(){
+    static default() {
         return new this({})
     }
-    
-    
+
+
 }
 

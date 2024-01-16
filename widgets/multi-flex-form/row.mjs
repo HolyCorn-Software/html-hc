@@ -6,26 +6,29 @@ The main aim of this widget is to create distinction, because these features are
 
 */
 
+import { hc } from "../../lib/widget/index.mjs";
 import { MultiFlexFormItem } from "./item.mjs";
 
 
-export class MultiFlexFormRow extends MultiFlexFormItem{
+export class MultiFlexFormRow extends MultiFlexFormItem {
 
-    constructor({css, ...args}={}){
-        super({css:[import.meta.url, css], ...args})
+    constructor(args) {
+        super(args)
 
         this.html.classList.add('hc-multi-flex-form-row')
     }
 
-    get elements(){
-        return this.html.$('.container').children.map(x=>x.widgetObject);
+    get elements() {
+        return this.html.$('.container').children.map(x => x.widgetObject);
     }
-    append(element){
+    append(element) {
         this.html.$('.container').appendChild(element.html)
     }
-    prepend(element){
+    prepend(element) {
         this.html.$('.container').prepend(element.html)
     }
-    
-    
+
+
 }
+
+hc.importModuleCSS(import.meta.url)

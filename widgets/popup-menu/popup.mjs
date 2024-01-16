@@ -5,9 +5,10 @@ Once the user clicks in the empty space around the white zone, the popup closes,
 */
 
 
-import { hc, Widget } from "../../lib/widget/index.mjs";
+import osBackButtonManager from "../../lib/util/os-back-button/manager.mjs";
+import { Widget } from "../../lib/widget/index.mjs";
 
-hc.importModuleCSS(import.meta.url);
+const processOutsideClick = Symbol()
 
 export default class PopupMenu extends Widget {
 
@@ -19,7 +20,7 @@ export default class PopupMenu extends Widget {
      */
     constructor({ content, hideOnOutsideClick } = {}) {
 
-        super({ css: import.meta.url });
+        super();
 
         /** @type {HTMLElement} */
         this.html = document.spawn({
@@ -44,9 +45,7 @@ export default class PopupMenu extends Widget {
             const isOutside = target.isConnected && !this.html.$('.container >.wrapper >.data').contains(target);
             if (isOutside) {
                 this.dispatchEvent(new CustomEvent("prehide"))
-                if (this.hideOnOutsideClick) { //If the click came from a source outside the content
-                    this.hide();
-                }
+                this[processOutsideClick]();
             }
         })
 
@@ -54,8 +53,17 @@ export default class PopupMenu extends Widget {
 
         /** @type {function(('hide'|"prehide"), function(CustomEvent), AddEventListenerOptions)} */ this.addEventListener
 
+        this.destroySignal.addEventListener('abort', () => this.hide(), { once: true })
+
     }
 
+
+    [processOutsideClick]() {
+        if (this.hideOnOutsideClick) { //If the click came from a source outside the content
+            this.hide();
+            return true
+        }
+    }
 
     /**
      * This defines what is shown on the Popup Menu
@@ -86,6 +94,12 @@ export default class PopupMenu extends Widget {
      * Call this method to make the popup visible
      */
     show() {
+
+        if (this.html.isConnected) {
+            // Prevent double-calling of this method
+            this.html.classList.remove('hidden')
+            return;
+        }
         document.body.classList.add('hc-v2-choose-popup-menu-be-static')
         this.html.classList.add('hidden')
 
@@ -99,6 +113,26 @@ export default class PopupMenu extends Widget {
         } else {
             document.body.prepend(this.html);
         }
+
+
+        // The logic of making the popup close, if in an app environment, the system back button is pressed.
+        const aborter = new AbortController()
+
+        osBackButtonManager.register(
+            {
+                callback: () => this[processOutsideClick](),
+                signal: aborter.signal,
+                html: this.html
+            }
+        )
+
+        // If the popup is hidden, then we stop listening for back button events.
+        this.html.addEventListener('hc-disconnected-from-dom', () => {
+            aborter.abort()
+        }, { once: true })
+
+        // And, if for some reason, the popup is destroyed prematurely, then we would also need to stop listening to back button events
+        this.destroySignal.addEventListener('abort', () => { aborter.abort() }, { once: true })
 
     }
 

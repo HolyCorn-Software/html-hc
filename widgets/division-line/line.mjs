@@ -10,7 +10,7 @@ import { Widget } from "../../lib/widget/index.mjs";
 export class DivisionLine extends Widget {
 
     constructor({ label } = {}) {
-        super({css:import.meta.url});
+        super();
         this.html = document.spawn({
             class: 'hc-division-line',
             innerHTML: `

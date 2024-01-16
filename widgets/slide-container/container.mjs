@@ -209,7 +209,7 @@ export class SlideContainer extends Widget {
                 const applyDimensions = (src, target) => {
 
                     target.style.setProperty('--initial-width', `${target.getBoundingClientRect().width}px`)
-                    target.style.setProperty('--final-width', `${src.getBoundingClientRect().width}px`)
+                    target.style.setProperty('--final-width', `${Math.max(src.getBoundingClientRect().width, this.html.getBoundingClientRect().width)}px`)
 
                     target.style.setProperty('--initial-height', `${target.getBoundingClientRect().height}px`)
                     target.style.setProperty('--final-height', `${src.getBoundingClientRect().height}px`)

@@ -48,11 +48,11 @@ export default class BrandedBinaryPopup extends HCTSBrandedPopup {
 
         no.html.addEventListener('click', () => {
             this.hide();
-        })
+        }, { signal: this.destroySignal })
 
         yes.html.addEventListener('click', () => {
             this.#do_action(yes)
-        })
+        }, { signal: this.destroySignal })
 
         this.content.$('.actions').appendChild(yes.html)
         this.content.$('.actions').appendChild(no.html)
@@ -101,7 +101,7 @@ export default class BrandedBinaryPopup extends HCTSBrandedPopup {
             await this.execute()
             yesButton.state = 'success'
             await new Promise(x => setTimeout(x, 1500))
-            this.hide()
+            this.destroy()
         } catch (e) {
             yesButton.state = 'initial'
             handle(e)

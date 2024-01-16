@@ -20,7 +20,7 @@ export class SearchableMenu extends Widget {
      * The method should return true or false, indicating whether the item should or should not display
      */
     constructor() {
-        super({ css: import.meta.url })
+        super()
 
         this.html = document.spawn({
             class: 'hc-v2-choose-searchmenu',
@@ -140,7 +140,7 @@ export class MenuItem extends Widget {
      * The value is what will be recorded when this item is selected. The value must be unique
      */
     constructor({ label, value } = {}) {
-        super({ css: import.meta.url })
+        super()
 
         this.html = document.spawn({
             class: 'hc-v2-choose-searchmenu-item',

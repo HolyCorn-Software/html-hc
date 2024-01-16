@@ -22,7 +22,12 @@ export default class MultiFlexForm extends Widget {
 
     constructor({ css, ...args } = {}) {
 
-        super({ css: [import.meta.url, css] });
+        super()
+
+        if (css) {
+            console.warn(`Auto-importing of CSS modules by MultiFlexForm, is deprecated. Please, import them yourself.`)
+            hc.importModuleCSS(css)
+        }
 
         super.html = document.spawn({
             class: 'hc-multi-flex-form',
@@ -252,3 +257,4 @@ export default class MultiFlexForm extends Widget {
 
 
 
+hc.importModuleCSS(import.meta.url)

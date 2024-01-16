@@ -85,7 +85,7 @@ export default class BackForth extends Widget {
 
 
 
-        const goBack = new DelayedAction((offset = 1) => {
+        this.goBack = new DelayedAction((offset = 1) => {
             if (!(this.statedata.history.length > offset)) {
                 if (this.canQuit) {
                     this.dispatchEvent(new CustomEvent('quit'))
@@ -100,7 +100,7 @@ export default class BackForth extends Widget {
 
 
         this.html.$(".container >.nav >.main").addEventListener('click', () => {
-            goBack()
+            this.goBack()
         });
 
         this.html.addEventListener('backforth-goto', (event) => {
@@ -112,7 +112,7 @@ export default class BackForth extends Widget {
         });
 
         this.html.addEventListener('backforth-goback', ({ detail: { offset } }) => {
-            goBack(offset || 1)
+            this.goBack(offset || 1)
         })
 
         if (initialView) {

@@ -11,5 +11,6 @@ global {
     
     interface ElementEventMap {
         "hc-connected-to-dom": CustomEvent
+        "hc-disconnected-from-dom": CustomEvent
     }
 }

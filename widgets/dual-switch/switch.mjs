@@ -22,7 +22,7 @@ export class DualSwitch extends Widget {
      */
     constructor({ positive, negative, label, value, disabled } = {}) {
 
-        super({ css: import.meta.url })
+        super()
 
         this.html = hc.spawn({
             class: 'hc-dual-switch',

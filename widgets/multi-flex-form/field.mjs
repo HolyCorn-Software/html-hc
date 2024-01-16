@@ -17,7 +17,7 @@ hc.importModuleCSS(import.meta.url)
 
 export class MultiFlexFormField extends MultiFlexFormItem {
 
-    constructor({ label, values, name, css } = {}) {
+    constructor({ label, values, name } = {}) {
         super(arguments[0]);
         this.html.classList.add('hc-multi-flex-form-field');
 

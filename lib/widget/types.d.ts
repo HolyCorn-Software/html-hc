@@ -64,6 +64,17 @@ global {
             object?: object
             /**  If parameter is true, Only immediate children of the parent will be fetched */
             immediate?: boolean
+            /** 
+             * This property tells us how the DOM should be altered, when the property is set at once.
+             * 
+             * Imagine you're setting to a property 'items', which already has value `['mango', 'banana', 'pear']`.
+             * This means, there are already {@link HTMLElement}s representing them on the DOM.
+             * Now, you're setting 'items' to `['apple', 'pear', 'strawberry']`.
+             * If sticky is `true`, then the {@link HTMLElement} for `'pear'` would be directly used.
+             * If not true, then another HTMLElement would be constructed for each of the new values.
+             * 
+             */
+            sticky?: boolean
         }
 
         type GetLastParam<T> = T extends (...args: any[], last: infer LAST) => LAST ? LAST : "wrong"

@@ -8,14 +8,20 @@ For example, always having the logo at the top-left
 
 
 import { HCTSLogo } from "../logo/logo.mjs"
-import { Widget } from "../../lib/widget/index.mjs"
+import { Widget, hc } from "../../lib/widget/index.mjs"
 
+
+hc.importModuleCSS(import.meta.url);
 
 
 export class HCTSBrandedMenu extends Widget {
 
     constructor({ content, css } = {}) {
-        super({ css: [css, import.meta.url] })
+        super()
+        if (css) {
+            console.warn(`Passing CSS file paths for auto-import by HCTSBrandedMenu is deprecated. Use hc.importModuleCSS()`)
+            hc.importModuleCSS(css)
+        }
 
         this.html = document.spawn({
             class: 'hc-hcts-branded-menu',

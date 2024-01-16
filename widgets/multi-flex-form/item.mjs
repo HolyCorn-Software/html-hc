@@ -10,14 +10,15 @@ import { Widget, hc } from "../../lib/widget/index.mjs";
 export class MultiFlexFormItem extends Widget {
 
 
-    constructor({ css, ...args } = {}) {
-        super({ css: [import.meta.url, css] });
+    constructor({ ...args } = {}) {
+
+        super()
+
 
         this.html = hc.spawn({
             class: 'hc-multi-flex-form-item',
             innerHTML: `
                 <div class='container'>
-
                 </div>
             `
         })

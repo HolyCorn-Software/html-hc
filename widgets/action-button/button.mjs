@@ -22,6 +22,7 @@ const state_load_promise = new Promise((resolve, reject) => {
 })
 
 
+hc.importModuleCSS(import.meta.url)
 
 export default class ActionButton extends Widget {
 
@@ -35,7 +36,7 @@ export default class ActionButton extends Widget {
      */
     constructor({ content, onclick, state, hoverAnimate } = {}) {
 
-        super({ css: import.meta.url })
+        super()
 
         super.html = hc.spawn({
             classes: [ActionButton.classList, 'hoverAnimate'],
