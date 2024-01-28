@@ -1,3 +1,3 @@
 .
 
-Fixed minor bug with the refresh module, caused by the transpiler, in compatibility mode.
+Improved logic of re-using widgets, by the pluralWidgetProperty.
