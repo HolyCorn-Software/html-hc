@@ -197,9 +197,18 @@ export default class ListingsMainWidget extends Widget {
                     });
                 },
                 get: (html) => {
-                    return {
-                        label: html?.innerHTML,
-                        highlightable: html?.getAttibute('highlightable')
+
+                    try {
+                        return {
+                            label: html?.innerHTML,
+                            highlightable: html?.getAttibute('highlightable')
+                        }
+                    } catch (e) {
+                        console.log(`html is `, html)
+                        return {
+                            label: html?.innerHTML,
+                            highlightable: false
+                        }
                     }
                 }
             }
