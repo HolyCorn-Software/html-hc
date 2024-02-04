@@ -33,6 +33,8 @@ export default class Spinner extends Widget {
 
         Object.assign(this, arguments[0])
 
+        this.stack = new Error().stack.split('\n').slice(2).join("\n")
+
     }
 
     /**
@@ -107,7 +109,7 @@ export default class Spinner extends Widget {
         if (computedStyle['position'] === 'static') { //'static' is the default value when an element is not positioned
             element.style.setProperty('position', 'relative');
         }
-        
+
 
 
         //So that the blocker scrolls with the element to be blocked

@@ -6,6 +6,10 @@ Spinner Widget
 
 .hc-infinite-spinner {
     --hc-spinner-color: red;
+    background-image: url("/$/shared/static/logo.png");
+    background-size: 30%;
+    background-repeat: no-repeat;
+    background-position: center;
 
 }
 
