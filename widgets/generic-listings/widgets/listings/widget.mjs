@@ -10,6 +10,7 @@
  */
 
 import AlarmObject from "../../../../lib/alarm/alarm.mjs";
+import DelayedAction from "../../../../lib/util/delayed-action/action.mjs";
 import { hc, Widget } from "../../../../lib/widget/index.mjs";
 import { Checkbox } from "../../../checkbox/checkbox.mjs";
 import ListingsEntry from "./entry.mjs";
@@ -57,6 +58,7 @@ export default class ListingsMainWidget extends Widget {
             parentSelector: '.container >tbody',
             property: 'itemsData',
             immediate: true,
+            sticky: true,
             transforms: {
                 /**
                  * 
@@ -68,8 +70,7 @@ export default class ListingsMainWidget extends Widget {
 
                     let widget = new ListingsEntry(transformed, this);
 
-                    let timeoutHandle;
-                    const onselect = () => {
+                    const onselect = new DelayedAction(() => {
                         if (!this.html.contains(widget.checkbox.html)) {
                             return widget.checkbox.removeEventListener('change', onchange)
                         }
@@ -78,12 +79,11 @@ export default class ListingsMainWidget extends Widget {
                             this.mainCheckbox.silent_value = false
                         }
 
-                        clearTimeout(timeoutHandle);
                         //Now, we want to update the state of the mainCheckbox to either checked, or unchecked, depending on if all checkboxes have been checked
-                        timeoutHandle = setTimeout(() => {
-                            this.mainCheckbox.silent_value = this.checkboxes.every(box => box.checked)
-                        }, 200)
-                    }
+
+                        this.mainCheckbox.silent_value = this.checkboxes.every(box => box.checked)
+
+                    }, 250, 1000)
 
                     widget.addEventListener('selectionchange', onselect)
 
@@ -99,14 +99,14 @@ export default class ListingsMainWidget extends Widget {
             }
         });
 
-        this.statedata.$0.addEventListener('content-change', () => {
+        this.statedata.$0.addEventListener('content-change', new DelayedAction(() => {
             this.itemsData = this.statedata.content;
-        })
+        }, 250, 1000))
 
-        this.statedata.$0.addEventListener('content-$array-item-change', (event) => {
+        this.statedata.$0.addEventListener('content-$array-item-change', new DelayedAction((event) => {
             const field = event.detail.field
             this.itemsData[field] = this.statedata.content[field]
-        })
+        }, 250, 1000))
 
 
         /** @type {ListingsEntry<DataType>[]} */ this.itemWidgets

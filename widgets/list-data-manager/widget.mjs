@@ -20,7 +20,6 @@ const maxItems = Symbol()
 
 /**
  * @template DataType
- * @extends Widget<ListDataManager>
  */
 export default class ListDataManager extends Widget {
 
@@ -50,10 +49,12 @@ export default class ListDataManager extends Widget {
 
         /** @type {HTMLElement[]} */ this.actions
         this.pluralWidgetProperty({
-            parentSelector: '.container >.actions',
+            parentSelector: ':scope >.container >.actions',
             selector: '*',
             property: 'actions',
-            childType: 'html'
+            childType: 'html',
+            sticky: false
+
         });
 
 
@@ -235,6 +236,8 @@ export default class ListDataManager extends Widget {
 
                     /** This method hides the actions html */
                     const hide = () => {
+                        cancelHide()
+                        
                         actionsHideTimeout = setTimeout(() => {
                             this.html.classList.remove('actions-visible')
                         }, 20_000)
@@ -273,9 +276,9 @@ export default class ListDataManager extends Widget {
                             }
                             const actionsVisible = this.html.classList.contains('actions-visible');
                             if ((!actionsVisible) || (lastTarget !== target)) {
-                                this.html.classList.add('actions-visible')
                                 this.html.style.setProperty('--actions-top', `${target.getBoundingClientRect().bottom - this.html.getBoundingClientRect().top}px`)
                                 this.html.style.setProperty('--actions-left', `${event.pageX - this.html.getBoundingClientRect().left}px`)
+                                this.html.classList.add('actions-visible')
                                 target.addEventListener('mouseleave', onMouseLeaveItem, { once: true })
                                 cancelHide()
                                 lastTarget = target;
@@ -315,7 +318,7 @@ export default class ListDataManager extends Widget {
                                 );
                             }
 
-                        }, 250, 2000))
+                        }, 250, 2500))
 
                     this.html.$('.container >.actions').addEventListener('mouseenter', () => {
                         cancelHide()
