@@ -1,3 +1,3 @@
 .
 
-Fixed minor bug with the refresh feature.
+Fixed minor bug with the backforth widget.

@@ -111,8 +111,8 @@ export default class BackForth extends Widget {
             event.stopPropagation()
         });
 
-        this.html.addEventListener('backforth-goback', ({ detail: { offset } }) => {
-            this.goBack(offset || 1)
+        this.html.addEventListener('backforth-goback', ({ detail }) => {
+            this.goBack(detail?.offset || 1)
         })
 
         if (initialView) {
