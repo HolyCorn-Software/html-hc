@@ -12,7 +12,6 @@ const timeout = Symbol()
 /**
  * This widget, behaves like a notification that can slide from top to bottom, or 
  * bottom to top 
- * @extends Widget<SlideIn>
  */
 export default class SlideIn extends Widget {
 
@@ -74,7 +73,7 @@ export default class SlideIn extends Widget {
                 }
                 setTimeout(resolve, 2000)
             }).then(() => {
-                this.html.remove()
+                this.destroy()
                 this.html.classList.remove('hiding');
                 abort.abort()
             })

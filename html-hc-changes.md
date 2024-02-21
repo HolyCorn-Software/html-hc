@@ -1,3 +1,3 @@
 .
 
-Fixed minor bug with the backforth widget.
+Improved UI of slidein widget.
