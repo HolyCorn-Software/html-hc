@@ -14,7 +14,6 @@ const xTransform = Symbol()
 
 
 /**
- * @extends Widget<WideSlider>
  */
 export default class WideSlider extends Widget {
 
@@ -41,7 +40,7 @@ export default class WideSlider extends Widget {
                 childType: 'html'
             }
         );
-        
+
         hc.watchToCSS(
             {
                 source: this.html,
@@ -50,7 +49,8 @@ export default class WideSlider extends Widget {
                 }, 250),
                 watch: {
                     dimension: 'width'
-                }
+                },
+                signal: this.destroySignal
             }
         )
 

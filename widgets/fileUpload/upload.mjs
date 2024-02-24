@@ -178,7 +178,8 @@ export class UniqueFileUpload extends Widget {
                 watch: {
                     dimension: 'width'
                 },
-                apply: '--actions-width'
+                apply: '--actions-width',
+                signal: this.destroySignal
             }
         )
 

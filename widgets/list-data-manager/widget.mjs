@@ -67,6 +67,7 @@ export default class ListDataManager extends Widget {
                     dimension: 'width'
                 },
                 apply: '--actions-content-width',
+                signal: this.destroySignal
             }
         );
 
@@ -237,7 +238,7 @@ export default class ListDataManager extends Widget {
                     /** This method hides the actions html */
                     const hide = () => {
                         cancelHide()
-                        
+
                         actionsHideTimeout = setTimeout(() => {
                             this.html.classList.remove('actions-visible')
                         }, 20_000)

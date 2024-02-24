@@ -160,7 +160,7 @@ export default class ListPopup extends PopupMenu {
 
         this.action = new ActionButton(
             {
-                content: `Select`,
+                content: params?.actionText || `Select`,
                 onclick: () => {
                     this.action.state = 'success'
                     this.dispatchEvent(new CustomEvent('change'))

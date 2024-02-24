@@ -51,7 +51,8 @@ export default class GenericListings extends Widget {
                 apply: '--top-section-height',
                 watch: {
                     dimension: 'height'
-                }
+                },
+                signal: this.destroySignal
             }
         )
 

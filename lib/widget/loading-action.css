@@ -100,7 +100,6 @@
     min-width: 6em;
     min-height: 6.5em;
     position: relative;
-    overflow: auto;
 }
 
 .hc-htmlhc-loading-action-is-errored>*:not(.hc-htmlhc-loading-action-error-ui) {

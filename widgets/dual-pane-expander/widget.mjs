@@ -155,7 +155,8 @@ export default class DualPaneExpander extends Widget {
                 watch: {
                     dimension: 'height'
                 },
-                apply: '--min-height'
+                apply: '--min-height',
+                signal: this.destroySignal
             }
         );
 
@@ -170,7 +171,8 @@ export default class DualPaneExpander extends Widget {
                     const right = this.html.$('.container >.main >.right')
                     const knownMaxWidth = new Number((right.style.getPropertyValue('--max-content-width') || '0').split(/[^0-9.]/)[0]).valueOf()
                     right.style.setProperty('--max-content-width', `${Math.max(right.getBoundingClientRect().width, knownMaxWidth)}px`)
-                }
+                },
+                signal: this.destroySignal
             }
         )
 

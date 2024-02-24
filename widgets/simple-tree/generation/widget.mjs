@@ -13,7 +13,6 @@ import { Widget, hc } from "/$/system/static/html-hc/lib/widget/index.mjs";
 /**
  * This sub-widget (generation), represents a set of elements, that are supposedly 
  * a part of a tree, or some higher generation 
- * @extends Widget<Generation>
  */
 export default class Generation extends Widget {
 
@@ -118,7 +117,8 @@ export default class Generation extends Widget {
                 watch: {
                     dimension: 'width',
                 },
-                apply: '--parent-generation-width'
+                apply: '--parent-generation-width',
+                signal: this.destroySignal
             }
         );
 
@@ -129,7 +129,8 @@ export default class Generation extends Widget {
                 watch: {
                     dimension: 'width',
                 },
-                apply: '--generation-width'
+                apply: '--generation-width',
+                signal: this.destroySignal
             }
         );
 

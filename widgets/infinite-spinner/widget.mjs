@@ -118,6 +118,8 @@ export default class Spinner extends Widget {
         //We want special css properties to apply to blocked elements. These elements we shall identify with a special class
         element.classList.add('hc-infinite-spinner-blocker-attached')
 
+        return this
+
     }
     detach() { //If you called, spinner.attach() recently to block an element, you can use this method to reverse the process
         //Call spinner.stop() first, if need be

@@ -12,6 +12,7 @@ const timeout = Symbol()
 /**
  * This widget, behaves like a notification that can slide from top to bottom, or 
  * bottom to top 
+ * @template T
  */
 export default class SlideIn extends Widget {
 
@@ -34,7 +35,7 @@ export default class SlideIn extends Widget {
             `
         });
 
-        /** @type {HTMLElement} */ this.content
+        /** @type {HTMLElement<T>} */ this.content
         this.widgetProperty(
             {
                 selector: '*',
@@ -45,12 +46,26 @@ export default class SlideIn extends Widget {
         )
 
         Object.assign(this, arguments[0])
+
+        this.destroySignal.addEventListener('abort', () => {
+            this.dismiss()
+        }, { once: true })
+
+
+        this.html.style.setProperty('opacity', '0')
+        this.html.style.setProperty('transform', 'translateY(-100%)')
     }
 
     async show() {
         this.html.remove()
         this.html.classList.remove('showing')
+        this.html.style.setProperty('height', '0')
+        this.html.style.removeProperty('transform')
         document.body.prepend(this.html)
+        this.html.addEventListener('animationstart', () => {
+            this.html.style.removeProperty('opacity')
+            this.html.style.removeProperty('height')
+        }, { once: true, signal: this.destroySignal })
         this.html.classList.add('showing')
     }
 

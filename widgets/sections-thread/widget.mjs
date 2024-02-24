@@ -14,7 +14,6 @@ import { Widget, hc } from "/$/system/static/html-hc/lib/widget/index.mjs";
  * This widget (sections-thread), is a kind of UI, where the user can consume content
  * that is segmented according to, "sections". These sections are labelled, and
  * as the user passes over a section, it is highlighted on a map 
- * @extends Widget<SectionsThread>
  */
 export default class SectionsThread extends Widget {
 
@@ -145,7 +144,8 @@ export default class SectionsThread extends Widget {
                 apply: `--map-width`,
                 watch: {
                     dimension: 'width'
-                }
+                },
+                signal: this.destroySignal
             }
         );
 
@@ -157,7 +157,8 @@ export default class SectionsThread extends Widget {
                 apply: `--map-height`,
                 watch: {
                     dimension: 'height'
-                }
+                },
+                signal: this.destroySignal
             }
         );
 
@@ -168,7 +169,8 @@ export default class SectionsThread extends Widget {
                 apply: '--content-width',
                 watch: {
                     dimension: 'width'
-                }
+                },
+                signal: this.destroySignal
             }
         )
 

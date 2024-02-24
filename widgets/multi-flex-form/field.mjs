@@ -275,7 +275,8 @@ export class MultiFlexFormTextbox extends MultiFlexFormItem {
                     const styles = window.getComputedStyle(this.html.$('input,textarea'))
                     const getValue = (string) => new Number(/[0-9.]+/.exec(string)[0]).valueOf()
                     this.html.style.setProperty('--input-padding', `${getValue(styles.paddingLeft) + getValue(styles.paddingRight)}px`)
-                }
+                },
+                signal: this.destroySignal
             }
         )
 
