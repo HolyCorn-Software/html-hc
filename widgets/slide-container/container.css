@@ -36,7 +36,7 @@
 /** The x-movement when sliding forward */
 .hc-slide-container.is-sliding-to-secondary>.container>* {
     transform: translateX(-100%);
-    transition-duration: 0.75s;
+    transition-duration: 0.65s;
     transition-delay: 0.125s;
     overflow: hidden;
 }
@@ -57,22 +57,29 @@
     animation-name: hc-slide-container-primary-content-height-2;
 }
 
+/*
+    The timing to respect, when sliding forward
+*/
 .hc-slide-container.is-sliding-to-secondary>.container>.secondary-content {
     transition-delay: 0.35s;
-    transition-duration: 0.75s;
+    transition-duration: 0.45s;
 }
 
-.hc-slide-container.is-sliding-to-pre>.container>.primary-content {
-    transition-delay: 0.125s;
-    transition-duration: 0.75s;
-}
 
+/*
+    And, when sliding backwards
+*/
 
 /** The x-movement when sliding backwards */
 .hc-slide-container.is-sliding-to-pre>.container>* {
     transform: translateX(100%);
     transition-duration: 0.75s;
-    transition-delay: 0.25s;
+    transition-delay: 0.125s;
+}
+
+.hc-slide-container.is-sliding-to-pre>.container>.primary-content {
+    transition-delay: 0.15s;
+    transition-duration: 0.65s;
 }
 
 
