@@ -16,7 +16,6 @@ const canQuit = Symbol()
 
 
 /**
- * @extends Widget<BackForth>
  * With this widget, we dispatch the event (backforth-goto) on direct child html 
  * with detail set to the HTML that is to be navigated to.
  * 

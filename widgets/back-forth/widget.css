@@ -28,7 +28,7 @@
 }
 
 .hc-back-forth:not(.animations-frozen)>.container>.nav {
-    transition: 0.75s 0.25s;
+    transition: 0.5s 0.125s;
 }
 
 
