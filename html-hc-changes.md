@@ -1,3 +1,3 @@
 .
 
-Improved the list-data-manager widget, by adding support for nested fields.
+Improved UI of slide-container widget.

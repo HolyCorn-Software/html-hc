@@ -255,7 +255,7 @@ export class SlideContainer extends Widget {
 
                     await nwScreenConnectedPromise;
 
-                    applyDimensions(secondaryContent.children[0], primaryContent)
+                    applyDimensions(secondaryContent, primaryContent)
 
                     await slideCommon('is-sliding-to-secondary').then(() => {
                         oldScreen?.remove()
