@@ -1,7 +1,5 @@
 .
 
-Fixed minor bug with cookie setting.
+Improved UI of the action-button message feature.
 
-Improve code-quality, especially regarding the ancestor() method.
-
-Improved efficiency.
+Implemented fallback feature of the widget-image utility, working in inline mode.
