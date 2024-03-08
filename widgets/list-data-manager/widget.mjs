@@ -116,7 +116,18 @@ export default class ListDataManager extends Widget {
                                         positive: `Create`,
                                         form: config.input,
                                         execute: async () => {
-                                            const value = await config.create([form.value]) || [form.value]
+                                            const form_value = form.value
+
+                                            // Let's provide assistance with nested fields
+                                            for (const field in form_value) {
+                                                if (ListDataManager.NESTED_REGEXP.test(field)) {
+                                                    const [, superName, subName] = ListDataManager.NESTED_REGEXP.exec(field);
+                                                    (form_value[superName] ||= {})[subName] = form_value[field]
+                                                    delete form_value[field]
+                                                }
+                                            }
+
+                                            const value = await config.create([form_value]) || [form_value]
                                             listings.statedata.content.push(...value)
                                             setTimeout(() => form.hide(), 1200)
                                         }
@@ -180,11 +191,13 @@ export default class ListDataManager extends Widget {
                     if (config.edit && (config.edit.execute || config.create)) {
 
                         this.addEventListener('item-selected', (event) => {
+                            const formData = config.edit.form || config.input;
                             const popup = new PopupForm(
                                 {
-                                    form: config.edit.form || config.input,
+                                    form: formData,
                                     execute: async () => {
                                         const value = JSON.parse(JSON.stringify(event.detail))
+
                                         Object.assign(value, popup.value)
                                         const newValue = (await (config.edit.execute || ((i) => config.create([i]).then(ret => ret?.[0])))(value)) || value;
                                         this.content = this.content.map(item => eq(item, event.detail) ? newValue : item)
@@ -192,13 +205,28 @@ export default class ListDataManager extends Widget {
                                     },
                                     positive: `Update`,
                                     negative: `Cancel`,
-                                    title: `Edit Content`,
+                                    title: `Modify Content`,
                                     caption: `Enter new details`
                                 }
                             );
                             popup.waitTillDOMAttached().then(() => popup.blockWithAction(
                                 async () => {
-                                    popup.value = (await config.edit?.setForm?.(event.detail)) || event.detail
+
+                                    const value = (await config.edit?.setForm?.(event.detail)) || event.detail;
+
+                                    // Let's assist developers, who may use nested fields
+                                    const nestedDeleteList = new Set()
+                                    for (const field of formData.flat(2)) {
+                                        if (ListDataManager.NESTED_REGEXP.test(field.name)) {
+                                            const [, supName, subName] = ListDataManager.NESTED_REGEXP.exec(field.name)
+                                            value[field.name] = value[supName]?.[subName]
+                                            nestedDeleteList.add(supName)
+                                        }
+                                    }
+
+                                    nestedDeleteList.forEach(field => delete value[field])
+
+                                    popup.value = value
                                 }
                             ));
 
@@ -388,6 +416,9 @@ export default class ListDataManager extends Widget {
     static get classList() {
         return ['hc-htmlhc-list-data-manager']
     }
+
+    /** @readonly */
+    static NESTED_REGEXP = /^([^$]+)\$([^$]+)$/
 
 }
 
