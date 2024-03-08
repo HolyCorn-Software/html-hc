@@ -1,3 +1,3 @@
 .
 
-Improved UX of back-forth widget.
+Improved efficiency, related to event listeners.
