@@ -134,7 +134,7 @@ export class UniqueFileUpload extends Widget {
 
         const setLabel = () => {
             //The following calculations on the max number of characters in the name, is based on the width occupied by a single character, and the space already taken off the main widget
-            const em = (value) => new Number(/[0-9.]+/.exec(window.getComputedStyle(this.html.$('.container >.main')).fontSize)[0]).valueOf() * value
+            const em = (value) => new Number(/[0-9.]+/.exec(window.getComputedStyle(this.html.$('.container >.main')).fontSize)?.[0]).valueOf() * value
             const shouldLabel = this.fileInput.files?.length > 0
             this.label = shouldLabel ? UniqueFileUpload.getShortName(this.fileInput.files?.[0]?.name || `...`, Math.floor((this.html.getBoundingClientRect().width - (this.html.classList.contains('hasFile') ? em(4.5 + 2.5) : (em(5) * -1))) / em(1))) : originalLabel;
 
