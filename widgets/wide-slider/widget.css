@@ -27,6 +27,10 @@
     overflow: hidden;
 }
 
+.hc-wide-slider>.container>.items::-webkit-scrollbar {
+    color: transparent;
+}
+
 .hc-wide-slider>.container>.items>* {
     transition: 0.5s 0.125s;
     transform: var(--hc-wide-slider-transform);

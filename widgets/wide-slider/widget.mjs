@@ -52,7 +52,13 @@ export default class WideSlider extends Widget {
                 },
                 signal: this.destroySignal
             }
-        )
+        );
+
+        // const scrollAdjust = new DelayedAction(() => {
+        //     this.index = this.leastVisibleElementIndex
+        // }, 700)
+        // this.html.addEventListener('scrollend', scrollAdjust)
+        // this.html.addEventListener('touchstart', scrollAdjust)
 
 
     }
@@ -80,6 +86,26 @@ export default class WideSlider extends Widget {
      */
     get index() {
         return this[realIndex] || 0
+    }
+
+    /**
+     * @readonly
+     */
+    get leastVisibleElementIndex() {
+        return this.items.map((item, index) => {
+
+            const iRect = item.getBoundingClientRect();
+            const pRect = item.parentElement.getBoundingClientRect();
+            /**
+             * 
+             * @param {DOMRect} rec 
+             */
+            const center = (rec) => rec.left + (rec.width / 2)
+            const offset = (
+                center(iRect) - pRect.left
+            )
+            return { index, offset }
+        }).filter(x => x.offset > 0).sort((a, b) => a.offset > b.offset ? 1 : a.offset == b.offset ? 0 : -1)[0]?.index || 0
     }
 
     /** @readonly */

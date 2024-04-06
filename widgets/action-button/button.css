@@ -34,14 +34,22 @@ The hover animation of the button can be set or removed when the 'hoverAnimate' 
 
 .hc-action-button>.container>.overlay {
     left: 0px;
+    top: 0;
     margin-top: 0px;
     width: 100%;
     position: absolute;
+    height: 100%;
+    border-radius: inherit;
 }
 
 .hc-action-button .hc-infinite-spinner {
     --hc-spinner-color: orange;
     font-size: 0.35em;
+}
+
+.hc-action-button .hc-infinite-spinner-blocker {
+    --hc-spinner-blocker-bg: rgba(255, 255, 255, 0.7);
+    border-radius: inherit;
 }
 
 .hc-action-button.hoverAnimate>.container>.content {

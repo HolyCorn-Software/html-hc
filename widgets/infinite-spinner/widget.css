@@ -89,6 +89,6 @@ Spinner Widget
 *.hc-infinite-spinner-blocker-attached {
     pointer-events: none;
     position: relative;
-    min-width: 5em;
-    min-height: 5em;
+    min-width: min(3.5rem, 3em);
+    min-height: min(3.5rem, 3em);
 }

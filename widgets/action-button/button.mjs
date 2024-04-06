@@ -141,7 +141,20 @@ export default class ActionButton extends Widget {
 
     /** @param {function(this:ActionButton): void} functIon */
     set onclick(functIon) {
-        this.html.onclick = () => functIon?.call(this)
+        this.html.onclick = () => {
+            const result = functIon?.call(this)
+            if (result instanceof Promise) {
+                this.state = 'waiting'
+                result.finally(() => {
+                    setTimeout(() => {
+                        if (this.state == 'waiting') {
+                            this.state = 'initial'
+                        }
+                    }, 200)
+                })
+            }
+            return result
+        }
     }
 
     /** @returns {function(this:ActionButton): void} */

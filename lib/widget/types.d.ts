@@ -59,7 +59,7 @@ global {
                 get: (html: HTMLElement<DataWidget>) => GetArgType<WidgetType[PropertyName], PropType>
             }
             /**  Optionally specifying this will determine where the property will be stored.The property is normally stored on this */
-            target?: object
+            target?: WidgetType
             /** @deprecated use target instead */
             object?: object
             /**  If parameter is true, Only immediate children of the parent will be fetched */

@@ -88,11 +88,48 @@ export default class ListDataManager extends Widget {
                         {
                             name: 'list-data-manager',
                             set: (input) => {
+                                /**
+                                 * 
+                                 * @param {htmlhc.widget.list_data_manager.Display<DataType, string>} config 
+                                 * @returns 
+                                 */
+                                const specific = (config) => {
+                                    if (!/[^.]+\.[^.]+/gi.test(config.name)) {
+                                        return input[config.name]
+                                    }
+                                    /** @type {string[]} */
+                                    const parts = config.name.split('.')
+                                    let data = input
+                                    for (let i = 0; i < parts.length; i++) {
+                                        // Imagine a caller trying to access system.io.console.log
+
+                                        // Imagine we are somewhere at system.io
+                                        // Let's check if system.io has a property called 'console.log'
+                                        const tmp = data[parts.slice(i).join('.')]
+
+                                        if (tmp != undefined) {
+                                            // If it has, then whooooah! All good.
+                                            return tmp
+                                        }
+
+                                        // Since there's no property called 'console.log',
+                                        // We should only continue if there's a property called 'console'
+
+                                        data = data[parts[i]];
+                                        
+
+                                        if (data == undefined) {
+                                            // And if not, we return
+                                            return
+                                        }
+
+                                    }
+                                }
                                 return {
                                     columns: config.display.map((conf, index) => {
                                         return {
                                             metadata: index == 0 ? input : undefined,
-                                            content: new ItemView(conf.view, input[conf.name], input).html
+                                            content: new ItemView(conf.view, specific(conf), input).html
                                         }
                                     })
                                 }
