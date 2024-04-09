@@ -66,7 +66,7 @@ global {
         type EventNames<T> = `change` | `${RecurDotNames<T>}-change`
 
 
-        export type AlarmsEventFunction<Type> = (event: (EventNames<Type>), callback: (event: CustomEvent<{ field: string, value: string }>) => void, options: AddEventListenerOptions, immediate: boolean) => void
+        export type AlarmsEventFunction<Type> = (event: (EventNames<Type>), callback: (event: CustomEvent<{ field: string, value: string }>) => void, options?: AddEventListenerOptions, immediate?: boolean) => void
 
 
 

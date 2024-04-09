@@ -79,6 +79,15 @@ global {
 
         type GetLastParam<T> = T extends (...args: any[], last: infer LAST) => LAST ? LAST : "wrong"
 
+        type IsAny<T> = boolean extends (T extends never ? true : false) ? true : false;
+
+
+        type OptionalKeys<This, Target = {}> = keyof (
+            OR<Target, This>
+        )
+
+        type OR<T, Default> = IsAny<T> extends true ? Default : T
+
 
     }
 
