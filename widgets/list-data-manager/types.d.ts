@@ -12,7 +12,7 @@ global {
     namespace htmlhc.widget.list_data_manager {
         interface Config<T = {}> {
             /** Configurations about how content would be displayed, field by field */
-            display: Display<T>[]
+            display: Display<T>
             /** Configurations how new data would be inputted, and edited. */
             input: htmlhc.widget.multiflexform.MultiFlexFormDefinitionData
             /** This function should return a generator, that supplies that for the widget. */

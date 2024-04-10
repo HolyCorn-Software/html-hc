@@ -117,7 +117,7 @@ export class MultiFlexFormField extends MultiFlexFormItem {
                 if (!widget.html) {
                     throw new Error(`Custom widget ${params.customWidgetUrl} is invalid because it doesn't have an html property`)
                 }
-                const valueProperty = params.valueProperty || 'value'
+                const valueProperty = this.valueProperty = params.valueProperty || 'value'
                 if (!(valueProperty in widget)) {
                     throw new Error(`Custom widget ${params.customWidgetUrl} is invalid because it doesn't have a property called '${valueProperty}'`)
                 }
@@ -175,11 +175,11 @@ export class MultiFlexFormField extends MultiFlexFormItem {
     }
 
     get value() {
-        return this.html.$('.container').children[0]?.widgetObject?.value
+        return this.html.$('.container').children[0]?.widgetObject?.[this.valueProperty || 'value']
     }
     set value(value) {
         let obj = this.html.$('.container').children[0]?.widgetObject
-        obj && (obj.value = value)
+        obj && (obj[this.valueProperty || 'value'] = value)
     }
 
     get name() {

@@ -80,17 +80,15 @@ export default class SlideIn extends Widget {
         this[timeout] = setTimeout(() => {
             this.html.classList.add('hiding')
             this.html.classList.remove('showing')
-            const abort = new AbortController()
             new Promise((resolve) => {
                 const events = ['animationend', 'transitionend'];
                 for (const event of events) {
-                    this.html.addEventListener(event, resolve, { once: true, signal: abort.signal })
+                    this.html.addEventListener(event, resolve, { once: true })
                 }
                 setTimeout(resolve, 2000)
             }).then(() => {
                 this.destroy()
                 this.html.classList.remove('hiding');
-                abort.abort()
             })
         }, time)
     }

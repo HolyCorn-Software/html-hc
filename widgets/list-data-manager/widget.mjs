@@ -116,7 +116,7 @@ export default class ListDataManager extends Widget {
                                         // We should only continue if there's a property called 'console'
 
                                         data = data[parts[i]];
-                                        
+
 
                                         if (data == undefined) {
                                             // And if not, we return
@@ -158,7 +158,10 @@ export default class ListDataManager extends Widget {
                                             // Let's provide assistance with nested fields
                                             for (const field in form_value) {
                                                 if (ListDataManager.NESTED_REGEXP.test(field)) {
-                                                    const [, superName, subName] = ListDataManager.NESTED_REGEXP.exec(field);
+                                                    const [, superName, separator, subName] = ListDataManager.NESTED_REGEXP.exec(field);
+                                                    if (separator == '$') {
+                                                        console.warn(`Using '$' as a nested field separator, is deprecated. Use the standard '.' notation`)
+                                                    }
                                                     (form_value[superName] ||= {})[subName] = form_value[field]
                                                     delete form_value[field]
                                                 }
@@ -255,9 +258,14 @@ export default class ListDataManager extends Widget {
                                     const nestedDeleteList = new Set()
                                     for (const field of formData.flat(2)) {
                                         if (ListDataManager.NESTED_REGEXP.test(field.name)) {
-                                            const [, supName, subName] = ListDataManager.NESTED_REGEXP.exec(field.name)
-                                            value[field.name] = value[supName]?.[subName]
-                                            nestedDeleteList.add(supName)
+                                            if (typeof value[field.name] == 'undefined') {
+                                                const [, supName, separator, subName] = ListDataManager.NESTED_REGEXP.exec(field.name)
+                                                value[field.name] = value[supName]?.[subName]
+                                                nestedDeleteList.add(supName)
+                                                if (separator == '$') {
+                                                    console.warn(`Using '$' as a nested field separator, is deprecated. Use the standard '.' notation`)
+                                                }
+                                            }
                                         }
                                     }
 
@@ -455,7 +463,7 @@ export default class ListDataManager extends Widget {
     }
 
     /** @readonly */
-    static NESTED_REGEXP = /^([^$]+)\$([^$]+)$/
+    static NESTED_REGEXP = /^([^$]+)(\$|\.)([^$]+)$/
 
 }
 
