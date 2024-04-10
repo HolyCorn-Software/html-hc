@@ -287,19 +287,29 @@ export class MultiFlexFormTextbox extends MultiFlexFormItem {
     }
     set value(value) {
         const input = this.html.$('input,textarea');
-        if (input.type === 'date' || input.type == 'time') {
-            if (typeof value === 'number') {
-                input.valueAsNumber = value
-            }
-            if (Date.prototype.isPrototypeOf(value)) {
-                input.valueAsDate = value
-            }
-            if (typeof value === 'string') {
-                input.value = value
-            }
-        } else {
-            input[this.valueProperty || 'value'] = value
-        }
+
+        input[
+            // Determine the value property to use, in case this.valueProperty is undefined
+            (this.valueProperty || (() => {
+                if (Date.prototype.isPrototypeOf(value)) {
+                    return 'valueAsDate';
+                }
+                if (typeof value == 'string') {
+                    return 'value';
+                }
+                switch (input.type) {
+                    case 'date':
+                    case 'time':
+                    case 'number':
+                        return 'valueAsNumber';
+
+                    default:
+                        return 'value';
+                }
+
+            })())
+        ] = value
+
         this.html.$('.container >*').dispatchEvent(new CustomEvent('change'))
     }
 

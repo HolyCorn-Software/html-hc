@@ -220,7 +220,7 @@ export class MultiFlexFormConfiguration {
                 if (field_data.customWidgetUrl && callerUrl) {
                     field_data.customWidgetUrl = new URL(field_data.customWidgetUrl, callerUrl).href;
                 }
-                let { label, values, value, name, ...rest } = field_data
+                let { label, values, value, valueProperty, name, ...rest } = field_data
                 let field = new MultiFlexFormField(rest)
                 field.setType(field_data.type, { ...field_data })
                 value && (field.value = value)
