@@ -51,3 +51,8 @@
     max-width: calc(100% - 8em);
     min-width: 3em;
 }
+
+.hc-nice-number-input>.container>input::-webkit-inner-spin-button {
+    color: transparent;
+    -webkit-appearance: none;
+}
