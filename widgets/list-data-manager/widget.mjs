@@ -213,6 +213,8 @@ export default class ListDataManager extends Widget {
                         listings.actions.push(btnDel)
                     }
 
+                    listings.headerCustom.push(...(config.topActions || []))
+
                     /**
                      * This method tries to figure out which data item the user has clicked, by clicking any area of the UI
                      * @param {HTMLElement} target 

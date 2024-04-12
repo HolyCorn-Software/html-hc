@@ -1,5 +1,5 @@
 .
 
-Improved nice-number-input UI.
+Improved generic-listings widget, adding topActions feature, which allows overriding classes the ability to modify HTML content at the top of the widget.
 
-Improved efficiency of alarm utility.
+Improved developer-usability of the widget-image utility.

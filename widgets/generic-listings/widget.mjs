@@ -56,7 +56,7 @@ export default class GenericListings extends Widget {
             }
         )
 
-        /** @type {htmlhc.lib.widget.ExtendedHTML[]} */ this.headerCustom
+        /** @type {HTMLElement[]} */ this.headerCustom
         this.pluralWidgetProperty(
             {
                 selector: '*',

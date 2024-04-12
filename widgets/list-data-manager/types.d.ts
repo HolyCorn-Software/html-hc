@@ -23,6 +23,7 @@ global {
             delete?: (input: T[]) => Promise<void>
             /** This function is called when the user highlights an item. This method should return a set of HTMLElements, that would be presented to the user for that action. */
             actions?: (input: T) => Promise<HTMLElement[]> | (HTMLElement[])
+            topActions: HTMLElement[]
             /** Parameters that determine how the user edits data. */
             edit?: {
                 /** The structure of the form that would be used to edit a data item. If this is omitted, the {@link Config['input']} form would be used. */
