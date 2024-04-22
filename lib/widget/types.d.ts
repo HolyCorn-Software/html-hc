@@ -82,6 +82,8 @@ global {
         type IsAny<T> = boolean extends (T extends never ? true : false) ? true : false;
 
 
+        type GetWidgetKeys<T> = keyof T
+
         type OptionalKeys<This, Target = {}> = keyof (
             OR<Target, This>
         )
