@@ -88,6 +88,7 @@ export default class BackForth extends Widget {
             if (!(this.statedata.history.length > offset)) {
                 if (this.canQuit) {
                     this.dispatchEvent(new CustomEvent('quit'))
+                    this.html.dispatchEvent(new WidgetEvent('backforth-quit'))
                 } else {
                     this.canGoBack = false // Cannot go back
                 }
@@ -96,6 +97,11 @@ export default class BackForth extends Widget {
             this.statedata.history = this.statedata.history.slice(0, this.statedata.history.length - offset) //Remove the current view from the history
             this.loadView(this.statedata.history[this.statedata.history.length - 1], true) //Remove the view before that, and that's what we're going to be navigating to
         }, 100)
+
+        // For stability, backforths that are embedded in other backforths should not tell higher widgets of a quit, if this backforth hasn't quit
+        this.html.$('.container >.slider').addEventListener('backforth-quit', (event) => {
+            event.preventDefault()
+        })
 
 
         this.html.$(".container >.nav >.main").addEventListener('click', () => {

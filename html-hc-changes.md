@@ -1,5 +1,5 @@
 .
 
-Improved UI of the widget-image utility.
+Improved usability of backforth widget, by adding the dispatch of the `backforth-quit` event.
 
-Corrected minor bug with pluralWidgetProperty utility.
+Improved stability of os-back-button utility.

@@ -33,6 +33,7 @@ global {
         interface WidgetHTMLEvents {
             'backforth-goto': htmlhc.widget.backforth.ViewData
             'backforth-goback': { offset?: number }
+            'backforth-quit': undefined
         }
     }
 
