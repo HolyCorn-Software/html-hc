@@ -36,7 +36,7 @@ export default class PopupForm extends HCTSBrandedPopup {
      * @param {string} param0.caption
      * @param {string} param0.positive 
      * @param {string} param0.negative
-     * @param {()=>Promise<void>} param0.execute
+     * @param {(popup: PopupForm<ValueType>)=>Promise<void>} param0.execute
      */
     constructor({ form, title = '', caption = '', positive, negative, execute } = {}) {
 
@@ -86,7 +86,7 @@ export default class PopupForm extends HCTSBrandedPopup {
             if (this.execute) {
                 this.positiveButton.state = 'waiting'
                 try {
-                    await this.execute()
+                    await this.execute(this)
                     this.positiveButton.state = 'success'
                     this.dispatchEvent(new CustomEvent('execute'))
                 } catch (e) {

@@ -106,6 +106,7 @@ export class SearchInput extends Widget {
                 onclick: () => {
                     this.details_showing = false
                     this.updateStrings(true)
+                    this.dispatchEvent(new CustomEvent('change'))
                 }
             }
         ]
@@ -276,6 +277,9 @@ export class SearchInput extends Widget {
 
     get value() {
         return this.is_multi_select ? [...this[values_symbol]].map(x => x.value) : this[values_symbol][0]?.value
+    }
+    set value(value) {
+        this.setValue(value)
     }
 
     updateStrings(force) {

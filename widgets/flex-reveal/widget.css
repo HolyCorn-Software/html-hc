@@ -15,11 +15,19 @@
     align-items: center;
 }
 
+.hc-flex-reveal>.container>.main>.content {
+    pointer-events: none;
+}
+
 .hc-flex-reveal.calculating>.container>.main>.content {
     position: absolute;
     opacity: 0;
     animation: none;
     transition: none;
+}
+
+.hc-flex-reveal:not(.expanded):not(.calculating)>.container>.main>.content {
+    pointer-events: all;
 }
 
 .hc-flex-reveal:not(.expanded):not(.calculating)>.container>.main>.content {
@@ -33,7 +41,6 @@
     height: 2em;
     position: relative;
     cursor: pointer;
-    z-index: 1;
 }
 
 .hc-flex-reveal>.container>.main>.trigger>* {

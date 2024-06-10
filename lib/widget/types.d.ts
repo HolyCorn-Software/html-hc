@@ -48,7 +48,7 @@ global {
             /**  Whether we should add the widget as the first of the parent, or the last */
             should_prepend?: boolean
             /** The function to be called when the value has changed */
-            onchange?: () => void
+            onchange?: (input: GetArgType<WidgetType[PropertyName]>, html: HTMLElement<DataWidget>) => void
             /** If you don't want to specify a transform function, use this to specify if read values should be converted to HTMLElement or Widget */
             childType?: ('widget' | 'html')
             /** Optional parameter which defines special functions(get and set) that allow the property to accept arbitary input in order to transform it to a widget, thereby allowing the api users more freedom, as well as transform a widget into a different type of output. */
@@ -84,9 +84,14 @@ global {
 
         type GetWidgetKeys<T> = keyof T
 
-        type OptionalKeys<This, Target = {}> = keyof (
-            OR<Target, This>
+        type OptionalKeys<This, Target = {}, TypeCheck = any> = keyof (
+            FilterTypes<OR<Target, This>, TypeCheck>
         )
+
+
+        type FilterTypes<Target, Type> = {
+            [K in keyof Target]: Target[K] extends Type ? true : never
+        }
 
         type OR<T, Default> = IsAny<T> extends true ? Default : T
 

@@ -24,6 +24,9 @@ const state_load_promise = new Promise((resolve, reject) => {
 
 hc.importModuleCSS(import.meta.url)
 
+
+const contentSetPromise = Symbol()
+
 export default class ActionButton extends Widget {
 
     /**
@@ -104,21 +107,79 @@ export default class ActionButton extends Widget {
 
     }
     set content(content) {
-        content =
-            content instanceof HTMLElement ? content
-                : typeof content == 'string' ?
-                    hc.spawn({
-                        innerHTML: content,
-                        classes: ['hc-action-button-content']
-                    })
-                    : content.html instanceof HTMLElement ?
-                        content.html : undefined;
-        if (!content) {
-            throw new Error(`Pass either a string or an HTMLElement or a Widget`)
-        }
 
-        this.html.$('.content').children[0]?.remove()
-        this.html.$('.content').appendChild(content)
+
+        (async () => {
+
+            try {
+                await this[contentSetPromise]
+            } catch { }
+
+
+            this[contentSetPromise] = (async () => {
+
+                content =
+                    content instanceof HTMLElement ? content
+                        : typeof content == 'string' ?
+                            hc.spawn({
+                                innerHTML: content,
+                                classes: ['hc-action-button-content']
+                            })
+                            : content.html instanceof HTMLElement ?
+                                content.html : undefined;
+                if (!content) {
+                    throw new Error(`Pass either a string or an HTMLElement or a Widget`)
+                }
+
+                const contentView = this.html.$('.content');
+                const existing = contentView.children[0];
+
+
+                if (existing) {
+                    // Then calculate the difference in widths
+                    // If the content needs to expand, let's do it gently
+                    const currentDimen = existing.getBoundingClientRect()
+                    content.classList.add('hc-action-button-frozen-content')
+                    this.html.$('.content').appendChild(content)
+                    await new Promise(x => setTimeout(x, 300))
+                    const nwDimen = content.getBoundingClientRect();
+                    content.remove();
+                    content.classList.remove('hc-action-button-frozen-content')
+
+                    if (nwDimen.width != currentDimen.width) {
+                        const handle = hc.watchToCSS({
+                            source: this.html,
+                            watch: {
+                                dimension: 'width'
+                            },
+                            apply: (value) => {
+                                if (expanding) {
+                                    contentView.style.setProperty('--end-width', value)
+                                }
+                            },
+                            propagationDelay: 0
+                        })
+                        const expanding = nwDimen.width > currentDimen.width;
+                        const classList = ['hc-action-button-dimension-change', expanding ? 'expanding' : 'shrinking']
+                        this.html.classList.add(...classList)
+                        contentView.style.setProperty('--start-width', `${currentDimen.width}px`)
+                        contentView.style.setProperty('--end-width', `${nwDimen.width}px`)
+                        contentView.style.setProperty('--initial-height', `${currentDimen.height}px`)
+
+                        await new Promise(x => setTimeout(x, 1000))
+
+                        this.html.classList.remove(...classList)
+                        handle.destroy()
+
+                    }
+                    [...contentView.children].forEach(x => x.remove())
+                }
+                contentView.appendChild(content)
+                await new Promise(x => setTimeout(x, Math.random() * 5000))
+            })()
+
+        })()
+
     }
 
     get content() {
@@ -144,14 +205,21 @@ export default class ActionButton extends Widget {
         this.html.onclick = () => {
             const result = functIon?.call(this)
             if (result instanceof Promise) {
-                this.state = 'waiting'
-                result.finally(() => {
-                    setTimeout(() => {
-                        if (this.state == 'waiting') {
-                            this.state = 'initial'
-                        }
-                    }, 200)
-                })
+                let done;
+                result.finally(() => done = true)
+                setTimeout(() => {
+                    if (done) {
+                        return;
+                    }
+                    this.state = 'waiting'
+                    result.finally(() => {
+                        setTimeout(() => {
+                            if (this.state == 'waiting') {
+                                this.state = 'initial'
+                            }
+                        }, 200)
+                    })
+                }, 50)
             }
             return result
         }

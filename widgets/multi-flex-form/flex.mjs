@@ -200,7 +200,7 @@ export default class MultiFlexForm extends Widget {
          */
         const getItems = (row) => {
             let items = []
-            for (let item of row.items) {
+            for (let item of row?.items || []) {
                 if (item instanceof MultiFlexFormField) {
                     items.push(item.definition)
                 } else {

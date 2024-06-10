@@ -77,3 +77,52 @@ The hover animation of the button can be set or removed when the 'hoverAnimate' 
     gap: 0.5em;
     align-items: center;
 }
+
+.hc-action-button-frozen-content {
+    opacity: 0;
+    position: absolute;
+}
+
+.hc-action-button.hc-action-button-dimension-change>.container>.content {
+    opacity: 0;
+    transition: 0.125;
+    max-height: var(--initial-height);
+}
+
+.hc-action-button.hc-action-button-dimension-change.expanding>.container>.content {
+    animation: 0.5s hc-action-button-content-expanding forwards;
+}
+
+.hc-action-button.hc-action-button-dimension-change.shrinking>.container>.content {
+    animation: 0.5s hc-action-button-content-shrinking forwards;
+}
+
+
+@keyframes hc-action-button-content-expanding {
+    0% {
+        opacity: 0;
+        max-width: var(--start-width);
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        max-width: var(--end-width);
+        opacity: 1;
+    }
+}
+
+
+@keyframes hc-action-button-content-shrinking {
+    0% {
+        opacity: 0;
+        min-width: var(--start-width);
+    }
+
+    100% {
+        min-width: var(--end-width);
+        opacity: 1;
+    }
+}
