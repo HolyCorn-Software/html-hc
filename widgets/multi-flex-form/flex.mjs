@@ -61,7 +61,7 @@ export default class MultiFlexForm extends Widget {
      * @returns {[MultiFlexFormField]}
      */
     get fieldWidgets() {
-        return [...this.html.$$('.hc-multi-flex-form-field')].map(x => x.widgetObject)
+        return [...this.html.$$(':scope >.container >* >.container >.hc-multi-flex-form-field')].map(x => x.widgetObject)
     }
 
     /**
@@ -146,6 +146,7 @@ export default class MultiFlexForm extends Widget {
     /**
      * This is used to set the value of multiple fields at once
      * E.g myform.values = {name:'Bernard', sex:'Male'}
+     * @param {FormDataType} object
      */
     set values(object) {
         //This delay is because at times, values are set immediately a form is just been initialized. By then, there are no elements in the DOM
