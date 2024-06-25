@@ -27,6 +27,11 @@
     overflow: hidden;
 }
 
+.hc-wide-slider>.container>.items::after {
+    padding-right: 100%;
+    content: '';
+}
+
 .hc-wide-slider>.container>.items::-webkit-scrollbar {
     color: transparent;
 }

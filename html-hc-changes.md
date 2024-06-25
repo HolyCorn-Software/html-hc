@@ -1,13 +1,7 @@
 .
 
-Fixed minor bug with multi-flex-form.
+Improved pluralWigetProperty, with respect to handling of onchange callbacks.
 
-Improved customization features of the watch-to-css utility.
+Improved design of checkbox widget.
 
-Made animations for action-button more natural.
-
-Fixed UI bug with flex-reveal widget.
-
-Improved popup-form widget.
-
-Improved search-input widget's value attribute.
+Improved UX and design of wide-slider widget.
