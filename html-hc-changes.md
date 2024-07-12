@@ -1,7 +1,3 @@
 .
 
-Improved pluralWigetProperty, with respect to handling of onchange callbacks.
-
-Improved design of checkbox widget.
-
-Improved UX and design of wide-slider widget.
+Fixed minor UI bug with the simple-tree widget.
