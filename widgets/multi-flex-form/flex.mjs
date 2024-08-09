@@ -113,7 +113,7 @@ export default class MultiFlexForm extends Widget {
         return new Proxy(() => 1, {
             set: (target, property, value) => {
                 const do_set = async (last_try) => {
-                    try { await this.__customization_promise__ } catch { }
+                    await this.formReady()
 
                     if (last_try) {
                         populate_fields();
@@ -152,7 +152,7 @@ export default class MultiFlexForm extends Widget {
         //This delay is because at times, values are set immediately a form is just been initialized. By then, there are no elements in the DOM
         //With this delay, the elements that were added would have actually been part of the DOM
         (async () => {
-            try { await this.__customization_promise__ } catch { }
+            await this.formReady();
             if (typeof object === 'object' && Reflect.ownKeys(object).length === 0) {
                 return await this.empty()
             }
@@ -161,9 +161,13 @@ export default class MultiFlexForm extends Widget {
 
     }
 
+    async formReady() {
+        try { await this.__customization_promise__ } catch { }
+    }
+
     empty() {
         (async () => {
-            try { await this.__customization_promise__ } catch { }
+            await this.formReady()
             let { values } = this;
             for (let key in this.value) {
                 values[key] = ''
