@@ -234,6 +234,7 @@ export default class ListDataManager extends Widget {
 
                         this.addEventListener('item-selected', (event) => {
                             const formData = config.edit.form || config.input;
+                            const value0 = JSON.parse(JSON.stringify(event.detail))
                             const popup = new PopupForm(
                                 {
                                     form: formData,
@@ -242,7 +243,7 @@ export default class ListDataManager extends Widget {
 
                                         Object.assign(value, popup.value)
                                         const newValue = (await (config.edit.execute || ((i) => config.create([i]).then(ret => ret?.[0])))(value)) || value;
-                                        this.content = this.content.map(item => eq(item, event.detail) ? newValue : item)
+                                        this.content = this.content.map(item => eq(item, value0) ? newValue : item)
                                         setTimeout(() => popup.hide(), 1250)
                                     },
                                     positive: `Update`,
